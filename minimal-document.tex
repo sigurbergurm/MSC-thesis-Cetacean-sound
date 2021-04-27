@@ -1,0 +1,80 @@
+\documentclass[masters,online,forcegraphics,final]{ruthesis}
+%%%%%%%%%%%%%%%%%%%% TeXStudio Magic Comments %%%%%%%%%%%%%%%%%%%%%
+%% These comments that start with "!TeX" modify the way TeXStudio works
+%% For details see http://texstudio.sourceforge.net/manual/current/usermanual_en.html   Section 4.10
+%%
+%% What encoding is the file in?
+% !TeX encoding = UTF-8
+%% What language should it be spellchecked?
+% !TeX spellcheck = en_US
+%% What program should I compile this document with?
+% !TeX program = xelatex
+
+%%%%%%%%%%%%%%%%%%%% Bibliography options %%%%%%%%%%%%%%%%%%%%%
+%% We suggest switching from bibtex to biblatex/biber because it is better able
+%% to deal with Icelandic characters and other bibliography issues
+%% As long as you use biblatex instead of bibtex by itself, it will at least
+%%  generate a document without errors.
+%% !!!If you are using TeXStudio, don't forget to update the bibliography setting!!!
+\usepackage[backend=biber,bibencoding=utf8,style=ieee]{biblatex}
+%\DeclareLanguageMapping{american}{american-apa}  
+% need to declare mapping for style=apa to alphabetize properly
+% If you set backend=bibtex, it will use bibtex for processing (old way)
+%    this can work with Icelandic characters, but you may get weird results.
+%    bibtex does not know how to sort Þ and ð
+% if you set backend=biber, you can use UTF8 characters such as Þ and
+%     ð  but you will have to remember to switch from using bibtex to 
+%     biber in your client
+% If you use JabRef, make sure the file is encoded in UTF-8 which is
+% not the default.
+
+%% This tells TeXStudio to use biber
+% !TeX TXS-program:bibliography = txs:///biber
+%% This also sets the bibliography program for TeXShop and TeXWorks
+% !BIB program = biber
+
+\addbibresource{references.bib}
+% Where is your reference library?
+
+\IfFileExists{custom.sty}{\usepackage{custom}}{}
+
+\setTitle{My Title}{MY TITLE}
+\setDocumentType{Final Report}
+\author{Firstname1~Lastname1, Firstname1~Lastname2}
+\setCourse{T-411-MECH}
+\setSchool{\MLSSE{}}
+\whensigned{17}{\MLdec}{2015}
+
+\finalifforcegraphics{hyperref} %hyperlinks even in draft mode
+\usepackage[hidelinks]{hyperref} 
+\begin{document}
+
+\frontmatter{}
+\frontcover{}
+\enableindents{}
+\starttables{}% setup formatting
+\tableofcontents{}\clearpage%%RUM: "Table of contents"
+\listoffigures{}\clearpage%%RUM: "List of figures"
+\listoftables{}\clearpage%%RUM: "List of tables"
+\starttext{}
+%\listoffixmes{}
+\chapter{Some Chapter}
+\section{Some section}
+\subsection{Some Subsection}
+Some text goes here with a citation~\cite{adams84fish}.
+If we have more than one citation, it does this \cite{albelson:6001,benevides2012aed}.
+If we do a bunch \cite{cochran2016msdd,carryer2011IntroMechatronics,bragason2015parachuterelease}
+\printbibliography{}
+\appendix{}
+\input{code} % as an example, perhaps some of your code
+\clearforchapter{}
+\printindex{}
+\backcover{}
+\end{document}
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% TeX-engine: xetex
+%%% End:
