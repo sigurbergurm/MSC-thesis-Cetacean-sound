@@ -3,18 +3,18 @@
 \section{Cetacean vocalization}
 
 Many species of cetaceans can be found near Iceland.
-There are at least 12 species of cetaceans that roam Icelands waters.
+There are at least 12 species of cetaceans that roam Iceland waters.
 Among which are most frequently spotted are harbour porpoise, white beaked dolphins, minke whales and humpback whales \cite{user_whales_nodate}.
-Sound is used by cetaceans for various purposes such as communication, prey hunting, predator avoidance as well as navigation \cite{nowacek_studying_2016}.
+Sound is used by cetaceans for various purposes the low frequency sounds are used for communication and high frequency prey hunting, predator avoidance as well as echolocation for navigation \cite{nowacek_studying_2016}.
 Each species can vocalize different sounds.
-The sounds can be described as moans, calls, clicks, shrieks and more.
-Cetaceans use these sounds to low frequency sound for communicating to one another all the way to creating high frequencies echolocation sounds for hunting their prey\cite{greenhow_hearing_nodate}.
+The sounds can be described as moans, calls, clicks, shrieks and more\cite{greenhow_hearing_nodate}.
+%Cetaceans use these sounds to low frequency sound for communicating to one another all the way to creating high frequencies echolocation sounds for hunting their prey\cite{greenhow_hearing_nodate}.
 Table \ref{Tab:WhaleHz} shows the type of sound, frequency range of the sound, the dominant frequency of the sound and the source level of each sound for its respective species.
 
 \newpage
 
 
-\begin{table}[]\caption{Frequency ranges of whales that are found near Iceland \cite{richardson_marine_2013}}.\label{Tab:WhaleHz}
+\begin{table}[]\caption{Frequency ranges of whales that are found near Iceland \cite{richardson_marine_2013}, * taken from \cite{richardson_effects_1991}}.\label{Tab:WhaleHz}
 \centering
 \resizebox{\textwidth}{!}{
 \begin{tabular}{|l|l|l|l|l|}
@@ -48,7 +48,7 @@ Minke & Down sweeps & 60 - 130 & - & 165 \\ \cline{2-5}
         & Thump trains & 100 - 2k & 100 - 200 & - \\ \hline
 Killer  & Whistles & 1.5k - 18k & 6k - 12k & - \\ \cline{2-5}
         & Pulsed calls & 500 - 25k & 1k - 6k & 160 \\ \cline{2-5}
-        & Echolocation & 12k - 25k & - & 180 \\ \hline
+        & Echolocation &  30 - 100kHz * &12k - 25k & 180 \\ \hline
 Sei     & FM sweeps & 1.5k - 3.5k & - & - \\ \hline
 Sperm    & Clicks & 0.1 - 30 & 2 - 4, 10 - 16 & 160 - 180 \\ \hline
 \begin{tabular}[c]{@{}l@{}}White-beaked\\dolphin\end{tabular} & Squeals & - & 8 - 12 & - \\ \hline
@@ -58,8 +58,8 @@ Sperm    & Clicks & 0.1 - 30 & 2 - 4, 10 - 16 & 160 - 180 \\ \hline
 
 Cetaceans creature produce sounds with a wide bandwidth, or 2 - 150k Hz as seen in \textit{Table \ref{Tab:WhaleHz}}.
 In comparison humans have vocalization range of up to 5kHz and a hearing range from 16Hz - 20kHz \cite{monson_perceptual_2014}.
-The vocalization is so powerful that the low frequency sounds can travel thousands of kilometers\cite{nowacek_studying_2016}.
-The energy of sounds from for example killer whales, in calm seas that the sound can travel up to 25.9km.\cite{miller_diversity_2006}.
+The vocalization is so powerful that the low frequency sounds might be able to travel thousands of kilometers\cite{nowacek_studying_2016}.
+The energy of sounds from for example killer whales, in calm seas can travel up to 25.9km.\cite{miller_diversity_2006}.
 
 \newpage
 
@@ -87,31 +87,47 @@ These factors can distort the sound and create transmission loss\cite{noauthor_s
     \label{fig:SoundWaves}
 \end{figure}
 
-\subsubsection{Audio recording}
+\subsubsection{Digital audio recording}
 
-\fxfatal{MÖGULEGA BÆTA VIð TALA UM\\ RESOLUTION OG SÖFNUNART'IÐNI td og Nyquist}
+\fxfatal{Tala um jitter og kanski aliasing}
 
+%https://documentation.meraki.com/MR/WiFi_Basics_and_Best_Practices/Signal-to-Noise_Ratio_(SNR)_and_Wireless_Signal_Strength#:~:text=The%20SNR%20is%20the%20difference,signal%20and%20the%20noise%20floor.&text=For%20example%2C%20if%20a%20client,dB%20for%20this%20wireless%20connection. - SNR
 
+Audio recording is the recreation of sound waves, which can either be analog- or digital recorded.
+Digital recording is the process of converting analog sounds, which can be convert the analog signals from a microphone to a digital format. 
+Which is done by representing the audio signal with binary numbers 
+This represents the amplitude or intensity of the sound and then sampling or recording that sound at a given time interval.
+The greater the resolution the less noise is being recorded.
+Resolution is determined by the number of bits used in order to record a signal and deter the precision of the measurements, it is the smallest incremental voltage change that can be recognized.
+For example if a signal had a voltage range of 3.3V and it was being recorded at 16bits the voltage resolution would be $\frac{3.3V}{2^{16}} = 50\mu V/bit$.
+Which would mean that the recording could in theory have $50\mu V$ increments in representing the signal.  
+While a 8bit resolution only yields $\frac{13mV}{bit}$, meaning the higher the resolution, the more precise the measurement values are.
+However with more bits comes more data rate and higher storage requirements.
 
+\begin{equation}
+    Data Rate = \frac{Bits}{8} * Sampling Rate * Number of channels 
+    \label{eq:dataRate}
+\end{equation}
+
+Data rate can be calculated using \textit{Equation~\ref{eq:dataRate}}.
+Where bits is the resolution, sampling rate is the sampling frequency in Hz and the number of channels is how many signals are being recorded.
+The data rate can then be used to determine the amount of storage needed.
+Nyquist-Shannon theorem is is in digital recording to determine the minimum sampling rate needed to reconstruct the analog signal.
+The theorem proves that if the sampling frequency is twice the frequency of the highest frequency of the input analog signal, the signal can be recreated exactly.% \cite{bartlett_practical_2016}.
+So in theory since humans have a hearing range of up to around 20kHz, in order to reconstruct all signals that are audible to humans, the sampling rate needs to be at least 40kHz.
+For example on CDs the quality of the recording is 44.1kHz/16bits, in DVDs it is 96kHz/24bits and for high end audio recording it can go to 192kHz/24bits.
+The oversampling can improve the recording for more accurate recording.
+But oversampling is a term used for when the sampling frequency is of a higher rate than the Nyquist-Shannon theorem states  \cite{bartlett_practical_2016}.
+If for example a sampling frequency of 200kHz was used when the signal being recorded was 20kHz it would be considered 5x oversampling. 
+The difference in decibel between the signal and the noise floor is called signal to noise ratio (SNR). 
+For cleaner sounds, meaning less noise is audible in the signal the higher the SNR.
+Generally it is considered fair if the SNR is 60dB, good if SNR is 70dB and great if its 80dB or more.
+\cite{bartlett_practical_2016}
 
 \section{Device hardware}
 
-
-
-
-
-
-
 \textbf{FARA 'I GEGNUM VERKEFNI SEM AÐRIR HAFA GERT RUNNA ÞAU OG TALA UM NIÐURSTÖÐUR OG DÆMA HVÐ VIRKAR HVAÐ EKKI OG AFHVERJU ÞETTA GETUR VERIÐ EH APPENDIX DÆMI
 }
-
-
-
-
-
-
-
-
 
 \subsection{Hydrophone}
 
@@ -146,7 +162,7 @@ If for example the CRT C57 hydrophone was chosen, specifications can be seen in 
 \end{tabular}
 \end{table}
 
-If the CRT C57RS was chosen, which has an OCRR of -200 db re 1V/$\mu$Pa over a frequency range of 0.008 to 77kHz. 
+If the CRT C57RS has an OCRR of -200 db re 1V/$\mu$Pa over a frequency range of 0.008 to 77kHz. 
 Lets say a Blue whale is producing a moan which from \textit{Table \ref{Tab:WhaleHz}} indicates that the SIL would be 188dB re $\mu$Pa.
 Then $VdB = SIL + OCRR = 188 + (-200) = -12dB$.
 Because VdB is relative to 1V, the voltage output can be described as $V = 10^{VdB/10}$
@@ -524,8 +540,8 @@ While the Teensy 4.0 consumes roughly 100mA or 0.33W at 600MHz processor speed.
 \cite{noauthor_teensy_nodate-1}%4.1
 \cite{noauthor_teensy_nodate-2}.%3.5
 
-
-\subsection{FINNA TITIL}
+\fxfatal{Finna titil}
+\subsection{finna titil}
 
 \subsubsection{Direct memory access}
 

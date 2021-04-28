@@ -27,15 +27,14 @@ Cost            &  159\$ \\ \hline
 There is no preamplifier or impedance buffer circuit within the Aquarian H1a hydrophone, so the circuit needs to amplify the output signal of the hydrophone.
 The gain of the circuit depends on what the intended use of the hydrophone will be.
 In this case for cetaceans and large aquatic wildlife, Aquarian recommends gain of 40 - 50 dB and for very distant sounds 60dB.
-The Frequency response of the Aquarian H1a hydrophone can be calculated using \textit{Equation~\ref{eq:fchydro}} \cite{noauthor_aquarian_nodate}. 
-Which is just \textit{Equation~\ref{eq:FC}} where the capacitance of the hydrophone has been added to it.
 
 \begin{equation}
 F_c = 1 / 0.000000157 * R  
 \label{eq:fchydro}
 \end{equation}
 
-
+The Frequency response of the Aquarian H1a hydrophone can be calculated using \textit{Equation~\ref{eq:fchydro}} \cite{noauthor_aquarian_nodate}. 
+Which is just \textit{Equation~\ref{eq:FC}} where the capacitance of the hydrophone has been added to it.
 
 
 \subsection{Microcontroller og ADC}
@@ -43,7 +42,7 @@ F_c = 1 / 0.000000157 * R
 \textbf{TALA UM TEENSY 3.5 og https://www.pjrc.com/teensy/K64P144M120SF5.pdf
 }
 \subsubsection{Microcontroller}
-The Teensy3.5 was ultimately chosen for the microcontroller of the system.
+The Teensy3.5 was ultimately chosen for the microcontroller of the system.fa
 This decision was made for several reasons.
 The Teensy3.5 has two built-in ADC, which means the system might be able to add another hydrophone to it for recording.
 Both ADCs have a maximum resolution of 16bits with a voltage range of 0 - 3.3V, or $\frac{3.3}{2^16} \approx 0.00005V \approx 50\mu V$ step size.
@@ -74,14 +73,14 @@ As well as having a supply range that fits within the voltage range of the Teens
     \centering
     \includegraphics[width=0.7\textwidth]{graphics/dbVsfreq.png}
     \caption{\textbf{BÆTA}}
-    \label{fig:AVhighpass}
+    \label{fig:dbvsFreq}
 \end{figure}
 
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.7\textwidth]{graphics/noiseDensvsFreq.png}
     \caption{\textbf{BÆTA}}
-    \label{fig:AVhighpass}
+    \label{fig:noiseDensvsFreq}
 \end{figure}
 
 \section{Circuit}
@@ -102,7 +101,7 @@ The output of the hydrophone is first connected to a high pass filter, where the
 \end{figure}
 
 
-The desired value for the high pass filter was 10Hz and using \textit{Equation~\ref{fchydro}} provided in the data sheet, the resistor value was estimated.   
+The desired value for the high pass filter was 10Hz and using \textit{Equation~\ref{eq:fchydro}} provided in the data sheet, the resistor value was estimated.   
 $$F_c = \frac{1}{0.000000157 * 636k\Omega} = 10Hz$$
 Using standard resistor values, the closest resistor value is 620k which yields a cut off frequency of 10.26Hz.
 The gain over the active high pass filter can be represented using \textit{Equation \ref{eq:DCGain}} and \textit{Equation \ref{eq:ActiveHighPass}}. 
@@ -176,6 +175,8 @@ Which is done by another inverting operational amplifier, seen in \textit{Figure
     \label{fig:Opamp4}
 \end{figure}
 
+\fxfatal{Bæta við 330ohm viðnámi í Teensyinn}
+
 The gain of inverting amplifier is found using \textit{Equation \ref{eq:invertDCGain}}.
 $$ A_{V4} = -\frac{1k \Omega}{1k \Omega} = -1$$
 The total circuit therefore consists of four operational amplifiers, high pass and low pass filter.
@@ -196,8 +197,7 @@ $$dB = 20log(100) = 40dB$$
     \label{fig:bode}
 \end{figure}
 
-The preamplifier filter circuit therefor satisfies the manufacturer of the Aquarian H1A hydrophone recommends for cetacean monitoring.
-Both for the gain required, as well as filtering signals that are not within the bandwidth of the hydrophones sensing abilities.
+
 
 Several simulations of the circuit were performed in Multisim.
 Which yielded the results seen in \textit{Figure~\ref{fig:InpVsOut10} -~\ref{fig:bode}}.
@@ -261,7 +261,7 @@ To configure the ADC the, the ADC library by pedvide was used \cite{villanueva_p
 The library handles the configuration of the built-in ADC and should make that process easier, however it makes it a little harder to see what it exactly configures the ADC to be.
 To use the library, the code must first create an ADC object via 
 $ADC *adc = new ADC();$
-which is then used to define the attributes of the ADC, which can be seen in \textit{Listing~\ref{src:ContAnalogADC}}. 
+which is then used to define the attributes of the ADC, which can be seen in lines 69 - 83 in~ \textit{Listing~\ref{src:ContAnalogRead}}. 
 The reference voltage is set as 3.3V, to have a voltage range of 0 - 3.3V.
 The ADC averaging is set to 0, which after testing was the fastest configuration.
 The conversion speed of the ADC was set to the fastest setting for 16bits conversion or HIGH\_SPEED\_16BITS, which sets the ADC clock to $<= 12 MHz$.
@@ -362,10 +362,10 @@ sjá mynd, ef það koma eh suð toppar á fft frá bara generator, sjá hvort �
 
 
 \textbf{looking at the oscilloscope on the builtin led, triggering it to switch states each time ISR of individual peripheral is triggered. 
-Changing ISR only pdb = stable till sampleFreq  ~ 1MH  (491.7kHz)+- 0.3kHz measured by scope
+Changing ISR only pdb = stable till sampleFreq  roughly 1MH  (491.7kHz)+- 0.3kHz measured by scope
 for 16 bits:
-ISR pdb adc = stable till sampleFreq ~ 280kHz   (139.5kHz) +- 0.01kHz measured by scope
-whole system = stable till ~ 300khz samplefreq 
+ISR pdb adc = stable till sampleFreq roughly 280kHz   (139.5kHz) +- 0.01kHz measured by scope
+whole system = stable till roguhly 300khz samplefreq 
 Changing the resolution had minimal gains.
 It seemed to be able to be triggered a little bit faster however those were not stable for the teensy and the program would crash.}
 
@@ -379,7 +379,7 @@ Equipment used for tests can be seen in the list below.
 
 
 
-\subsubsection{Maximum frequency of PDB, ADC and the DMA}
+\subsubsection{Frequency of PDB, ADC and the DMA}
 
 Several tests were made in order to find the maximum frequency at which parts of the device could remain relatively stable.
 These tests would use an ISR, triggered by either the PDB or the ADC.
@@ -391,7 +391,7 @@ The setup of the test can be seen in \textit{Figure~\ref{fig:SetupCircSpeed}}, t
 The scope was set to take measurements of the time and frequency between the rising edge of rectangular signal that formed from blinking the LED. 
 The oscilloscope shows the mean, maximum and minimum values for both, which are actually halved since the scope counts the rising edge of the pulses.
 As well as the cursor was set over a single pulse to show the actual frequency of the ISR trigger speed.
-The device was stopped when the oscilloscope had made \~10k wave count.
+The device was stopped when the oscilloscope had made roughly 10k wave count.
 The setup was the same for all three test cases.
 
 \fxfatal{Taka betri mynd}
@@ -447,7 +447,7 @@ The mean frequency was 279.1kHz, were the maximum was 208.3kHz and the minimum 2
     \centering
     \includegraphics[width=0.8\textwidth]{graphics/STATADC_280.PNG}
     \caption{The blinking of the LED when completing an ADC conversion triggered the ISR, set frequency in the code was 280kHz}
-    \label{fig:PDBADCDMAsp300}
+    \label{fig:PDBADCDMAsp280}
 \end{figure}
 
 \fxfatal{ENDURGERA test}
@@ -464,20 +464,86 @@ The mean frequency was 298.0kHz, were the maximum was 352.33kHz and the minimum 
 \end{figure}
 
 
+\clearpage
+
 
 
 
 \subsubsection{Noise testing}
 
+%setting https://picture.iczhiku.com/resource/eetop/SHkHEFiIIDHlSccB.pdf
+
+Several tests were made in order to estimate the noise of the device.
+Fast Fourier transform (FFT) function of the RTB2004 oscilloscope was used for the measurements.
+The oscilloscope was set to AC coupled for the best broadband range measurement%https://training.ti.com/ti-precision-labs-op-amps-noise-measuring-system-noise 
+, attenuator set to 1:1 ratio %https://www.testandmeasurementtips.com/reduce-oscilloscope-noise-measurements/
+for accurate noise measurements and the Hannig window was used for 
+\fxfatal{þarf sennilega að vera flattop ?? }
+Two test cases where examined, first when a sine wave was the input of the circuit and secondly when the input was connected to ground.
+For both cases the probe was connected to the output of the op amps.
+The setup for the tests can be seen in \textit{Figure~\ref{fig:SetupFFT}}.
+
+\textbf{%https://web.sonoma.edu/esee/courses/ee442/archives/sp2019/supp/defining_dBu.pdf
+- skoða} 
+
 \begin{figure}[h]
     \centering
-    \includegraphics[width=1.0\textwidth]{graphics/100khzMatlab.png}
+    \includegraphics[width=0.7\textwidth]{graphics/TESTINGwSineinp.jpg}
+    \caption{Configuration of the noise tests where the circuit is tested, where the probe is connected to the output of the op amps and the input signal is either a sine wave or its connected to ground.}
+    \label{fig:SetupFFT}
+\end{figure}
+
+For the first test an input sine wave of 10$mV_{pp}$ and 50kHz was used.
+\textbf{Byrja hér þarf að nota flattop?}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.7\textwidth]{graphics/FFTRas50kAC1x1.PNG}
+    \caption{FFT on the RTB2004 oscilloscope. 
+    The input signal with a 10$mV_{pp}$ and a frequency of 50kHz seen at the top of the figure and the respective FFT below it.}
+    \label{fig:FFTRas50}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.7\textwidth]{graphics/FFTRas150k_Ac1x1.PNG}
+    \caption{FFT on the RTB2004 oscilloscope. 
+    An input sine wave signal of 10$mV_{pp}$ and a frequency of 150kHz seen at the top of the figure connected to the input of the circuit  and the respective FFT below it.}
+    \label{fig:FFTRas150}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.7\textwidth]{graphics/FFTGenerator50k_AC1x1.PNG}
     \caption{}
-    \label{fig:100kmatlab}
+    \label{fig:FFTGene50}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.7\textwidth]{graphics/FFTGenerator150k_Ac1x1.PNG}
+    \caption{}
+    \label{fig:FFTGene100}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.7\textwidth]{graphics/NoiseFloor100k.PNG}
+    \caption{General noise created by the circuit when op amps are powered and the input is grounded over a frequency band of 100kHz}
+    \label{fig:noisefloor100k}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.7\textwidth]{graphics/NoiseFloor300k.PNG}
+    \caption{General noise created by the circuit when op amps are powered and the input is grounded over a frequency band of 300kHz}
+    \label{fig:noisefloor300k}
 \end{figure}
 
 
 
+
+\clearpage
 
 
 

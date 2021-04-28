@@ -80,12 +80,10 @@ void setup() {
 	adc->adc0->setSamplingSpeed(ADC_SAMPLING_SPEED::VERY_HIGH_SPEED); // change the sampling speed
 	adc->adc0->enableInterrupts(adc0_isr);
 	adc->adc0->startContinuous(readPin);
-
+	adc->adc0->analogReadContinuous();
 	Serial.println("Starting continous read mode");
 	//Enable interrupts on ADC0
 	adc->adc0->enableInterrupts(adc0_isr);
-	//enalbe analogread to continuous mode
-	adc->adc0->startContinuous(readPin);
 
 	delay(500);
 
