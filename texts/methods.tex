@@ -78,7 +78,8 @@ Such as the waves can bounce off particles or other sea creature.
 The bottom of the sea and the surface reflect waves and cause energy.
 Finally and the largest factor  is depth, salinity and temperature of the water .
 These factors can distort the sound and create transmission loss\cite{noauthor_sonar_nodate}.
-
+Speed of sound is quite different if it is in air or in the ocean.
+Speed of sound in 20°C air is roughly 343m/s, while  in the ocean it a lot faster and can vary around 1500m/s depending on the temperature, pressure and salinity of the ocean. 
 
 \begin{figure}[h]
     \centering
@@ -118,11 +119,14 @@ So in theory since humans have a hearing range of up to around 20kHz, in order t
 For example on CDs the quality of the recording is 44.1kHz/16bits, in DVDs it is 96kHz/24bits and for high end audio recording it can go to 192kHz/24bits.
 The oversampling can improve the recording for more accurate recording.
 But oversampling is a term used for when the sampling frequency is of a higher rate than the Nyquist-Shannon theorem states  \cite{bartlett_practical_2016}.
-If for example a sampling frequency of 200kHz was used when the signal being recorded was 20kHz it would be considered 5x oversampling. 
+If for example a sampling frequency of 200kHz was used when the signal being recorded was 20kHz it would be considered 5x oversampling.
+The frequency that controls the ADC conversions also has to be precise.
+If the timing of the samples is unstable it is called jitter, which is the standard deviation from the mean of the clock used to control ADC conversions.
+
 The difference in decibel between the signal and the noise floor is called signal to noise ratio (SNR). 
 For cleaner sounds, meaning less noise is audible in the signal the higher the SNR.
-Generally it is considered fair if the SNR is 60dB, good if SNR is 70dB and great if its 80dB or more.
-\cite{bartlett_practical_2016}
+Generally it is considered fair if the SNR is 60dB, good if SNR is 70dB and great if its 80dB or more \cite{bartlett_practical_2016}.
+
 
 \section{Device hardware}
 

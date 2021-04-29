@@ -361,13 +361,13 @@ sjá mynd, ef það koma eh suð toppar á fft frá bara generator, sjá hvort �
 
 
 
-\textbf{looking at the oscilloscope on the builtin led, triggering it to switch states each time ISR of individual peripheral is triggered. 
-Changing ISR only pdb = stable till sampleFreq  roughly 1MH  (491.7kHz)+- 0.3kHz measured by scope
-for 16 bits:
-ISR pdb adc = stable till sampleFreq roughly 280kHz   (139.5kHz) +- 0.01kHz measured by scope
-whole system = stable till roguhly 300khz samplefreq 
-Changing the resolution had minimal gains.
-It seemed to be able to be triggered a little bit faster however those were not stable for the teensy and the program would crash.}
+%\textbf{looking at the oscilloscope on the builtin led, triggering it to switch states each time ISR of individual peripheral is %triggered. 
+%Changing ISR only pdb = stable till sampleFreq  roughly 1MH  (491.7kHz)+- 0.3kHz measured by scope
+%for 16 bits:
+%ISR pdb adc = stable till sampleFreq roughly 280kHz   (139.5kHz) +- 0.01kHz measured by scope
+%whole system = stable till roguhly 300khz samplefreq 
+%Changing the resolution had minimal gains.
+%It seemed to be able to be triggered a little bit faster however those were not stable for the teensy and the program would crash.}
 
 
 Equipment used for tests can be seen in the list below.
@@ -387,7 +387,7 @@ The ISR would either turn on the buildin LED on the Teensy or turn it off, depen
 Which for every other trigger would make the LED blink.
 Three test cases were examined, first using just the PDB which would trigger the ISR. 
 Secondly the PDB and ADC together and finally for when the entire system was operational, for both cases the ISR would be triggered by the end of a ADC conversion.
-The setup of the test can be seen in \textit{Figure~\ref{fig:SetupCircSpeed}}, the oscilloscope was connected to the builtin LED and the Teensy3.5 was powered via USB.
+The setup of the test can be seen in \textit{Figure~\ref{fig:SetupCircSpeed}}, the oscilloscope was connected to the builtin LED and the Teensy3.5 was powered via USB and the op amps were powered by the DC power supply.
 The scope was set to take measurements of the time and frequency between the rising edge of rectangular signal that formed from blinking the LED. 
 The oscilloscope shows the mean, maximum and minimum values for both, which are actually halved since the scope counts the rising edge of the pulses.
 As well as the cursor was set over a single pulse to show the actual frequency of the ISR trigger speed.
@@ -407,8 +407,9 @@ In the first test, just the PDB timer was initialised and the ISR would trigger 
 Three set frequencies were tested, 1.2MHz, 600kHz and 300kHz.
 The results of the tests can be seen in \textit{Figures~\ref{fig:PDBSp1200} - \ref{fig:PDBsp300}}.
 The maximum frequency at which the PDB could run at was when the set frequency was set as 1.2MHz.
-As explained before the actual values from the oscilloscope are halved from the real values, so all measured statistics are doubled.
-The mean frequency was 1.17MHz, were the maximum was 1.27MHz and the minimum 767.7kHz with a standard deviation of 27.1kHz. 
+As explained before the actual frequency values from the oscilloscope are halved from the real values, so all measured frequency statistics are doubled, while the time of the period is halved.
+The mean frequency was 1.17MHz, were the maximum was 1.27MHz and minimum of 767.7kHz with a standard deviation of 27.1kHz. 
+The mean time for a period was 852ns with a standard deviation of 27ns as seen in \textit{Figure~\ref{fig:PDBSp1200}}.
 
 \begin{figure}[h]
     \centering
@@ -418,7 +419,8 @@ The mean frequency was 1.17MHz, were the maximum was 1.27MHz and the minimum 767
 \end{figure}
 
 For the second test, the set frequency was 600kHz.
-The mean frequency was 593.5kHz, were the maximum was 654.5kHz and the minimum 470.7kHz with a standard deviation of 8.42kHz. 
+The mean frequency was 593.5kHz, were the maximum was 654.5kHz and minimum of 470.7kHz with a standard deviation of 8.42kHz. 
+The mean time for a period was 1.68$\mu$s with a standard deviation of 29ns as seen in \textit{Figure~\ref{fig:PDBSp600}}.
 
 \begin{figure}[h]
     \centering
@@ -428,8 +430,8 @@ The mean frequency was 593.5kHz, were the maximum was 654.5kHz and the minimum 4
 \end{figure}
 
 For the third test, the set frequency was 300kHz.
-The mean frequency was 298.4kHz, were the maximum was 320.7kHz and the minimum
-122.4kHz with a standard deviation of 1.63kHz. 
+The mean frequency was 298.4kHz, were the maximum was 320.7kHz and minimum of 122.4kHz with a standard deviation of 1.63kHz. 
+The mean time for a period was 3.35$\mu$s with a standard deviation of 21ns as seen in \textit{Figure~\ref{fig:PDBSp300}}.
 
 \begin{figure}[h]
     \centering
@@ -440,8 +442,9 @@ The mean frequency was 298.4kHz, were the maximum was 320.7kHz and the minimum
 
 The next test was for the ADC, but now by initializing both the ADC and the PDB.
 The ISR would also be set to trigger when completing an ADC conversion.
-the set frequency was 280kHz, because at 300kHz the program would stop running after roughly 2 seconds.
-The mean frequency was 279.1kHz, were the maximum was 208.3kHz and the minimum 225.5kHz with a standard deviation of 1.1kHz. 
+The set frequency was 280kHz, because at 300kHz the program would stop running after roughly 2 seconds.
+The mean frequency was 279.1kHz, were the maximum was 208.3kHz and  minimum of 225.5kHz with a standard deviation of 1.1kHz. 
+The mean time for a period was 3.58$\mu$s with a standard deviation of 14ns as seen in \textit{Figure~\ref{fig:PDBADCDMAsp280}}.
 
 \begin{figure}[h]
     \centering
@@ -453,12 +456,12 @@ The mean frequency was 279.1kHz, were the maximum was 208.3kHz and the minimum 2
 \fxfatal{ENDURGERA test}
 The next test was for the whole system was initialized.
 The ISR is still set to trigger when completing an ADC conversion.
-the set frequency was 300kHz, because at 300kHz the program would stop running after roughly 2 seconds.
-The mean frequency was 298.0kHz, were the maximum was 352.33kHz and the minimum 208.5kHz with a standard deviation of 7kHz. 
+The mean frequency was 298.3kHz, were the maximum was 532.4kHz and minimum of 208.5kHz with a standard deviation of 5.4kHz. 
+The mean time for a period was 3.39$\mu$s with a standard deviation of 69.6ns as seen in \textit{Figure~\ref{fig:PDBADCDMAsp280}}.
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.8\textwidth]{graphics/STATDMA_300.PNG}
+    \includegraphics[width=0.8\textwidth]{graphics/ALLT300k.PNG}
     \caption{The blinking of the LED when completing an ADC conversion triggered the ISR, set frequency in the code was 300kHz}
     \label{fig:PDBADCDMAsp300}
 \end{figure}
@@ -474,17 +477,17 @@ The mean frequency was 298.0kHz, were the maximum was 352.33kHz and the minimum 
 %setting https://picture.iczhiku.com/resource/eetop/SHkHEFiIIDHlSccB.pdf
 
 Several tests were made in order to estimate the noise of the device.
-Fast Fourier transform (FFT) function of the RTB2004 oscilloscope was used for the measurements.
+Fast Fourier transform (FFT) function of the RTB2004 oscilloscope was used for the measurements and the DC power supply was used to power the op amps.
 The oscilloscope was set to AC coupled for the best broadband range measurement%https://training.ti.com/ti-precision-labs-op-amps-noise-measuring-system-noise 
 , attenuator set to 1:1 ratio %https://www.testandmeasurementtips.com/reduce-oscilloscope-noise-measurements/
 for accurate noise measurements and the Hannig window was used for 
-\fxfatal{þarf sennilega að vera flattop ?? }
 Two test cases where examined, first when a sine wave was the input of the circuit and secondly when the input was connected to ground.
 For both cases the probe was connected to the output of the op amps.
 The setup for the tests can be seen in \textit{Figure~\ref{fig:SetupFFT}}.
 
 \textbf{%https://web.sonoma.edu/esee/courses/ee442/archives/sp2019/supp/defining_dBu.pdf
 - skoða} 
+%https://www.youtube.com/watch?v=oLBGNC9FGwo&ab_channel=TexasInstruments minuta 3:47
 
 \begin{figure}[h]
     \centering
@@ -493,8 +496,23 @@ The setup for the tests can be seen in \textit{Figure~\ref{fig:SetupFFT}}.
     \label{fig:SetupFFT}
 \end{figure}
 
-For the first test an input sine wave of 10$mV_{pp}$ and 50kHz was used.
-\textbf{Byrja hér þarf að nota flattop?}
+The bandwidth of the FFT was set at 100kHz with an input signal being a sine wave with 10$mV_{pp}$ and 20kHz frequency.
+The results can be seen in \textit{Figur~\ref{fig:FFT20_100k}}, at 20kHz the input signal is apparent with a peak of 3dBm while the noise floor is around -72dBm.
+Which yields a SNR, which is the difference between the two amplitudes as 75dB.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.7\textwidth]{graphics/Noise20k10mVpp100kband.PNG}
+    \caption{FFT on the RTB2004 oscilloscope. An input sine wave signal of 10$mV_{pp}$ and a frequency of 20kHz seen at the top of the figure and the respective FFT below it.}
+    \label{fig:FFT20k_100k}
+\end{figure}
+
+
+
+
+\fxfatal{HENDA MYNDUM og taka upp eins og segir í bók}
+
+
 
 \begin{figure}[h]
     \centering
@@ -508,7 +526,7 @@ For the first test an input sine wave of 10$mV_{pp}$ and 50kHz was used.
     \centering
     \includegraphics[width=0.7\textwidth]{graphics/FFTRas150k_Ac1x1.PNG}
     \caption{FFT on the RTB2004 oscilloscope. 
-    An input sine wave signal of 10$mV_{pp}$ and a frequency of 150kHz seen at the top of the figure connected to the input of the circuit  and the respective FFT below it.}
+    An input sine wave signal of 10$mV_{pp}$ and a frequency of 150kHz seen at the top of the figure and the respective FFT below it.}
     \label{fig:FFTRas150}
 \end{figure}
 
@@ -526,12 +544,28 @@ For the first test an input sine wave of 10$mV_{pp}$ and 50kHz was used.
     \label{fig:FFTGene100}
 \end{figure}
 
+
+\fxfatal{Henda myndum milli fxfatal}
+
+
+
+
+Now for when the input signal was ground.
+The op amps are still getting power from the DC power supply and the probe is connected to the output of the op amps.
+The noise floor seen in \textit{Figure~\ref{fig:noisefloor100k}}, has a bandwidth of 100kHz.
+This measurement yields a noise floor around of 87.1dBm.
+
+
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.7\textwidth]{graphics/NoiseFloor100k.PNG}
     \caption{General noise created by the circuit when op amps are powered and the input is grounded over a frequency band of 100kHz}
     \label{fig:noisefloor100k}
 \end{figure}
+
+Now for when the bandwidth is set to 300kHz.
+Which can be seen in \textit{Figure~\ref{fig:noisefloor100k}}.
+This measurement yields a noise floor of around 86.8dBm.
 
 \begin{figure}[h]
     \centering
@@ -551,8 +585,10 @@ For the first test an input sine wave of 10$mV_{pp}$ and 50kHz was used.
 
 All tests had the same setup of the device.
 The Teensy3.5 was powered via USB, the probe was connected to where input signal was being read and ground was connected to analog reference of the Teensy3.5.
-The OPA1644 op amps where powered by the DC power supply and the input signal was from the wave form generator.
+The op amps where powered by the as before by a DC power supply and the input signal was generated by the wave form generator.
 The setup of the device with everything connected can be seen in \textit{Figure~\ref{fig:testCircSetup}}.
+The Teensy would recorded the record the signal to the SD card, where the values were in hexadecimal.
+Ones it had stopped recording the data was transformed from hexadecimal to decimal using the python script seen in \textit{Listing~\ref{src:converHex}} and then plotted the Matlab script seen in \fxfatal{Bæta Matlab kóða}.
 
 \begin{figure}[h]
     \centering
@@ -561,60 +597,67 @@ The setup of the device with everything connected can be seen in \textit{Figure~
     \label{fig:testCircSetup}
 \end{figure}
 
-Test run at 20k, 50k- and 100kHz at 10mVpp
 
-Simulation are using 170dB which equats to 10mV skoða útreikninga í hyrdophone
-%https://dspace.mit.edu/bitstream/handle/1721.1/74140/2-017j-spring-2006/contents/lecture-notes/05_3uap_notes.pdf
-\textbf{$Vpeak to peak = 2\sqrt{2}*Vrms$}
+
+\clearpage
 
 
 
-\fxfatal{TALA UM NIÐURSTöður}
 
-
+Simulation are using 170dB as a source level and using the Aquarian H1a as the hydrophone the voltage output would equate to 10mV $V = 10^{170dB-190dB/10} = 10mV$, which was used for all the following tests.
+In \textit{Figure~\ref{fig:Teensy10k100k}} the data that the Teensy recorded at 100kHz sample frequency.
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=1.0\textwidth]{graphics/20khz.PNG}
-    \caption{Test of the circuit where the input signal was a sinusoidal wave with a frequency of 20kHz and an amplitude of $10mV_{pp}$}
-    \label{fig:Cir20k}
+    \includegraphics[width=1.0\textwidth]{graphics/10kin_100ksampl.png}
+    \caption{Test of the circuit where the input signal was a sinusoidal wave with a frequency of 10kHz and an amplitude of $10mV_{pp}$ and the sample frequency was set as 100kHz}
+    \label{fig:Teensy10k100k}
 \end{figure}
 
+\textit{Figure~\ref{fig:Oscillo10k100k}} shows results from using the oscilloscope for the same input signal as before.
+
 \begin{figure}[h]
     \centering
-    \includegraphics[width=1.0\textwidth]{graphics/50khz.PNG}
-    \caption{Test of the circuit where the input signal was a sinusoidal wave with a frequency of 50kHz and an amplitude of $10mV_{pp}$}
-    \label{fig:Cir50k}
+    \includegraphics[width=1.0\textwidth]{graphics/10k10mvPP100ksamp.PNG}
+    \caption{Shows the results of the oscilloscope scoping, where the probe was connected to the output of the op amp and the input signal was 10kHz.}
+    \label{fig:Oscillo10k100k}
 \end{figure}
 
+In \textit{Figure~\ref{fig:Teensy20k200k}} the data that the Teensy recorded at 200kHz sample frequency, where the input signal was 20kHz.
+
 \begin{figure}[h]
     \centering
-    \includegraphics[width=1.0\textwidth]{graphics/100khz.PNG}
-    \caption{Test of the circuit where the input signal was a sinusoidal wave with a frequency of 100kHz and an amplitude of $10mV_{pp}$}
-    \label{fig:Cir100k}
+    \includegraphics[width=1.0\textwidth]{graphics/20kin_200ksampl.png}
+    \caption{Test of the circuit where the input signal was a sinusoidal wave with a frequency of 20kHz and an amplitude of $10mV_{pp}$ and the sample frequency was set as 200kHz}
+    \label{fig:Teensy20k200k}
+\end{figure}
+
+ \textit{Figure~\ref{fig:Oscillo20k200k}} shows results from using the oscilloscope for the same input signal as before.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=1.0\textwidth]{graphics/20k10mvPP200ksamp.PNG}
+    \caption{Shows the results of the oscilloscope scoping, where the probe was connected to the output of the op amp and the input signal was 10kHz}
+    \label{fig:Oscillo20k200k}
+\end{figure}
+
+In \textit{Figure~\ref{fig:Teensy10k100k}} the data that the Teensy recorded at 300kHz sample frequency, where the input signal was 30kHz.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=1.0\textwidth]{graphics/30kin_300ksampl.png}
+    \caption{Test of the circuit where the input signal was a sinusoidal wave with a frequency of 30kHz and an amplitude of $10mV_{pp}$ and the sample frequency was set as 300kHz}
+    \label{fig:Teensy30k300k}
 \end{figure}
 
 
-
+ \textit{Figure~\ref{fig:Oscillo30k300k}} shows results from using the oscilloscope for the same input signal as before.
+ 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=1.0\textwidth]{graphics/20khzMatlab.png}
-    \caption{Data that the Teensy3.5 recorded and then plotted using Matlab, where the input signal was a sinusoidal wave with a frequency of 20kHz and an amplitude of $10mV_{pp}$}
-    \label{fig:20kmatlab}
-\end{figure}
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=1.0\textwidth]{graphics/50khzMatlab.png}
-    \caption{Data that the Teensy3.5 recorded and then plotted using Matlab, where the input signal was a sinusoidal wave with a frequency of 50kHz and an amplitude of $10mV_{pp}$}
-    \label{fig:50kmatlab}
-\end{figure}
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=1.0\textwidth]{graphics/100khzMatlab.png}
-    \caption{Data that the Teensy3.5 recorded and then plotted using Matlab, where the input signal was a sinusoidal wave with a frequency of 100kHz and an amplitude of $10mV_{pp}$}
-    \label{fig:100kmatlab}
+    \includegraphics[width=1.0\textwidth]{graphics/30k10mvPP300ksamp.PNG}
+    \caption{Shows the results of the oscilloscope scoping, where the probe was connected to the output of the op amp and the input signal was 30kHz}
+    \label{fig:Oscillo30k300k}
 \end{figure}
 
 
