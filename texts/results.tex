@@ -431,7 +431,7 @@ The mean time for a period was 1.68$\mu$s with a standard deviation of 29ns as s
 
 For the third test, the set frequency was 300kHz.
 The mean frequency was 298.4kHz, were the maximum was 320.7kHz and minimum of 122.4kHz with a standard deviation of 1.63kHz. 
-The mean time for a period was 3.35$\mu$s with a standard deviation of 21ns as seen in \textit{Figure~\ref{fig:PDBSp300}}.
+The mean time for a period was 3.35$\mu$s with a standard deviation of 21ns as seen in \textit{Figure~\ref{fig:PDBsp300}}.
 
 \begin{figure}[h]
     \centering
@@ -453,7 +453,6 @@ The mean time for a period was 3.58$\mu$s with a standard deviation of 14ns as s
     \label{fig:PDBADCDMAsp280}
 \end{figure}
 
-\fxfatal{ENDURGERA test}
 The next test was for the whole system was initialized.
 The ISR is still set to trigger when completing an ADC conversion.
 The mean frequency was 298.3kHz, were the maximum was 532.4kHz and minimum of 208.5kHz with a standard deviation of 5.4kHz. 
@@ -496,63 +495,61 @@ The setup for the tests can be seen in \textit{Figure~\ref{fig:SetupFFT}}.
     \label{fig:SetupFFT}
 \end{figure}
 
-The bandwidth of the FFT was set at 100kHz with an input signal being a sine wave with 10$mV_{pp}$ and 20kHz frequency.
-The results can be seen in \textit{Figure~\ref{fig:FFT20_100k}}, at 20kHz the input signal is apparent with a peak of 3dBm while the noise floor is around -72dBm.
+
+
+
+
+
+
+The bandwidth of the FFT was set at 100kHz with an input signal being a sine wave with 10$mV_{pp}$ and 20kHz frequency being sent to the input of the op amps.
+The results can be seen in \textit{Figure~\ref{fig:Noise20k10mVpp100kband}}, at 20kHz the input signal is apparent with a peak of 3dBm while the noise floor is around -72dBm.
 Which yields a SNR, which is the difference between the two amplitudes as 75dB.
+
+\clearpage
 
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.7\textwidth]{graphics/Noise20k10mVpp100kband.PNG}
-    \caption{FFT on the RTB2004 oscilloscope. An input sine wave signal of 10$mV_{pp}$ and a frequency of 20kHz seen at the top of the figure and the respective FFT below it.}
-    \label{fig:FFT20k_100k}
+    \caption{FFT on the RTB2004 oscilloscope. An input sine wave signal of 10$mV_{pp}$ and a frequency of 20kHz seen at the top of the figure and the respective FFT below it with a 100kHz bandwidth.}
+    \label{fig:Noise20k10mVpp100kband}
 \end{figure}
 
 
 
+%\begin{figure}[h]
+%    \centering
+%    \includegraphics[width=0.7\textwidth]{graphics/Noise20kinp300kBand.PNG}
+%    \caption{FFT on the RTB2004 oscilloscope. An input sine wave signal of 10$mV_{pp}$ and a frequency of 20kHz seen at the top of the figure and the respective FFT below it with a 300kHz bandwidth.}
+%    \label{fig:Noise20k10mVpp300kband}
+%\end{figure}
 
-\fxfatal{HENDA MYNDUM og taka upp eins og segir í bók}
 
-
+The same test was performed for just the generator, bypassing the op amp circuit and connecting it directly to the oscilloscope.
+The results can be seen in \textit{Figure~\ref{fig:NoiseGenerator20kInp100kBand}}, at 20kHz the input signal is apparent with a peak of -36.8dBm while the noise floor is around -116dBm.
+Which yields a SNR of 80dB.
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.7\textwidth]{graphics/FFTRas50kAC1x1.PNG}
+    \includegraphics[width=0.7\textwidth]{graphics/NoiseGenerator20kInp100kBand.PNG}
     \caption{FFT on the RTB2004 oscilloscope. 
-    The input signal with a 10$mV_{pp}$ and a frequency of 50kHz seen at the top of the figure and the respective FFT below it.}
-    \label{fig:FFTRas50}
+    An input sine wave signal of 10$mV_{pp}$ and a frequency of 20kHz seen at the top of the figure and the respective FFT below it with a 100kHz bandwidth.}
+    \label{fig:NoiseGenerator20kInp100kBand}
 \end{figure}
 
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.7\textwidth]{graphics/FFTRas150k_Ac1x1.PNG}
-    \caption{FFT on the RTB2004 oscilloscope. 
-    An input sine wave signal of 10$mV_{pp}$ and a frequency of 150kHz seen at the top of the figure and the respective FFT below it.}
-    \label{fig:FFTRas150}
-\end{figure}
+\clearpage
 
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.7\textwidth]{graphics/FFTGenerator50k_AC1x1.PNG}
-    \caption{}
-    \label{fig:FFTGene50}
-\end{figure}
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.7\textwidth]{graphics/FFTGenerator150k_Ac1x1.PNG}
-    \caption{}
-    \label{fig:FFTGene100}
-\end{figure}
+%\begin{figure}[h]
+%    \centering
+%    \includegraphics[width=0.7\textwidth]{graphics/NoiseGenerator20kInp300kBand.PNG}
+%    \caption{FFT on the RTB2004 oscilloscope. 
+%    An input sine wave signal of 10$mV_{pp}$ and a frequency of 20kHz seen at the top of the figure and the respective FFT below it with a 300kHz bandwidth.}
+%    \label{fig:NoiseGenerator20kInp300kBand}
+%\end{figure}
 
 
-\fxfatal{Henda myndum milli fxfatal}
-
-
-
-
-Now for when the input signal was ground.
+Now for when the input signal was connected to ground.
 The op amps are still getting power from the DC power supply and the probe is connected to the output of the op amps.
-The noise floor seen in \textit{Figure~\ref{fig:noisefloor100k}}, has a bandwidth of 100kHz.
+The results can be seen in \textit{Figure~\ref{fig:noisefloor100k}}.
 This measurement yields a noise floor around of 87.1dBm.
 
 
@@ -563,16 +560,16 @@ This measurement yields a noise floor around of 87.1dBm.
     \label{fig:noisefloor100k}
 \end{figure}
 
-Now for when the bandwidth is set to 300kHz.
-Which can be seen in \textit{Figure~\ref{fig:noisefloor100k}}.
-This measurement yields a noise floor of around 86.8dBm.
+%Now for when the bandwidth is set to 300kHz.
+%Which can be seen in \textit{Figure~\ref{fig:noisefloor100k}}.
+%This measurement yields a noise floor of around 86.8dBm.
 
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.7\textwidth]{graphics/NoiseFloor300k.PNG}
-    \caption{General noise created by the circuit when op amps are powered and the input is grounded over a frequency band of 300kHz}
-    \label{fig:noisefloor300k}
-\end{figure}
+%\begin{figure}[h]
+%    \centering
+%    \includegraphics[width=0.7\textwidth]{graphics/NoiseFloor300k.PNG}
+%    \caption{General noise created by the circuit when op amps are powered and the input is grounded over a frequency band of 300kHz}
+%    \label{fig:noisefloor300k}
+%\end{figure}
 
 
 
@@ -581,14 +578,18 @@ This measurement yields a noise floor of around 86.8dBm.
 
 
 
-\subsubsection{Recording signals from a signal generator}
+
+
+\subsubsection{Recording signals from a generator}
 
 All tests had the same setup of the device.
 The Teensy3.5 was powered via USB, the probe was connected to where input signal was being read and ground was connected to analog reference of the Teensy3.5.
 The op amps where powered by the as before by a DC power supply and the input signal was generated by the wave form generator.
 The setup of the device with everything connected can be seen in \textit{Figure~\ref{fig:testCircSetup}}.
 The Teensy would recorded the record the signal to the SD card, where the values were in hexadecimal.
-Ones it had stopped recording the data was transformed from hexadecimal to decimal using the python script seen in \textit{Listing~\ref{src:converHex}} and then plotted the Matlab script seen in \fxfatal{Bæta Matlab kóða}.
+The output signal of the op amps was then recorded by the RTB2004 oscilloscope.
+Ones it had stopped recording the data was transformed from hexadecimal to decimal using the python script seen in \textit{Listing~\ref{src:converHex}} and then plotted using Matlab. script seen in \fxfatal{Bæta Matlab kóða Kanski ekki ???}.
+
 
 \begin{figure}[h]
     \centering
@@ -597,9 +598,12 @@ Ones it had stopped recording the data was transformed from hexadecimal to decim
     \label{fig:testCircSetup}
 \end{figure}
 
-Simulation are using 170dB as a source level and using the Aquarian H1a as the hydrophone the voltage output would equate to 10mV $V = 10^{170dB-190dB/10} = 10mV$, which was used for all the following tests.
-In \textit{Figure~\ref{fig:Teensy10k100k}} the data that the Teensy recorded at 100kHz sample frequency.
-\textit{Figure~\ref{fig:Oscillo10k100k}} shows respective results from using the oscilloscope for the same input signal as before.
+In this test it is simulating a 170dB as a source level.
+Using the Aquarian H1a as the hydrophone the voltage output would equate to 10mV $V = 10^{170dB-190dB/10} = 10mV$, which was used for all the following tests.
+The difference between the three tests was the input signals frequency and the sample frequency of the Teensy.
+The first test had the Teensys sample frequency set at 100kHz and a input signal of 10kHz was used.
+The data recorded by the Teensy can be seen in \textit{Figure~\ref{fig:Teensy10k100k}}.
+While \textit{Figure~\ref{fig:Oscillo10k100k}} shows respective results from the RTB2004 oscilloscope.
 
 \begin{figure}[h]
     \centering
@@ -617,7 +621,10 @@ In \textit{Figure~\ref{fig:Teensy10k100k}} the data that the Teensy recorded at 
 
 \clearpage
 
-In \textit{Figure~\ref{fig:Teensy20k200k}} the data that the Teensy recorded at 200kHz sample frequency, where the input signal was 20kHz.
+
+
+Next the sample frequency was increased to 200kHz and the input signal was 20kHz.
+The results of the data recorded by the Teensy can be seen in\textit{Figure~\ref{fig:Teensy20k200k}}.
 \textit{Figure~\ref{fig:Oscillo20k200k}} shows respective results from using the oscilloscope for the same input signal as before.
 
 \begin{figure}[h]
@@ -626,7 +633,6 @@ In \textit{Figure~\ref{fig:Teensy20k200k}} the data that the Teensy recorded at 
     \caption{Test of the circuit where the input signal was a sinusoidal wave with a frequency of 20kHz and an amplitude of $10mV_{pp}$ and the sample frequency was set as 200kHz}
     \label{fig:Teensy20k200k}
 \end{figure}
-
 
 \begin{figure}[h]
     \centering
@@ -637,7 +643,9 @@ In \textit{Figure~\ref{fig:Teensy20k200k}} the data that the Teensy recorded at 
 
 \vspace{4cm}
 
-In \textit{Figure~\ref{fig:Teensy10k100k}} the data that the Teensy recorded at 300kHz sample frequency, where the input signal was 30kHz.
+
+
+In \textit{Figure~\ref{fig:Teensy30k300k}} the data that the Teensy recorded at 300kHz sample frequency, where the input signal was 30kHz.
 \textit{Figure~\ref{fig:Oscillo30k300k}} shows respective results from using the oscilloscope for the same input signal as before.
 
 \begin{figure}[h]
@@ -647,8 +655,6 @@ In \textit{Figure~\ref{fig:Teensy10k100k}} the data that the Teensy recorded at 
     \label{fig:Teensy30k300k}
 \end{figure}
 
-
-
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.7\textwidth]{graphics/30k10mvPP300ksamp.PNG}
@@ -656,15 +662,23 @@ In \textit{Figure~\ref{fig:Teensy10k100k}} the data that the Teensy recorded at 
     \label{fig:Oscillo30k300k}
 \end{figure}
 
+\clearpage
 
 
+
+Two more tests were performed to better estimate the Teensys accuracy, since at 10mV the signal generator was quite inconsistent and created some variance in its output. \fxfatal{ert með mynd af mælingunni kanski að bæta??}
+The test setup can be seen in \textit{Figure~\ref{fig:Last2TestsSetup}}, where the input signal bypasses the op amp circuit and goes straight to the Teensy and Oscilloscope.
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=1.0\textwidth]{graphics/OscilloTeensyDC165Read.png}
-    \caption{With a DC signal of 1.65V, Teensys readings at 300ksps compared to the RTB2004 oscilloscope at 2.5Gsps}
-    \label{fig:OscilloCompTeensyDC}
+    \includegraphics[width=0.7\textwidth]{graphics/Last2Tests.jpg}
+    \caption{The input signal connected to the 330$\Omega$ resistor straight to the Teensy.}
+    \label{fig:Last2TestsSetup}
 \end{figure}
+
+
+The first signal was a sine wave with 1$V_{pp}$ and VDC offset of 1.65V and 50kHz frequency.
+The data plotted from the Teensy can be seen in \textit{Figure~\ref{fig:OscilloCompTeensyAC}}.
 
 
 \begin{figure}[h]
@@ -674,6 +688,16 @@ In \textit{Figure~\ref{fig:Teensy10k100k}} the data that the Teensy recorded at 
     \label{fig:OscilloCompTeensyAC}
 \end{figure}
 
+The second input signal was DC 1.65V.
+The data plotted from the Teensy can be seen in \textit{Figure~\ref{fig:OscilloCompTeensyDC}}.
+
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=1.0\textwidth]{graphics/OscilloTeensyDC165Read.png}
+    \caption{With a DC signal of 1.65V, Teensys readings at 300ksps compared to the RTB2004 oscilloscope at 2.5Gsps}
+    \label{fig:OscilloCompTeensyDC}
+\end{figure}
 
 %https://www.eevblog.com/forum/beginners/help-with-rapid-adc-data-aquizition/25/
 %https://forum.pjrc.com/threads/30171-Reconfigure-ADC-via-a-DMA-transfer-to-allow-multiple-Channel-Acquisition?p=140300#post140300
