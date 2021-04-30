@@ -497,7 +497,7 @@ The setup for the tests can be seen in \textit{Figure~\ref{fig:SetupFFT}}.
 \end{figure}
 
 The bandwidth of the FFT was set at 100kHz with an input signal being a sine wave with 10$mV_{pp}$ and 20kHz frequency.
-The results can be seen in \textit{Figur~\ref{fig:FFT20_100k}}, at 20kHz the input signal is apparent with a peak of 3dBm while the noise floor is around -72dBm.
+The results can be seen in \textit{Figure~\ref{fig:FFT20_100k}}, at 20kHz the input signal is apparent with a peak of 3dBm while the noise floor is around -72dBm.
 Which yields a SNR, which is the difference between the two amplitudes as 75dB.
 
 \begin{figure}[h]
@@ -597,15 +597,9 @@ Ones it had stopped recording the data was transformed from hexadecimal to decim
     \label{fig:testCircSetup}
 \end{figure}
 
-
-
-\clearpage
-
-
-
-
 Simulation are using 170dB as a source level and using the Aquarian H1a as the hydrophone the voltage output would equate to 10mV $V = 10^{170dB-190dB/10} = 10mV$, which was used for all the following tests.
 In \textit{Figure~\ref{fig:Teensy10k100k}} the data that the Teensy recorded at 100kHz sample frequency.
+\textit{Figure~\ref{fig:Oscillo10k100k}} shows respective results from using the oscilloscope for the same input signal as before.
 
 \begin{figure}[h]
     \centering
@@ -614,16 +608,17 @@ In \textit{Figure~\ref{fig:Teensy10k100k}} the data that the Teensy recorded at 
     \label{fig:Teensy10k100k}
 \end{figure}
 
-\textit{Figure~\ref{fig:Oscillo10k100k}} shows results from using the oscilloscope for the same input signal as before.
-
 \begin{figure}[h]
     \centering
-    \includegraphics[width=1.0\textwidth]{graphics/10k10mvPP100ksamp.PNG}
+    \includegraphics[width=0.7\textwidth]{graphics/10k10mvPP100ksamp.PNG}
     \caption{Shows the results of the oscilloscope scoping, where the probe was connected to the output of the op amp and the input signal was 10kHz.}
     \label{fig:Oscillo10k100k}
 \end{figure}
 
+\clearpage
+
 In \textit{Figure~\ref{fig:Teensy20k200k}} the data that the Teensy recorded at 200kHz sample frequency, where the input signal was 20kHz.
+\textit{Figure~\ref{fig:Oscillo20k200k}} shows respective results from using the oscilloscope for the same input signal as before.
 
 \begin{figure}[h]
     \centering
@@ -632,16 +627,18 @@ In \textit{Figure~\ref{fig:Teensy20k200k}} the data that the Teensy recorded at 
     \label{fig:Teensy20k200k}
 \end{figure}
 
- \textit{Figure~\ref{fig:Oscillo20k200k}} shows results from using the oscilloscope for the same input signal as before.
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=1.0\textwidth]{graphics/20k10mvPP200ksamp.PNG}
+    \includegraphics[width=0.7\textwidth]{graphics/20k10mvPP200ksamp.PNG}
     \caption{Shows the results of the oscilloscope scoping, where the probe was connected to the output of the op amp and the input signal was 10kHz}
     \label{fig:Oscillo20k200k}
 \end{figure}
 
+\vspace{4cm}
+
 In \textit{Figure~\ref{fig:Teensy10k100k}} the data that the Teensy recorded at 300kHz sample frequency, where the input signal was 30kHz.
+\textit{Figure~\ref{fig:Oscillo30k300k}} shows respective results from using the oscilloscope for the same input signal as before.
 
 \begin{figure}[h]
     \centering
@@ -651,17 +648,31 @@ In \textit{Figure~\ref{fig:Teensy10k100k}} the data that the Teensy recorded at 
 \end{figure}
 
 
- \textit{Figure~\ref{fig:Oscillo30k300k}} shows results from using the oscilloscope for the same input signal as before.
- 
+
 \begin{figure}[h]
     \centering
-    \includegraphics[width=1.0\textwidth]{graphics/30k10mvPP300ksamp.PNG}
+    \includegraphics[width=0.7\textwidth]{graphics/30k10mvPP300ksamp.PNG}
     \caption{Shows the results of the oscilloscope scoping, where the probe was connected to the output of the op amp and the input signal was 30kHz}
     \label{fig:Oscillo30k300k}
 \end{figure}
 
 
 
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=1.0\textwidth]{graphics/OscilloTeensyDC165Read.png}
+    \caption{With a DC signal of 1.65V, Teensys readings at 300ksps compared to the RTB2004 oscilloscope at 2.5Gsps}
+    \label{fig:OscilloCompTeensyDC}
+\end{figure}
+
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=1.0\textwidth]{graphics/OscilloTeensyAC50k1vpp165voffpng.png}
+    \caption{With a AC signal of 1$V_{pp}$ and 1.65V DC offset, Teensys readings at 300ksps compared to the RTB2004 oscilloscope at 2.5Gsps}
+    \label{fig:OscilloCompTeensyAC}
+\end{figure}
 
 
 %https://www.eevblog.com/forum/beginners/help-with-rapid-adc-data-aquizition/25/
