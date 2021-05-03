@@ -300,8 +300,8 @@ which means the voltage output of the hydrophone would then be $V = 10^{-12dB/10
 
 \subsection{Signal conditioning}
 
-Conditioning the output signal produced by the hydrophone is important in order to only monitor only desired frequencies but also to have the voltage output in the correct range designed for the device.
-Unwanted frequencies need to be filtered out in order to get a cleaner signal in the range that is desired.
+Conditioning the output signal produced by the hydrophone is important to only monitor desired frequencies but also to have the voltage output in the correct range designed for the device.
+Unwanted frequencies need to be filtered out to get a cleaner signal in the range that is desired.
 In lower frequency application from 0 - 100kHz, a simple resistor and capacitor (RC) filters can generally be used \cite{noauthor_low_2013}.
 The cut off frequency ($F_c$) point is defined when the output signal is 70.7\% of the input, which is when the the voltage gain is at -3dB = $20log(\frac{V_{out}}{V_{in}})$.
 High pass filters work by filtering out frequencies that are lower than the set $F_c$ and allows frequencies higher to pass through.
@@ -451,7 +451,7 @@ Decibel is a relative unit of measure, used in electronic circuits to express th
 
 The gain in decibel is found by \textit{Equation \ref{eq:DBGAIN}}, where $V{out}$ is the output root mean square (RMS) voltage of the circuit and V{in} is the input RMS voltage.
 
-Summing amplifiers or summing inverter circuits are useful when combining two or more signals together.
+Summing amplifiers or summing inverter circuits are useful when combining two or more signals.
 An example of the circuit can be seen in \textit{Figure \ref{fig:SummingOpAmp}}, where $R_1 = R_2 = R_3$ would be the same value.
 The circuit yields a voltage output that is equal to all the input voltages summed together and multiplied with the unity gain of the amplifier.
 This is possible due to the virtual ground that is created by a non-inverting op-amp configuration\cite{noauthor_summing_2013}. 
