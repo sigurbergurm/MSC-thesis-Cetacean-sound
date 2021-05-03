@@ -1,553 +1,237 @@
 \chapter{Methods}
 
-\section{Cetacean vocalization}
+%\textbf{Tala um raunverulega ásæðu af hverju ég vel þessa íhluti!!!!!!}
 
-Many species of cetaceans can be found near Iceland.
-There are at least 12 species of cetaceans that roam Iceland waters.
-Among which are most frequently spotted are harbour porpoise, white beaked dolphins, minke whales and humpback whales \cite{user_whales_nodate}.
-Sound is used by cetaceans for various purposes the low frequency sounds are used for communication and high frequency prey hunting, predator avoidance as well as echolocation for navigation \cite{nowacek_studying_2016}.
-Each species can vocalize different sounds.
-The sounds can be described as moans, calls, clicks, shrieks and more\cite{greenhow_hearing_nodate}.
-%Cetaceans use these sounds to low frequency sound for communicating to one another all the way to creating high frequencies echolocation sounds for hunting their prey\cite{greenhow_hearing_nodate}.
-Table \ref{Tab:WhaleHz} shows the type of sound, frequency range of the sound, the dominant frequency of the sound and the source level of each sound for its respective species.
+\section{Hydrophone}\label{sec:AquarionHydro}
 
-\newpage
+%\textbf{TALA UM AÐRA TÝPU SEM HEFÐI GETAÐ KOMIÐ TIL GREINA
+%https://www.nauta-rcs.it/English/Instruments/Hydrophones/CetaceanResearchTech/C55/C55.html}
 
+First thing that needed to be determined was the hydrophone used.
+Generally hydrophones are sensitive piezoelectric sensors that can detect small changes in pressure and convert that to electrical signal.
+This project will use the Aquarian audio H1a hydrophone, which was chosen for its low cost and good sensitivity as well as it was readily available at the Reykjavik University lab.
 
-\begin{table}[]\caption{Frequency ranges of whales that are found near Iceland \cite{richardson_marine_2013}, * taken from \cite{richardson_effects_1991}}.\label{Tab:WhaleHz}
-\centering
-\resizebox{\textwidth}{!}{
-\begin{tabular}{|l|l|l|l|l|}
-\hline
-\begin{tabular}[c]{@{}l@{}}Species \\ of \\ whale\end{tabular} & Noise type             & \begin{tabular}[c]{@{}l@{}}Frequency range\\ {[}Hz{]}\end{tabular} & \begin{tabular}[c]{@{}l@{}}Dominant \\ frequencies \\ {[}Hz{]}\end{tabular} & \begin{tabular}[c]{@{}l@{}}Source level \\ {[}dB re 1 $\mu$Pa at 1m{]}\end{tabular} \\ \hline
-Blue    & Moans & 12 - 390 & 16 - 26 & 188 \\ \cline{2-5}
-        & Clicks & \begin{tabular}[c]{@{}l@{}}  6k - 8k\\ 21k - 31k\end{tabular} & \begin{tabular}[c]{@{}l@{}}6k - 8k\\ 25k\end{tabular} & \begin{tabular}[c]{@{}l@{}}130\\ 159\end{tabular} \\ \hline
-\begin{tabular}[c]{@{}l@{}}Bottlenose \\dolphin\end{tabular}    & Whistles & 0.8 - 24 & 4.5 - 14.5 & 125 - 173 \\ \cline{2-5}
-        & \begin{tabular}[c]{@{}l@{}}Low-freq. \\narrowband\end{tabular}    & < 2 & 0.3 - 0.9 & - \\ \hline
-Fin     & Moans, down sweeps & 14 - 118 & 20 & 160 - 186 \\ \cline{2-5}
-        & Constant call & 20 - 40 & - & - \\ \cline{2-5}
-        & Moans, tones, up sweeps & 30 - 750 & - & 155 - 165 \\ \cline{2-5}
-        & Rumble & 10 - 30 & - & - \\ \cline{2-5}
-        & Whistles, chirps & 1.5k - 5k & 1.5k - 2.5k & - \\ \cline{2-5}
-        & Clicks & 16k - 28k & - & - \\ \hline
-Harbour porpoises & Clicks & 2 & - & 100 \\ \cline{2-5}
-        & Echolocation & 110k - 150k & - & 135 - 177 \\ \hline
-Humpback & Song components & 30 - 8k & 120 - 4k & 144 - 174 \\ \cline{2-5}
-        & Shrieks & - & 750 - 1.8k & 179 - 181 \\\cline{2-5}
-        & Horn blasts & - & 410 - 420 & 181 - 185 \\ \cline{2-5}
-        & Moans & 20 - 1.8k & 35 - 360 & 175 \\\cline{2-5}
-        & Grunts & 50 - 1.9k+ & - & 190 \\\cline{2-5}
-        & Pules trains & 25 - 1.25k & 25 - 80 & 179-181 \\ \cline{2-5}
-        & Underwater blows & 100 - 2k & - & 158 \\\cline{2-5}
-        & Fluke and flipper slap & 30 - 1.2k & - & 183-192 \\\cline{2-5}
-        & Clicks & 2k - 8.2k & - & - \\ \hline
-Minke & Down sweeps & 60 - 130 & - & 165 \\ \cline{2-5}
-        & Moans, grunts & 60 - 140 & 60 - 140 & 151 - 175 \\\cline{2-5}
-        & Ratchet & 850 - 6k & 850 & - \\ \cline{2-5}
-        & Clicks & 3.3k - 20k & \textless{}12k & 151 \\ \cline{2-5}
-        & Thump trains & 100 - 2k & 100 - 200 & - \\ \hline
-Killer  & Whistles & 1.5k - 18k & 6k - 12k & - \\ \cline{2-5}
-        & Pulsed calls & 500 - 25k & 1k - 6k & 160 \\ \cline{2-5}
-        & Echolocation &  30 - 100kHz * &12k - 25k & 180 \\ \hline
-Sei     & FM sweeps & 1.5k - 3.5k & - & - \\ \hline
-Sperm    & Clicks & 0.1 - 30 & 2 - 4, 10 - 16 & 160 - 180 \\ \hline
-\begin{tabular}[c]{@{}l@{}}White-beaked\\dolphin\end{tabular} & Squeals & - & 8 - 12 & - \\ \hline
-
-\end{tabular}}
-\end{table}
-
-Cetaceans creature produce sounds with a wide bandwidth, or 2 - 150kHz as seen in \textit{Table \ref{Tab:WhaleHz}}.
-In comparison humans have vocalization range of up to 5kHz and a hearing range from 16Hz - 20kHz \cite{monson_perceptual_2014}.
-The vocalization is so powerful that the low frequency sounds might be able to travel thousands of kilometers\cite{nowacek_studying_2016}.
-The energy of sounds from for example killer whales, in calm seas can travel up to 25.9km.\cite{miller_diversity_2006}.
-
-\newpage
-
-\subsection{Audio}
-
-\subsubsection{Sound wave}
-
-Sound is a mechanical vibration, which results in an oscillating wave.
-The wave causes a change in pressure of molecules 
-The wave can travel through gasses, liquids and solids.
-It occurs when objects vibrate such as a diaphragm of a speaker or a vocal cord of a human.
-It is a wave that has a frequency and amplitude, which determines the type of sound and the intensity of the sound.
-Sound waves behave very differently in liquid and in air.
-In liquid such as sea water there are several things that affect sound propagation.
-Such as the waves can bounce off particles or other sea creature. 
-The bottom of the sea and the surface reflect waves and cause energy.
-Finally and the largest factor  is depth, salinity and temperature of the water .
-These factors can distort the sound and create transmission loss\cite{noauthor_sonar_nodate}.
-Speed of sound is quite different if it is in air or in the ocean.
-Speed of sound in 20°C air is roughly 343m/s, while  in the ocean it a lot faster and can vary around 1500m/s depending on the temperature, pressure and salinity of the ocean. 
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.70\textwidth]{graphics/soundwaves.png}
-    \caption{How molecules react to sound waves \cite{noauthor_what_nodate}}
-    \label{fig:SoundWaves}
-\end{figure}
-
-\subsubsection{Digital audio recording}\label{sec:DigitalAudiRec}
-
-\fxfatal{Tala um jitter og kanski aliasing}
-
-%https://documentation.meraki.com/MR/WiFi_Basics_and_Best_Practices/Signal-to-Noise_Ratio_(SNR)_and_Wireless_Signal_Strength#:~:text=The%20SNR%20is%20the%20difference,signal%20and%20the%20noise%20floor.&text=For%20example%2C%20if%20a%20client,dB%20for%20this%20wireless%20connection. - SNR
-
-Audio recording is the recreation of sound waves, which can either be analog- or digital recorded.
-Digital recording is the process of converting analog sounds, which can be convert the analog signals from a microphone to a digital format. 
-Which is done by representing the audio signal with binary numbers 
-This represents the amplitude or intensity of the sound and then sampling or recording that sound at a given time interval.
-The greater the resolution the less noise is being recorded.
-Resolution is determined by the number of bits used in order to record a signal and deter the precision of the measurements, it is the smallest incremental voltage change that can be recognized.
-For example if a signal had a voltage range of 3.3V and it was being recorded at 16bits the voltage resolution would be $\frac{3.3V}{2^{16}} = 50\mu V/bit$.
-Which would mean that the recording could in theory have $50\mu V$ increments in representing the signal.  
-While a 8bit resolution only yields $\frac{13mV}{bit}$, meaning the higher the resolution, the more precise the measurement values are.
-However with more bits comes more data rate and higher storage requirements.
-
-\begin{equation}
-    Data Rate = \frac{Bits}{8} * Sampling Rate * Number of channels 
-    \label{eq:dataRate}
-\end{equation}
-
-Data rate can be calculated using \textit{Equation~\ref{eq:dataRate}}.
-Where bits is the resolution, sampling rate is the sampling frequency in Hz and the number of channels is how many signals are being recorded.
-The data rate can then be used to determine the amount of storage needed.
-Nyquist-Shannon theorem is is in digital recording to determine the minimum sampling rate needed to reconstruct the analog signal.
-The theorem proves that if the sampling frequency is twice the frequency of the highest frequency of the input analog signal, the signal can be recreated exactly.% \cite{bartlett_practical_2016}.
-So in theory since humans have a hearing range of up to around 20kHz, in order to reconstruct all signals that are audible to humans, the sampling rate needs to be at least 40kHz.
-For example on CDs the quality of the recording is 44.1kHz/16bits, in DVDs it is 96kHz/24bits and for high end audio recording it can go to 192kHz/24bits.
-The oversampling can improve the recording for more accurate recording.
-But oversampling is a term used for when the sampling frequency is of a higher rate than the Nyquist-Shannon theorem states  \cite{bartlett_practical_2016}.
-If for example a sampling frequency of 200kHz was used when the signal being recorded was 20kHz it would be considered 5x oversampling.
-The frequency that controls the ADC conversions also has to be precise.
-If the timing of the samples is unstable it is called jitter, which is the standard deviation from the mean of the clock used to control ADC conversions.
-
-The difference in decibel between the signal and the noise floor is called signal to noise ratio (SNR). 
-For cleaner sounds, meaning less noise is audible in the signal the higher the SNR.
-Generally it is considered fair if the SNR is 60dB, good if SNR is 70dB and great if its 80dB or more \cite{bartlett_practical_2016}.
-
-
-\section{Device hardware}
-
-\textbf{FARA 'I GEGNUM VERKEFNI SEM AÐRIR HAFA GERT RUNNA ÞAU OG TALA UM NIÐURSTÖÐUR OG DÆMA HVÐ VIRKAR HVAÐ EKKI OG AFHVERJU ÞETTA GETUR VERIÐ EH APPENDIX DÆMI
-}
-
-\subsection{Hydrophone}
-
-Hydrophones are devices specially designed for underwater sound recording.
-One of the earliest known examples of a hydrophone was made by stretching a membrane tightly over the end of a tube, one end of the tube is placed underwater while the other end is placed to the observers ear \cite{wood_a_b_textbook_1946}. 
-Modern hydrophone are mainly based on piezoelectric transducers.
-These hydrophones have been used since the early stages of world war 1.
-Paul Langevin developed the first piezoelectric hydrophone, which was intended to be used for the detection of submarines.
-A vacuum tube amplifier in combination with a piezoelectric material to be used as a transducer signal\cite{van_der_kloot_great_2014}.
-
-When choosing a hydrophone it is important to look at a few specifications in the data sheet of the hydrophone. 
-Such as the open circuit receiving response (OCRR), which is what the transducer outputs in terms of dB re 1V/$\mu$Pa.
-Which is function of frequency and expressed in terms of dB re 1V/$\mu$Pa.
-Sound intensity level (SIL) is the intensity of the sound at the transducer and is expressed in terms of dB re $\mu$Pa.
-Transmitting voltage response (TVR) is the output voltage of the SIL at 1m range from the transducer and is expressed in terms of dB re $\mu$Pa/1V @ 1m \cite{ethem_mutlu_sozer_underwater_nodate}. 
-Usable frequency of the hydrophone, directional patterns of the hydrophone and if the it applies the nominal capacitance of the hydrophone are also important factors. 
-If for example the CRT C57 hydrophone was chosen, specifications can be seen in \textit{Table \ref{Tab:CRT57Hydrip}}.
-
-\newpage
-
-\begin{table}[h]\caption{Specifications of CRT C57 hydrophone range \cite{computing_c57_nodate}}.\label{Tab:CRT57Hydrip}
-\centering
-\begin{tabular}{|r|c|c|}
-\hline
-\multicolumn{1}{|c|}{\textbf{}} & C57 / C57X & C57RS/C57XRS \\\hline
-{\begin{tabular}[c]{@{}r@{}}Linear Frequency Range \\ (±3dB) {[}kHz{]}\end{tabular}}      & 0.015 to 45         & \begin{tabular}[c]{@{}c@{}}0.015 to 50\&\\ 124 to 250+\end{tabular} \\ \hline
-{\begin{tabular}[c]{@{}r@{}}Usable Frequency Range \\ (+3/-12dB) {[}kHz{]}\end{tabular}}  & 0.008 to 100        & { 0.008 to 77 \& 96 to 250+}                    \\ \hline
-{\begin{tabular}[c]{@{}r@{}}Transducer Sensitivity* \\ {[}dB, re 1V/µPa{]}\end{tabular}}  & -187                & { -200}                                         \\ \hline
-{Preamplifier Gain {[}dB{]}}                   & 20 / 33             & { 20 / 33}                                      \\ \hline
-{\begin{tabular}[c]{@{}r@{}}Effective Sensitivity*\\  {[}dB, re 1V/µPa{]}\end{tabular}}   & -167 / -154         & { -180 / -167}  \\  \hline
-\multicolumn{1}{|l|}{\begin{tabular}[c]{@{}l@{}}Price from dealer \\ {[}€{]}\end{tabular}} & \multicolumn{1}{|l|}{1290/1290} & \multicolumn{1}{|l|}{1290/1290} \\ \hline
+\begin{table}[h]\caption{Important specifications of the Aquarian H1a hydrophone.\cite{noauthor_aquarian_nodate}}.\label{Tab:Aquarian}
+\begin{tabular}{l|l}
+Sensitivity     & -190dB re: 1V/µPa (+/- 4dB 20Hz-4KHz) \\\hline
+Useful range    & \begin{tabular}[c]{@{}l@{}}100KHz (not measured above 100KHz, approximate sensitivity\\  @100KHz = -220dB re: 1V/µPa)\end{tabular} \\\hline
+Capacitance     & 25nF \\ \hline
+Operating depth & \textless{}80meters\\ \hline
+Cost            &  159\$ \\ \hline
 \end{tabular}
 \end{table}
 
-If the CRT C57RS has an OCRR of -200 db re 1V/$\mu$Pa over a frequency range of 0.008 to 77kHz. 
-Lets say a Blue whale is producing a moan which from \textit{Table \ref{Tab:WhaleHz}} indicates that the SIL would be 188dB re $\mu$Pa.
-Then $VdB = SIL + OCRR = 188 + (-200) = -12dB$.
-Because VdB is relative to 1V, the voltage output can be described as $V = 10^{VdB/10}$
-which means the voltage output of the hydrophone would then be $V = 10^{-12dB/10} = 63mV$.
-
-% Converting the oscillating mechanical pressure difference (sound waves) to electrical energy \cite{li_piezoelectric_2012}.
-% https://www.researchgate.net/publication/255001750_Piezoelectric_Materials_Used_in_Underwater_Acoustic_Transducers
-% https://archive.org/details/in.ernet.dli.2015.15768/page/n471/mode/2up
-% https://en.wikipedia.org/wiki/Hydrophone#cite_note-3
-%https://se.mathworks.com/help/phased/ref/phased.isotropichydrophone-system-object.html
-
-\subsection{Signal conditioning}
-
-Conditioning the output signal produced by the hydrophone is important in order to only monitor desired values.
-Unwanted frequencies need to be filtered out in order to get a cleaner signal in the range that is desired.
-In lower frequency application, from 0 - 100kHz a simple resistor and capacitor (RC) filters can generally be used \cite{noauthor_low_2013}.
-High pass filters works by filtering out frequencies that are lower than the set cut off frequency ($F_c$) and allows frequencies higher to pass through.
-The $F_C$ point is defined when the voltage output signal is 70.7\% of the input, which is when the output signal is -3dB that of the input.% = $20log(\frac{V_{out}}{V_{in}})$.
-Low pass filters out higher frequencies than the set $F_c$ and allows frequencies that are lower to pass through. 
-For first order filter this occurs at a rate of -20dB/Decade after the set $F_c$, the slope of which can be increased by increasing the order of the filter.
-Examples of the RC filters can be seen in \textit{Figure \ref{fig:PassiveHighLow}}.
-The $F_C$ point is defined when the output signal is 70.7\% of the input, which is when the the voltage gain is at -3dB = $20log(\frac{V_{out}}{V_{in}})$.
+There is no preamplifier or impedance buffer circuit within the Aquarian H1a hydrophone, so the circuit needs to amplify the output signal of the hydrophone.
+The gain of the circuit depends on what the intended use of the hydrophone will be.
+In this case for cetaceans and large aquatic wildlife, Aquarian recommends gain of 40 - 50 dB and for very distant sounds 60dB.
 
 \begin{equation}
-    F_c = \frac{1}{2\pi RC}
-    \label{eq:FC}
+F_c = 1 / 0.000000157 * R  
+\label{eq:fchydro}
 \end{equation}
 
-To find the cutoff frequency of a first order filter circuit \textit{Equation \ref{eq:FC}} can be used.
-Where $R$ is the resistor value in $\Omega$ and $C$ is the capacitor value in farads $F$.
-Since the filter contains a capacitor the output signal will lag behind the input signal and shifts phase compared to the input. 
-The capacitor takes time to charge and causes a lag between the input and the output voltage \cite{noauthor_low_2013}. 
-
-\begin{equation}
-    \theta = \arctan(2 \pi fRC)
-    \label{eq:phasshift}
-\end{equation}
-
-The phase shift angle can be found using \textit{Equation~\ref{eq:phasshift}}.
-Where $\theta$ is the phase shift angle, f is the frequency of the input signal, R is the resistor value on $\Omega$ and C is the capacitor value in Farads $F$.
-
-The time constant of the capacitor which is caused by the charging and discharging effects of the resistor and capacitor gives the circuit a response in the time domain. 
-Which is the elapsed time for the circuit to respond to changes in the the input signal of the circuit.
+The Frequency response of the Aquarian H1a hydrophone can be calculated using \textit{Equation~\ref{eq:fchydro}} \cite{noauthor_aquarian_nodate}. 
+Which is just \textit{Equation~\ref{eq:FC}} where the capacitance of the hydrophone has been added to it.
 
 
-\begin{equation}
-    \tau = RC = \frac{1}{2\pi F_c}
-    \label{eq:Tau}
-\end{equation}
+\subsection{Microcontroller og ADC}
 
-The time constant of the RC filters can be found using \textit{Equation~\ref{eq:Tau}}. 
-Where $\tau$ is the time constant,R is the resistor value on $\Omega$ and C is the capacitor value in Farads $F$ and $F_c$ is the cutoff frequency. 
+\subsubsection{Microcontroller}
+The Teensy3.5 was ultimately chosen for the microcontroller of the system.
+This decision was made for several reasons.
+The Teensy3.5 has two built-in ADC, which means the system might be able to add another hydrophone to it for recording.
+Both ADCs have a maximum resolution of 16bits with a voltage range of 0 - 3.3V, or $\frac{3.3}{2^{16}} \approx 0.00005V \approx 50\mu V$ step size.
+The Teensy also consumes little power, when running with no peripherals active the processor is powered roughly by 50mA at 5V or 0.25W.
+Which is under the requirements set in the beginning of the project.
+As well as it was readily available at the Reykjavik University lab.
 
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.70\textwidth]{graphics/passivehighlow.png}
-    \caption{Passive low and high pass filters RC filter setups.}
-    \label{fig:PassiveHighLow}
-\end{figure}
+\subsubsection{Operational amplifier}
+%\textbf{Mögulega tala um í kafla 2 hvað mikilvægustu þáttir opampa fyrir þetta verkefni var}
 
-Operational amplifiers or op amps are device that amplify voltage signals.
-These devices are heavily used in signal conditioning and filtering.
-The DC gains of op amps is a ratio between the input voltage and the output voltage. 
-
-\begin{equation}
-    A_v = \frac{V{out}}{V{in}} = 1 + \frac{R_f}{R_{in}}
-    \label{eq:DCGain}
-\end{equation}
-
-The gain from a non inverting op amp can be found by \textit{Equation \ref{eq:DCGain}}, $A_v$ is the gain and $R_f$ and $R_{in}$ are the resistor values of the resistor configuration seen on the left hand side in \textit{Figure \ref{fig:invNonInvOPamp}}.
-
-
-\begin{equation}
-    A_v = -\frac{V{out}}{V{in}} = -\frac{R_f}{R_{in}}
-    \label{eq:invertDCGain}
-\end{equation}
-
-The gain from a inverting op amp can be found by \textit{Equation \ref{eq:invertDCGain}}, $A_v$ is the gain and $R_f$ and $R_{in}$ are the resistor values of the resistor configuration seen on the right hand side in \textit{Figure \ref{fig:invNonInvOPamp}}.
+The operational amplifier that was chosen for this project was the OPA1644 from Texas Instruments.
+It was chosen its advertised superior sound quality and low noise spectral density of $\frac{5.1nV}{\sqrt{Hz}}$ at 1kHz.
+%\begin{figure}[h]
+%    \centering
+%    \includegraphics[width=0.7\textwidth]{graphics/noiseDensvsFreq.png}
+%    \caption{\textbf{BÆTA}}
+%    \label{fig:noiseDensvsFreq}
+%\end{figure}
+%Which means 
+%https://www.designnews.com/what-nvvhz-noise
+%\textbf{KYNNA Sér SNR}
+%$$\sqrt{100*10^3Hz - 10Hz} = 3\sqrt{11110}Hz$$
+%$$3\sqrt{11110}Hz*5.1*10^{-9}V = 1.6*10^{-6}V$$
+%$$ 1.6*10^{-6}V * 100 = 1.6*10^{-4}$$
+%Using a 1V output (0dBV) from the op amp the signal to noise ratio is:
+%$$SNR = 20log_{10}(\frac{1V}{1.6*10^{-4}V}) \approx 76dB$$
+It has low distortion of 0.00005\% at 1 kHz and a high slew rate of $\frac{20V}{\mu s}$.
+As well as having a supply range that fits within the voltage range ($\pm2.25~-~\pm18$) of the Teensy analog pins of 3.3V\cite{noauthor_opa164x_nodate}.
+It also has up to 40dB gain at 100kHz as seen in \textit{Figure~\ref{fig:dbvsFreq}}.
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.70\textwidth]{graphics/invNoninv.png}
-    \caption{Inverting and non inverting op amp setups \cite{noauthor_operational_2013}.}
-    \label{fig:invNonInvOPamp}
+    \includegraphics[width=0.7\textwidth]{graphics/dbVsfreq.png}
+    \caption{Gain and phase shift vs frequency\cite{noauthor_opa164x_nodate}}
+    \label{fig:dbvsFreq}
 \end{figure}
 
-When the RC filter and op amps are combined, they form what is called an active filter.
-Examples of which can be seen in \textit{Figures \ref{fig:LowPassFilter},\ref{fig:HighPassFiler}} and their respective frequency and phase shift responses in \textit{Figures \ref{fig:LowPassResponse},\ref{fig:HighPassResponse}}.
-These filters performs the same as an RC filter in terms of its operations and frequency response with the addition of gain control \cite{noauthor_active_2013-1}.
+
+\vspace{4cm}
 
 
-\begin{equation}
-    A_f = \frac{V{out}}{V{in}} = \frac{A_v}{\sqrt{1 + (\frac{f}{f_c})^2}}
-    \label{eq:ActiveLowPass}
-\end{equation}
+\section{Circuit}\label{sec:CircResult}
 
-
-
-
-
-The gain of the first order active low pass filter can be found using \textit{Equation \ref{eq:ActiveLowPass}}.
-Where $A_f$ is the voltage gain, $A_v$ is the dc gain seen in \textit{Equation \ref{eq:DCGain}}, f is the frequency of the signal and $F_c$ is the set cutoff frequency.
-This has the effect of active gain control depending on the frequency of the input.
-When,
-\begin{enumerate}
-    \item $f < F_c$, $A_f \approx A_v$
-    \item $f = F_c$, $A_f = \frac{A_v}{\sqrt{2}} = 0.707 A_v$
-    \item$f > F_c$, $A_f < A_v$
-\end{enumerate}
+%From the project goals the circuit needs to be able to gather data from signals with frequencies between 10 - 100kHz. 
+It was decided to collect signals ranging from 10 - 100kHz, the lower limit which was chosen after seeing \textit{Table~\ref{Tab:WhaleHz}} and the dominant frequencies, the higher limit was chosen because in the project goal was to maximize the absolute limits of the device.
+This could be significantly reduced since most dominant frequencies are lower than 30kHz, however there are vocalization that go up to and over 100kHz so it is interesting to see if the Teensy was capable of recording these high frequency signals.
+The Aquarian H1a hydrophone data sheet specifies that for cetacean vocalization recording the gain of the preamplifier needs to be between 40 - 50 dB\cite{noauthor_aquarian_nodate}.
+The circuit will there for consist of active low pass filter and high pass filter, a scaling summing amplifier and an inverting op amp.
+It will then connect to the Teensy 3.5 built-in ADC.\\
+\indent \textit{Figure \ref{fig:Opamp1}} shows the first part of the circuit.
+The output of the hydrophone is first connected to a high pass filter, where the capacitance, 25nF of the hydrophone is used as the capacitor in the high pass filter.
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.70\textwidth]{graphics/lowPassFilter.png}
-    \caption{Active first order low pass filter \cite{noauthor_active_2013-1}.}
-    \label{fig:LowPassFilter}
+    \includegraphics[width=0.70\textwidth]{graphics/OPamp1.png}
+    \caption{The first part of the circuit where the output of the hydrophone first filtered using an active high pass filter and then connected to a operational amplifier and amplifying the signal by 20.}
+    \label{fig:Opamp1}
 \end{figure}
+
+\vspace{4cm}
+
+The desired value for the high pass filter was 10Hz and using \textit{Equation~\ref{eq:fchydro}} provided in the data sheet, the resistor value was estimated.   
+$$F_c = \frac{1}{0.000000157 * 636k\Omega} = 10Hz$$
+Using standard resistor values, the closest resistor value is 620k which yields a cut off frequency of 10.26Hz.
+The gain over the active high pass filter can be represented using \textit{Equation \ref{eq:DCGain}} and \textit{Equation \ref{eq:ActiveHighPass}}. 
+Where $A_{V1} = 1 + \frac{19k\Omega}{1k\Omega} = 20$.
+$$A_f = \frac{(1+\frac{19k}{1k})(\frac{f}{10.26Hz})}{\sqrt{1 + (\frac{f}{10.26Hz})^2}} \approx 20$$
+Which is approximately equal to 20, as seen in \textit{Figure~\ref{fig:AVhighpass}} over the entire bandwidth.
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.70\textwidth]{graphics/lowPassResponse.png}
-    \caption{First order RC low pass frequency response and phase shift \cite{noauthor_low_2013}}
-    \label{fig:LowPassResponse}
+    \includegraphics[width=0.5\textwidth]{graphics/Av_Highpass.png}
+    \caption{The gain of the operational amplifier with the active high pass filter.}
+    \label{fig:AVhighpass}
 \end{figure}
 
-\begin{equation}
-    A_f = \frac{V{out}}{V{in}} = \frac{A_v(\frac{f}{f_c})}{\sqrt{1 + (\frac{f}{f_c})^2}}
-    \label{eq:ActiveHighPass}
-\end{equation}
+\vspace{4cm}
 
-The gain of the first order active high pass filter can be found using \textit{Equation \ref{eq:ActiveHighPass}}.
-Where $A_f$ is the voltage gain, $A_v$ is the dc gain seen in \textit{Equation \ref{eq:DCGain}}, f is the frequency of the signal and $F_c$ is the set cutoff frequency.
-This has the effect of active gain control depending on the frequency of the input.
-When,
-\begin{enumerate}
-    \item $f < F_c$, $A_f < A_v$
-    \item $f = F_c$, $A_f = \frac{A_v}{\sqrt{2}} = 0.707 A_v$
-    \item$f > F_c$, $A_f \approx A_v$
-\end{enumerate}
-
+\textit{Figure \ref{fig:Opamp2}} shows the active low pass filter configuration which has a cut off frequency of $\approx$ 100kHz and a gain of 2.5.
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.60\textwidth]{graphics/highPassFilter.png}
-    \caption{Active first order low pass filter \cite{noauthor_active_2013}.}
-    \label{fig:HighPassFiler}
+    \includegraphics[width=0.7\textwidth]{graphics/OPamp2.png}
+    \caption{The second operational amplifier, where the signal is first filtered by the active low pass filter as well as amplifying the signal.}
+    \label{fig:Opamp2}
 \end{figure}
+
+The desired value for the high pass filter was 100kHz and using \textit{Equation~\ref{eq:FC}} and choosing a resistor value of 160$\Omega$, the capacitor value was estimated.   
+$$F_c = \frac{1}{2\pi 9.9nF 160\Omega} = 100kHz$$
+Using standard capacitor values, the closest capacitor value is 10nF which yields a cut off frequency of 99472Hz.
+The gain over the active low pass filter can be represented using \textit{Equation \ref{eq:DCGain}} and \textit{Equation \ref{eq:ActiveLowPass}}. 
+Where $A_{V1} = 1 + \frac{1.5k\Omega}{1k\Omega} = 2.5$.
+$$A_f  = \frac{1 + \frac{1.5k\Omega}{1k\Omega}}{\sqrt{1 + (\frac{f}{99471.8Hz})^2}}$$
+Which is approximately equal to 2.5 with frequencies until 20kHz, as seen in 
+\textit{Figure~\ref{fig:AVlowpass}}.
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.60\textwidth]{graphics/highPassResponse.png}
-    \caption{First order RC high pass frequency response and phase shift \cite{noauthor_high_2013}}
-    \label{fig:HighPassResponse}
+    \includegraphics[width=0.6\textwidth]{graphics/Av_Lowpass.png}
+    \caption{The gain of the operational amplifier with the active low pass filter.}
+    \label{fig:AVlowpass}
 \end{figure}
 
-\clearpage
-
-Decibel is a relative unit of measure, used in electronic circuit to express ratio of input values to output value on a logarithmic scale.  
-
-\begin{equation}
-    dB = 20log\frac{V{out}}{V{in}}
-    \label{eq:DBGAIN}
-\end{equation}
-
-The gain in decibel is found by \textit{Equation \ref{eq:DBGAIN}}, where $V{out}$ is the output root mean square (rms) voltage of the circuit and V{in} is the input rms voltage.
-
-Summing amplifiers or summing inverter circuits are useful when combining two or more signals together.
-An example of the circuit can be seen in \textit{Figure \ref{fig:SummingOpAmp}}, where $R_1 = R_2 = R_3$ would be the same value.
-The circuit yields a voltage output that is equal to all the input voltages summed together, multiplied with the unity gain of the amplifier.
-This is possible due to the virtual ground that is created by a non inverting op amp configuration\cite{noauthor_summing_2013}. 
-This circuit is especially useful when there is a need to shift the signal from an oscillating AC voltage to an oscillating DC voltage.
+\textit{Figure~\ref{fig:Opamp3}} shows the scaling summing operational amplifier which is used to shift the input signal by 1.65Vdc. 
 
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.70\textwidth]{graphics/SummingOpAmp.png}
-    \caption{Scaling summing amplifier circuit \cite{noauthor_summing_2013}}
-    \label{fig:SummingOpAmp}
+    \includegraphics[width=0.70\textwidth]{graphics/OPamp3.png}
+    \caption{The scaling summing operational amplifier, where the signal is shifted by 1.65Vdc}
+    \label{fig:Opamp3}
 \end{figure}
 
 
-\begin{equation}
-    I_F = I_1 + I_2 + I_3 = -[\frac{V_1}{R_{1}} + \frac{V_2}{R_{2}} + \frac{V_3}{R_{3}}]
-\end{equation}
+Which is important since the analog pins of the Teensy 3.5 have a voltage range of 0-3.3V.
+There for the signal needs to be shifted by 3.3V/2 = 1.65Vdc.
+%To estimate the voltage output of the op amplifier, \textit{Equation \ref{eq:invertDCGain}} and \textit{Equation \ref{eq:ScalingGain}} was used.
+%For an input signal of 10mV amplitude, of the scaling summing op amp would be \textbf{KANSKI EKKI HAFA ?!?!?!} 
+%$$V_{out} = -180\Omega(\frac{1.65V}{180\Omega} + \frac{\pm 10mV}{90\Omega}) = \pm $$
+A voltage divider was needed to determine the resistor values for the 1.65Vdc which would ultimately put some design restraints on R16 and R13 seen in \textit{Figure~\ref{fig:Opamp3}}.
+Firstly it was decided to have $R10 = 100\Omega$  and $R11 = 225\Omega$ to start off the calculations.
+From that R14 could be calculated as $180\Omega$.
+$$3.3V = \frac{\frac{1}{\frac{1}{180\Omega}+\frac{1}{225\Omega}}}{100\Omega+\frac{1}{\frac{1}{180\Omega}+\frac{1}{225\Omega}}} = 1.65V$$
+Which was changed to $160\Omega$ because of the addition of R16 and using Multisim it was determined that $160\Omega$ would yield the closest results to the 1.65Vdc.
+The gain for the input signal from the low pass filter is found by using \textit{Equation \ref{eq:invertDCGain}}
+$$A_{V3} = -\frac{180\Omega}{90\Omega} = -2$$
+The operational amplifier is in an inverting configuration which turns positive voltage signals to negative.
+This needs to be rectified, since the Teensy 3.5 analog pins do not have a negative voltage range.
+Which is done by another inverting operational amplifier, seen in \textit{Figure~\ref{fig:Opamp4}}.
 
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.70\textwidth]{graphics/OPamp4.png}
+    \caption{The final operational amplifier, which is in an inverting configuration.}
+    \label{fig:Opamp4}
+\end{figure}
 
-$$-V_{out} = \frac{R_F}{R_{1}}V_1 +\frac{R_F}{R_{2}}V_2 +\frac{R_F}{R_{3}}V_3$$
+\fxfatal{Bæta við 330ohm viðnámi í Teensyinn}
 
-Scaling summing amplifiers are in the same configuration as summing amplifiers with one main difference which is that resistor values are not equal to one another.
-This enables individual scaling of each signal, which means that each input signal can have different gain values.
+The gain of inverting amplifier is found using \textit{Equation \ref{eq:invertDCGain}}.
+$$ A_{V4} = -\frac{1k \Omega}{1k \Omega} = -1$$
+%The total circuit therefore consists of four operational amplifiers, high pass and low pass filter.
+%\textbf{MÖGULEGA BÆTA JÖFNU 'I KAFLA 2}
+The total gain of the circuit for the input signal is found by.
 
-\begin{equation}
-    V_{out} = -R_F(\frac{V_1}{R_{1}} +\frac{V_2}{R_{2}} +\frac{V_3}{R_{3}} + ...)
-    \label{eq:ScalingGain}
-\end{equation}
+$$A_{tot} = A_1A_1A_2A_3A_4 = 20*2.5*-2*-1 = 100$$
 
-Finding the output voltage can be found using \textit{Equation \ref{eq:ScalingGain}}.
-Where $V_out$ is the output voltage, $R_f$ is the voltage across the input and output of the op amp, $R_1, R_2$ and $R_3$ are the resistor value of the different input signals.
-Lets take for an example of an AC signal that needs to be shifted so that there is no negative voltage, see \textit{Figure \ref{fig:sumCircuitexamp}} for the layout of the circuit.
-The AC signal (U1B\_out) would along with the shifting signal, in this case a DC voltage of 1.65V.
-The AC signal is scaled by a factor of A = $\frac{180\Omega}{90\Omega}$ = 2.
-How ever the DC voltage signal only scaled by a factor of A = $\frac{180\Omega}{180\Omega}$ = 1.
-The voltage output, U1C\_out can be seen in \textit{Figure \ref{fig:SummingOpAmpShift}} as the red signal and the input signal, U1B\_out is represented by the white signal.
-This creates a problem though, the output signal is shifted by $90\deg$ and the scaling op amp is in a inverting configuration the signal is inverted, so it is negative.
-Both are fixed by the addition of U1D, an inverting amplifier.
-Which puts the signal back in phase with the original input signal as well as it now is positive, as seen in \textit{Figure \ref{fig:SummingOpAmpShift1}} where the red signal is U1D\_out the output of the inverting amplifier and the white signal is the original input signal U1B\_out.
+Finding the total dB gain of the circuit can be found by \textit{Equation \ref{eq:DBGAIN}}, which is confirmed using Multisim as seen in \textit{Figure~\ref{fig:bode}}.
+
+$$dB = 20log(100) = 40dB$$
 
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.70\textwidth]{graphics/sumCircuitexamp.png}
-    \caption{Example of a scaling amplifier circuit where two signals are combined to create a shift of the original signal. U1C represents the scaling amplifier, U1D is a normal inverting amplifier.}
-    \label{fig:sumCircuitexamp}
+    \includegraphics[width=1.0\textwidth]{graphics/bodeNew.png}
+    \caption{The bode plot of the circuit.}
+    \label{fig:bode}
 \end{figure}
 
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.70\textwidth]{graphics/summingShift.png}
-    \caption{Example of the signal shift of a summing Op Amp circuit, the red signal represents the voltage output U1C\_out and the white signal is the input AC signal U1B\_out.}
-    \label{fig:SummingOpAmpShift}
-\end{figure}
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.70\textwidth]{graphics/summingShift1.png}
-    \caption{Example of the signal shift of a summing Op Amp circuit, the red signal represents the voltage output U1D\_out and the white signal is the input AC signal U1B\_out}
-    \label{fig:SummingOpAmpShift1}
-\end{figure}
+The bode plot of the circuit can be seen in \textit{Figure~\ref{fig:bode}}.
+It shows  circuit has a dB gain of $\approx$ 40, for the entire bandwidth of 10 - 100kHz.
 
 
-\clearpage
 
-\fxfatal{SKOÐA H'ER-----------------------}
-%ADC CHARECTERISTICS https://forum.pjrc.com/threads/44929-Teensy-3-5-ADC-characteristcs
-%SD POSSIBLE https://forum.pjrc.com/threads/45993-Teensy-3-6-ADC-DMA-Question
-%Teensy36ISRLogger Skilar með 8gb kortinu 6.67MB/s
-%https://forum.pjrc.com/threads/49975-writing-binary-file-on-SD-card-in-Teency-3-5
+%Several simulations of the circuit were performed in Multisim.
+%Which yielded the results seen in \textit{Figure~\ref{fig:InpVsOut10} -~\ref{fig:bode}}.
+%Using the setup of the circuit seen in \textit{Figures~\ref{fig:Opamp1}~\ref{fig:Opamp2}~\ref{fig:Opamp3}~\ref{fig:Opamp4}}. 
+%\textbf{LAGA MYNDIR EFTIR testinu}
 
-\subsection{Microcontroller/Microcomputer}%Breyta um titil
+%\begin{figure}[h]
+%    \centering
+%    \includegraphics[width=1.0\textwidth]{graphics/InpVsOut10hz.png}
+%    \caption{With an input signal of 10mV RMS, at 10HZ.}
+%    \label{fig:InpVsOut10}
+%\end{figure}
 
-For this project the most important factors when choosing a microcontroller/microcomputer were regarding the ADC specifications as well as the power consumption.\textbf{VITNA Í GOALS} tala um upplausn bit, power og fleira
+%The simulation was run using an AC voltage generator which was set to output 10mV RMS and 10Hz.
+%Which yielded the results seen in \textit{Figure~\ref{fig:InpVsOut10}}.
+%\textbf{TALA UM MEIRA}
 
-\subsubsection{Arduino}
+%\begin{figure}[h]
+%    \centering
+%    \includegraphics[width=1.0\textwidth]{graphics/InpVsOut100khz.png}
+%    \caption{With an input signal of 10mV RMS, at 100kHZ.}
+%    \label{fig:InpVsOut100k}
+%\end{figure}
 
-Arduino Uno is a programmable board that uses the 8-bit ATmega328p microcontroller.
-Which is probably one of the most popular microcontroller in the world and the Arduino board is one of the among the best beginner boards to use because of the shear amount of documentation and tutorials for it.
-The microcontroller main features can be seen in \textit{Table \ref{Tab:ATmega328p}}.
+%\textbf{Bæta VIÐ 50khz multisim testi}
 
+%The simulation was run using an AC voltage generator which was set to output 10mV RMS and 100kHz.
+%Which yielded the results seen in \textit{Figure~\ref{fig:InpVsOut100k}}.
+%\textbf{TALA UM MEIRA}
 
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.70\textwidth]{graphics/ArduinoUNo.jpg}
-    \caption{The Arduino Uno \cite{noauthor_arduino_nodate}}
-    \label{fig:Arduino}
-\end{figure}
-
-\begin{table}[h]\caption{Main features of the ATmega328p \cite{noauthor_atmega328p_nodate}}.\label{Tab:ATmega328p}
-\centering
-    \begin{tabular}{|l|l|}
-    \hline
-        Parameters                        & Value                \\ \hline
-        Flash memory [KB]                 & 32                      \\ \hline
-        ADC resolution [bit]              & 10                   \\ \hline
-        ADC sample speed [ksps]           & 15                     \\ \hline
-        Digital Communication Peripherals & 1-UART, 2-SPI, 1-I2C \\ \hline
-        Operating Voltage [V]             & 1.8 to 5.5           \\ \hline
-        Max power consumption [W]         & 0.66               \\ \hline
-        Price                             & 33\$                \\ \hline
-    \end{tabular}
-\end{table}
-
-
-The Arduino has 14 digital input/output (I/O), and 6 can be used as pulse width modulation (PWM) outputs as well as 6 analog inputs.
-The board has a USB connector which the board is programmed through as well as power it.
-Arduino also provides its users with a free open source Arduino software integrated development environment (IDE).  \cite{noauthor_arduino_nodate}.
-As well as a 6-channel 10-bit resolution ADC, with a conversion time of 65 to 260 $\mu s$ and up to 15 kilo samples per second (ksps) .
-The board has a maximum current draw of 200mA, so at a operating voltage of 3.3V the power consumption is maximum 0.66W\cite{noauthor_atmega328p_nodate}.
-
-%\textit{ It has 14 digital input/output pins (of which 6 can be used as PWM outputs), 6 analog inputs, a 16 MHz ceramic resonator (CSTCE16M0V53-R0), a USB connection, a power jack, an ICSP header and a reset button. It contains everything needed to support the microcontroller; simply connect it to a computer with a USB cable or power it with a AC-to-DC adapter or battery to get started.. You can tinker with your Uno without worrying too much about doing something wrong, worst case scenario you can replace the chip for a few dollars and start over again. "Uno" means one in Italian and was chosen to mark the release of Arduino Software (IDE) 1.0. The Uno board and version 1.0 of Arduino Software (IDE) were the reference versions of Arduino, now evolved to newer releases. The Uno board is the first in a series of USB Arduino boards, and the reference model for the Arduino platform; for an extensive list of current, past or outdated boards see the Arduino index of boards.}\cite{noauthor_arduino_nodate}.
-
-
-\subsubsection{Raspberry Pi}
-
-Unlike the Arduino the Raspberry Pi is not only a programmable microcontroller, but rather a single board microcomputer and is the third most sold computer brand worldwide \cite{noauthor_faqs_nodate}.
-Currently there are 13 different model of the Raspberry Pi's with varying pricing and capabilities  some of which can be seen in \textit{Table \ref{Tab:RaspbModel}}. 
-Raspberry Pis can be used with several operating system, for instance Linux, FreeBSD or a Raspberry pi OS that can come with or without a desktop.
-
-\begin{center}
-\begin{table}[h]\caption{Comparison of different Raspberry Pi models\cite{noauthor_faqs_nodate}}.\label{Tab:RaspbModel}
-    \begin{tabular}{|l|l|l|l|c|}
-    \hline
-    \textbf{\begin{tabular}[c]{@{}l@{}}Raspberry Pi\\ Product\end{tabular}}        & \textbf{SoC} & \textbf{Speed} &  \textbf{\begin{tabular}[c]{@{}l@{}}Recommended\\ power supply \\ current capacity\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}Typical bare-\\board current \\ consumption\end{tabular}} \\ \hline
-     Model A+   & BCM2835      & 700MHz         & 0.7A          & 0.2A            \\ \hline
-     Model B+   & BCM2835      & 700MHz         & 1.8A          & 0.33A            \\ \hline
-     2 Model B  & BCM2836/7    & 900MHz         & 1.8A          & 0.5A                 \\ \hline
-     3 Model B  & BCM2837A0/B0 & 1200MHz        & 2.5A          & 0.4A                  \\ \hline
-     3 Model A+ & BCM2837B0    & 1400MHz        & 2.5A          & 0.35A                  \\ \hline
-     3 Model B+ & BCM2837B0    & 1400MHz        & 2.5A          & 0.5A                  \\ \hline
-     4 Model B  & BCM2711      & 1500MHz        & 3.0A          & 0.6A                  \\ \hline
-     Zero       & BCM2835      & 1000MHz        & 1.2A          & 0.1A                   \\ \hline
-     Zero W     & BCM2835      & 1000MHz        & 1.2A          & 0.15                  \\ \hline
-     Zero WH    & BCM2835      & 1000MHz        & 1.2A          & 0.15                  \\ \hline
-     400        & BCM2711      & 1800MHz        & 3.0A          & 0.8A                  \\ \hline
-    \end{tabular}
-\end{table}
-\end{center}
-
-Raspberry recommends powering the Raspberry Pi using 5V.
-This means that the Raspberry Pi uses quite a bit of power,Raspberry Pi Zero (6W) Raspberry Pi 2 B (9W), Raspberry Pi 3(12.5W).
-Taking a closer look at the Raspberry Pi Zero since it fits within the power consumption specifications.
-The microcomputer costs around 30 \$, has a 1GHz single-core CPU, 512MB RAM, Mini HDMI port, Micro USB OTG port,
-Micro USB power and HAT-compatible 40-pin header.
-It has i2c, SPI, PWM and serial pins, all GPIO pins are digital and can be configured to be input or output pins.
-which can be seen in \textit{Figure \ref{fig:RPIGPIO}}.
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.70\textwidth]{graphics/ZeroGPIO.png}
-    \caption{GPIO of the Raspberry Pi Zero \cite{noauthor_gpio_nodate}}
-    \label{fig:RPIGPIO}
-\end{figure}
-
-The Raspberry Pi is however limited in the fact that it has no analog I/O pins, meaning that it can not convert analog to digital signal on its own.
-However there is a way to record audio, which is done through sound card.
-Several solutions have already been made available for this such as the Audio Injector stereo sound card which can directly connect to the general purpose input output (GPIO) pins of Raspberry Pi2, Pi3 and Pi Zero.
-The card is made for an electret microphone and can supply the Raspberries with input and output audio.
-The card has stereo RCA input and output, a headphone jack and a preamplifier, a volume knob and a low latency of 540 $\mu$s for both the input and output \cite{noauthor_rpi_nodate}.
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.70\textwidth]{graphics/rpisoundcard.jpg}
-    \caption{The Audio Injector stereo sound card \cite{noauthor_rpi_nodate}}
-    \label{fig:rpisoundcard}
-\end{figure}
-
-
-\subsubsection{Teensy}
-
-Teensy's are the same as Arduino as being a USB programmable single board microcontroller.
-The boards are can be programmed with multiple of programs such as the Arduino IDE software and can use both the examples and libraries that come with the program.
-This is possible through an addition called Teensyduino which allso includes a large library for programing.
-Other programs include Visual Micro, which enables programming on Visual Studio Code, PlaformIO IDE and CircuitPython (only available on Teensy 4.X) which allows python programming.
-There are multiple models available, ranging in price, size and capabilities as seen in \textit{Table \ref{Tab:TeensyModel}}.
-
-
-\begin{table}[h]\caption{Comparison of different Teensy models\cite{noauthor_teensy_nodate}}.\label{Tab:TeensyModel}
-\begin{tabular}{|l|l|l|l|l|}
-\hline
-\multicolumn{1}{|c|}{\textbf{Specification}} & \multicolumn{1}{c|}{\textbf{Teensy 2.0}}                               & \multicolumn{1}{c|}{\textbf{Teensy 3.0}}                                            & \multicolumn{1}{c|}{\textbf{Teensy 3.5}}                                                  & \multicolumn{1}{c|}{\textbf{Teensy 4.1}}                                              \\ \hline
-Processor & \begin{tabular}[c]{@{}l@{}}ATMEGA32U4\\ 8 bit AVR\\ 16 MHz\end{tabular} & \begin{tabular}[c]{@{}l@{}}MK20DX128\\ 32 bit ARM\\ Cortex-M4\\ 48 MHz\end{tabular} & \begin{tabular}[c]{@{}l@{}}MK64FX51\\2VMD12\\ 32-bit ARM\\ Cortex- M4\\ 120MHz\end{tabular} & \begin{tabular}[c]{@{}l@{}}MIMXRT1062\\ 32 bit ARM\\ Cortex-M7\\ 600 MHz\end{tabular} \\ \hline
-\begin{tabular}[c]{@{}l@{}}Flash Memory\\ {[KB]}\end{tabular} & 32 & 131 & 512 & 7936 \\ \hline
-%\begin{tabular}[c]{@{}l@{}}RAM Memory\\ (Bytes)\end{tabular}& 2560 & 16384 & 256K & 1024K \\ \hline
-%\begin{tabular}[c]{@{}l@{}}EEPROM\\ (Bytes)\end{tabular} & 1024 & 2048 & 4096 & 4096 \\ \hline
-\begin{tabular}[c]{@{}l@{}}Direct Memory\\ Access [Channels]\end{tabular}  & - & 16 & 16 & 32 \\ \hline
-%I/O [Pins, V] & 25, 5 Volt & 34, 3.3 V & \begin{tabular}[c]{@{}l@{}}64, 3.3V,\\ 5V tol\end{tabular} &\begin{tabular}[c]{@{}l@{}}55, 3.3V,\\ 5V tol\end{tabular}   \\ \hline
-\begin{tabular}[c]{@{}l@{}}ADC resolution\\ {[bit]}\end{tabular} & 10 & 16 & 16   & 12     \\ \hline
-%PWM & 7 & 10 & 20 & 35 \\ \hline
-UART,I2C,SPI & 1,1,1 & 3,1,1 & 6,3,3 & 8,3,3 \\ \hline
-Price [\$] & {16.00} & {19.00} & {24.25} & {26.85} \\ \hline
-\end{tabular}
-\end{table}
-
-Taking a closer look at the comparison between the Teensy 3.5 and Teensy 4.1.
-Teensy 3.5 has 2 16bit, 416 ksps (in 16 bit mode) and 818.3 ksps for (<= 13 bit mode), 12MHz ADC\cite{freescale_semiconductor_kinetis_2021-1} and has a voltage range of 0-3.3V as well as some are 5V tolerant while the Teensy 4.1 offers 12 bits of resolution and 20MHz (samples per second is not specified) a range of 0 - 3.3V.
-%The Teensy 3.5 also has an option of using pins connected to differential amplifiers, which can decrease unwanted noise of input analog signals.
-%Teensy 3.5 also has two Digital to analog converters (DACs) output.
-%Which makes it capable of outputting audio signals.
-Both Teensys have a voltage regulator which reduces the 5V VUSB / VIN power to 3.3V for use by the main processor and most other parts. Additional circuitry may be powered from the 3.3V pin.
-The recommended maximum for external 3.3V usage is 250mA or 0.825W.
-When Teensy 3.5 is running at 120MHz processor speed it consumes roughly 50mA or 0.165W.
-While the Teensy 4.0 consumes roughly 100mA or 0.33W at 600MHz processor speed.
-%When power is not applied to VUSB or VIN, it is however possible to run by externally applying 3.3V power.
-%There are two ways to power the Teensy's, the first one is to power them via USB.
-%The Teensys are equipped with a voltage regulator which regulates the USB voltage of 5V down to 3.3V.
-%They can also be powered straight to a VIN pin, which is recommended as a maximum of 3.3V and a 250mA %draw.
-\cite{noauthor_teensy_nodate-1}%4.1
-\cite{noauthor_teensy_nodate-2}.%3.5
-
-\fxfatal{Finna titil}
-\subsection{finna titil}
-
-\subsubsection{Direct memory access}
+\subsection{Direct memory access}
 
 When transferring data between main memories and I/O devices, direct memory access (DMA) can be utilized.
 The benefit of using DMA for the data transfer is that it minimizes or eliminates the processors involvement with the data transfer.

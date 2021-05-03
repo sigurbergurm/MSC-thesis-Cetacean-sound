@@ -1,12 +1,5 @@
 \chapter{Discussion}
 
-
-
-
-
-
-
-
 \section{Summary}
 
 This thesis set out to look into the possibility of using a small, energy efficient microcontroller to record cetacean vocalizations.
@@ -18,18 +11,18 @@ So a decision was made to directly set the registers.
 The final system operates by having a PDB timer trigger the ADC at precise intervals, and a DMA channel takes the data to memory where it can later be sent to the SD card.
 
 Aquarian H1A hydrophone sets some recommendations for the preamplifier circuit. 
-Such as the gain for cetacean monitoring (40dB gain ) as well as the maximum bandwidth (10Hz - 100kHz) of the hydrophone, which can be seen in \textit{Section~\ref{sec:AquarionHydro}}.
+Such as the gain for cetacean monitoring (40dB gain ) as well as the maximum frequency of 100kHz, which can be seen in \textit{Section~\ref{sec:AquarionHydro}}.
 The preamplifier was designed with that in mind and in \textit{Section~\ref{sec:CircResult}}, there it is shown that for both the gain required, as well as filtering signals that are not within the bandwidth of the hydrophones sensing abilities.
 
 Several tests were made to assess the capabilities of the final device.
 First tests were regarding the capabilities of the PDB timer and its capability to trigger at a set frequency.
 It is able to be triggered as fast as 1.2MHz.
-How ever that is out of ADC specs.
+How ever that is out of the ADC specs.
 The system is able to run at 300kHz sampling frequency, with a sampling jitter of 69.6ns.
-Which is insufficient for 16bits \fxfatal{SKOÐA BETur} in order to maintain a 0.5LSB standard deviation.
+Which is insufficient for 16bits \fxfatal{SPurja baldur} %in order to maintain a 0.5LSB standard deviation.
 %http://www.audiophilleo.com/zh_hk/docs/Dunn-AP-tn23.pdf - sampling jitter
 
-Several noise tests were performed on both the entire device as well as signal generator.
+Several noise tests were performed on both the entire device as well as the signal generator.
 There was no special shielding used and the ground for the probe could act as an antenna these factors could all attribute to some extrinsic noise generation.
 How ever in \textit{Figure~\ref{fig:Noise20k10mVpp100kband}} shows that an input signal of nominal value is not lost in noise, with a 75dB SNR which is more than sufficient as \textit{section~\ref{sec:DigitalAudiRec}} demonstrates.
 
@@ -38,13 +31,12 @@ This was done to see if the device was actually capable of 300kHz sampling.
 In \textit{Figures~\ref{fig:Teensy10k100k},\ref{fig:Teensy20k200k} and~\ref{fig:Teensy30k300k}} the recorded results can be seen.
 The device appears to be capable of sampling up to 300kHz, where it follows each signal nicely and has 10 data points for each period.
 
-Two more similar test were performed, since at 10$mV_{pp}$ the signal had a lot of variation compared to the actual signal \fxfatal{KANSKI L'ATA INN MYND}.
-Which could cause some errors.
+Two more similar test were performed, since at 10$mV_{pp}$ the signal had a lot of variation compared to the actual signal, which could cause some errors.
 So two more tests were performed, where the input signal was connected directly to the Teensy through a resistor.
 Two signals were tested, first a sine wave with a voltage offset of 1.65V, 1$V_{pp}$ so that the Teensy would not receive negative voltages and a frequency of 50kHz.
 The comparison between the results from the Teensy compared to what the oscilloscope received can be seen in \textit{Figure~\ref{fig:OscilloCompTeensyAC}}.
 The same test was performed with a DC 1.65V, the results can be seen in \textit{Figure~\ref{fig:OscilloCompTeensyAC}}. 
-The results are quite good, the Teensy is able to keep up with the signal and give accurate results.
+The results are quite good, the Teensy is clearly able to keep up with the signal and give accurate results.
 There is a difference between the mean, maximum and minimum voltages. 
 But that could be the results of not being exactly taken at the same time as well as the oscilloscope samples at a much higher rate which could influence the outcome.
 
@@ -59,8 +51,8 @@ Currently the device is still in prototype stages where it is still on a breadbo
 The preamplifier circuit is configured to have the Aquarian H1a hydrophone as it source for signal sensing, which can easily be replaced to a different one.
 The bandwidth of signals can also be altered easily by changing the high- and low pass filter setup.
 Since dominant frequencies of cetacean vocalizations of whales found near Iceland seem to be under 30kHz.
-It also consumes very little power, where the op amps in total need around 0.165W which is the same as the Teensy.
-So in total the device consumes roughly 0.33W at 3.3V, which is way under the requirements set at the start.
+It also consumes very little power, where the op amps in total need around 0.165W and the Teensy draws 0.25W so in total the total power consumption should be around 0.415W which is way under the requirements.
+So in total the device consumes roughly 0.415W at 3.3V, which is way under the requirements set at the start.
 The current configuration of the project costs around 190\$ with the hydrophone, op amps and the Teensy3.5.
 It is hard to find a price for a complete system capable of recording cetacean vocalization but considering that devices such as the RUDAR uses the CRT C57 hydrophone which costs around 1290€.
 It is safe to say the total cost of the recording device is low cost relative to other products commercially available.

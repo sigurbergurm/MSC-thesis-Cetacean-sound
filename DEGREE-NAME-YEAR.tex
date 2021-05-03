@@ -265,15 +265,15 @@
 %% TODO: turn this into more sensible macros to avoid confusion --foley
 \newML{AbstractText}{
 
-With ever increasing pressure on wildlife caused by humans, it becomes ever so more important to monitor the changes that might occur in the behaviour and habitats of effected animals.
-As well as identifying the factors causes disturbances to the animal, in order to minimize or eliminate them.
-Therefor creating new or improving old methods for researching and monitoring the impacts on the animals, which is crucial for the preservation of wildlife.
-This thesis is a part of a larger project that proposes the design of a self powering buoy with vocalization recording capabilities and can transfer that data onshore to researchers and will focus specifically focus on the vocalization recording aspect.
-The proposed recording device consists of the Teensy 3.5, Aquarian H1a hydrophone which is able to record vocalization signals up to 100kHz.
-The device has a low power consumption of 0.33W and a low cost of 190\$.
-The device uses a programmable delay block in order to trigger the built in analog to digital converter to take measurements and direct memory access is used to transfer the converted digital value to a buffer which later writes the data onto a SD card.
-Currently the device can sample signals at 16 bits resolution is able to record up to 300ksps which should allow it to record signals up to 150kHz.
-This thesis will show that the proposed device is capable of aiding cetacean researchers and could potentially aid with conservation efforts.
+With ever increasing pressure on wildlife caused by humans, it becomes ever so more important to monitor the changes that might occur in the behavior and habitats of affected animals.
+As well as identifying the factors that causes disturbances to the animal, to minimize or eliminate them.
+Therefore creating new or improving old methods for researching and monitoring the impacts on the animals, which is crucial for the preservation of wildlife.
+This thesis is a part of a larger project that proposes the design of a self-powering buoy with vocalization recording capabilities and can transfer that data onshore to researchers and will focus specifically focus on the vocalization recording aspect.
+The proposed recording device consists of the Teensy 3.5, Aquarian H1a hydrophone which can record vocalization signals up to 100kHz.
+The device has a low power consumption of 0.415W and a low cost of 190\$.
+The device uses a programmable delay block to trigger the built-in analog to digital converter to take measurements and direct memory access is used to transfer the converted digital value to a buffer which later writes the data onto a SD card.
+Currently, the device can sample signals at 16 bits resolution can record up to 300ksps which should allow it to record signals up to 150kHz.
+
 
 }  
 % ipsum generaes text text
@@ -285,7 +285,7 @@ Einnig þarf þá að reyna að finna þá áhrifavalda sem trufla dýrin, til a
 Þessi ritgerð fjallar um mismunandi möguleika á óvirku hljóðvistareftirliti fyrir rannsóknir á hvölum.
 Þessi ritgerð er hluti af stærra verkefni þar sem tillagan er að nota sjóbauja sem getur framleitt rafmagn fyrir orkulítlum raftækjum sérhannaðar í hvalahljóðs upptöku og getur síðan send þau gögn á land, en ritgerðin mun fjalla sérstaklega um hljóðupptöku þátt sjóbaujunar.
 Tillagan af því tæki er að nota Teensy 3.5, og Aquarian H1a vatns hljóðnema sem getur tekið upp hljóðmerki upp að 100kHz.
-Tækið notar lítið rafmagn eða um 0.33W og kostar lítið eða 190\$.
+Tækið notar lítið rafmagn eða um 0.415W og kostar lítið eða 190\$.
 Tækið notar forritanlega bið blokk til þessa að kveikja á hljóðrænum-stafrænum umbreyti til að taka mæligildi og notar síðan beinan minnisaðgang til þess að geyma þau gildi í biðminni sem seinna skrifar gögnin á SD kort.
 Eins og er getur tækið tekið upp merki með 16bita upplausn á 300ksps, sem gerir því fræðilega kleyft að taka upp merki allt að 150kHz.
 Þessi ritgerð mun sýna fram á að tækið sem lagt er til er hægt að nota í að hjálpa hvala rannsökurum við rannsóknir og getur hjálpað í þágu náttúrverndar.
@@ -489,13 +489,16 @@ Introduction to the first part.
 
 
 
-
+\fxfatal{LAGA REFERENCEA}
 %% ---------------------------------------------------------------
 \printbibliography{} %%RUM: "References"
 
 %% If appendices are needed, uncomment the following line
 %% and include the appendices in separate files
 \appendix{}%%RUM: "Appendicies (as appropriate)
+
+\include{texts/tableApp}
+
 \include{texts/CodeExplanation}
 
 \input{texts/code} % as an example, perhaps some of your code

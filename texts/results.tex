@@ -3,246 +3,7 @@
 %In this section you discuss any issues that came up while developing the system.  If you found something particularly interesting, difficult, or an important learning experience, put it here.  This is also a good place to put additional figures and data.
 
 
-\textbf{Tala um raunverulega ásæðu af hverju ég vel þessa íhluti!!!!!!}
-
-\section{Hydrophone}\label{sec:AquarionHydro}
-
-\textbf{TALA UM AÐRA TÝPU SEM HEFÐI GETAÐ KOMIÐ TIL GREINA
-https://www.nauta-rcs.it/English/Instruments/Hydrophones/CetaceanResearchTech/C55/C55.html}
-
-First thing that needed to be determined was the hydrophone used.
-Generally hydrophones are sensitive piezoelectric sensors that can detect small changes in pressure and convert that to electrical signal.
-This project will use the Aquarian audio H1a for its low cost and good sensitivity as well as it was readily available at the Reykjavik University lab.
-
-\begin{table}[h]\caption{Important specifications of the Aquarian H1a hydrophone.\cite{noauthor_aquarian_nodate}}.\label{Tab:Aquarian}
-\begin{tabular}{l|l}
-Sensitivity     & -190dB re: 1V/µPa (+/- 4dB 20Hz-4KHz) \\\hline
-Useful range    & \begin{tabular}[c]{@{}l@{}}100KHz (not measured above 100KHz, approximate sensitivity\\  @100KHz = -220dB re: 1V/µPa)\end{tabular} \\\hline
-Capacitance     & 25nF \\ \hline
-Operating depth & \textless{}80meters\\ \hline
-Cost            &  159\$ \\ \hline
-\end{tabular}
-\end{table}
-
-There is no preamplifier or impedance buffer circuit within the Aquarian H1a hydrophone, so the circuit needs to amplify the output signal of the hydrophone.
-The gain of the circuit depends on what the intended use of the hydrophone will be.
-In this case for cetaceans and large aquatic wildlife, Aquarian recommends gain of 40 - 50 dB and for very distant sounds 60dB.
-
-\begin{equation}
-F_c = 1 / 0.000000157 * R  
-\label{eq:fchydro}
-\end{equation}
-
-The Frequency response of the Aquarian H1a hydrophone can be calculated using \textit{Equation~\ref{eq:fchydro}} \cite{noauthor_aquarian_nodate}. 
-Which is just \textit{Equation~\ref{eq:FC}} where the capacitance of the hydrophone has been added to it.
-
-
-\subsection{Microcontroller og ADC}
-
-\textbf{TALA UM TEENSY 3.5 og https://www.pjrc.com/teensy/K64P144M120SF5.pdf
-}
-\subsubsection{Microcontroller}
-The Teensy3.5 was ultimately chosen for the microcontroller of the system.fa
-This decision was made for several reasons.
-The Teensy3.5 has two built-in ADC, which means the system might be able to add another hydrophone to it for recording.
-Both ADCs have a maximum resolution of 16bits with a voltage range of 0 - 3.3V, or $\frac{3.3}{2^{16}} \approx 0.00005V \approx 50\mu V$ step size.
-The Teensy also consumes little power, when running with no peripherals active the processor is powered roughly by 0.5mA or 0.165W.
-Which is under the requirements set in the beginning of the project.
-As well as it was readily available at the Reykjavik University lab.
-
-
-
-\subsubsection{Operational amplifier}
-\textbf{Mögulega tala um í kafla 2 hvað mikilvægustu þáttir opampa fyrir þetta verkefni var}
-
-The operational amplifier that was chosen for this project was the OPA1644 from Texas Instruments.
-It was chosen its advertised superior sound quality.
-Where the noise is $\frac{5.1nV}{\sqrt{Hz}}$ at 1kHz.
-%\begin{figure}[h]
-%    \centering
-%    \includegraphics[width=0.7\textwidth]{graphics/noiseDensvsFreq.png}
-%    \caption{\textbf{BÆTA}}
-%    \label{fig:noiseDensvsFreq}
-%\end{figure}
-%Which means 
-%https://www.designnews.com/what-nvvhz-noise
-%\textbf{KYNNA Sér SNR}
-%$$\sqrt{100*10^3Hz - 10Hz} = 3\sqrt{11110}Hz$$
-%$$3\sqrt{11110}Hz*5.1*10^{-9}V = 1.6*10^{-6}V$$
-%$$ 1.6*10^{-6}V * 100 = 1.6*10^{-4}$$
-%Using a 1V output (0dBV) from the op amp the signal to noise ratio is:
-%$$SNR = 20log_{10}(\frac{1V}{1.6*10^{-4}V}) \approx 76dB$$
-Low distortion of 0.00005\% at 1 kHz and a high slew rate of $\frac{20V}{\mu s}$.
-As well as having a supply range that fits within the voltage range ($\pm2.25~-~\pm18$) of the Teensy analog pins of 3.3V\cite{noauthor_opa164x_nodate}.
-It also has up to 40dB gain at 100kHz as seen in \textit{Figure~\ref{fig:dbvsFreq}}.
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.7\textwidth]{graphics/dbVsfreq.png}
-    \caption{Gain and phase shift vs frequency\cite{noauthor_opa164x_nodate}}
-    \label{fig:dbvsFreq}
-\end{figure}
-
-
-
-\section{Circuit}\label{sec:CircResult}
-
-From the project goals the circuit needs to be able to gather data from signals with frequencies between 10 - 100kHz. 
-The Aquarian H1a hydrophone data sheet also specifies that for cetacean vocalization recording the gain of the preamplifier needs to be between 40 - 50 dB.
-The circuit will there for consist of active low pass filter and high pass filter, a scaling summing amplifier and an inverting op amp.
-It will then feed to the Teensy 3.5 built-in ADC.
-The setup of the circuit can be seen in \textit{Figures \ref{fig:Opamp1}, \ref{fig:Opamp4}}.
-\textit{Figure \ref{fig:Opamp1}} shows the first part of the circuit.
-The output of the hydrophone is first connected to a high pass filter, where the capacitance, 25nF of the hydrophone is used as the capacitor in the high pass filter.
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.70\textwidth]{graphics/OPamp1.png}
-    \caption{The first part of the circuit where the output of the hydrophone first filtered using an active high pass filter and then connected to a operational amplifier and amplifying the signal by 20.}
-    \label{fig:Opamp1}
-\end{figure}
-
-
-The desired value for the high pass filter was 10Hz and using \textit{Equation~\ref{eq:fchydro}} provided in the data sheet, the resistor value was estimated.   
-$$F_c = \frac{1}{0.000000157 * 636k\Omega} = 10Hz$$
-Using standard resistor values, the closest resistor value is 620k which yields a cut off frequency of 10.26Hz.
-The gain over the active high pass filter can be represented using \textit{Equation \ref{eq:DCGain}} and \textit{Equation \ref{eq:ActiveHighPass}}. 
-Where $A_{V1} = 1 + \frac{19k\Omega}{1k\Omega} = 20$.
-$$A_f = \frac{(1+\frac{19k}{1k})(\frac{f}{10.26Hz})}{\sqrt{1 + (\frac{f}{10.26Hz})^2}} \approx 20$$
-Which is approximately equal to 20, as seen in \textit{Figure~\ref{fig:AVhighpass}} over the entire bandwidth.
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.7\textwidth]{graphics/Av_Highpass.png}
-    \caption{The gain of the operational amplifier with the active high pass filter.}
-    \label{fig:AVhighpass}
-\end{figure}
-
-\textit{Figure \ref{fig:Opamp2}} shows the active low pass filter configuration which has a cut off frequency of $\approx$ 100kHz and a gain of 2.5.
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.7\textwidth]{graphics/OPamp2.png}
-    \caption{The second operational amplifier, where the signal is first filtered by the active low pass filter as well as amplifying the signal.}
-    \label{fig:Opamp2}
-\end{figure}
-
-The desired value for the high pass filter was 100kHz and using \textit{Equation~\ref{eq:FC}} and choosing a resistor value of 160$\Omega$, the capacitor value was estimated.   
-$$F_c = \frac{1}{2\pi 9.9nF 160\Omega} = 100kHz$$
-Using standard capacitor values, the closest capacitor value is 10nF which yields a cut off frequency of 99472Hz.
-The gain over the active low pass filter can be represented using \textit{Equation \ref{eq:DCGain}} and \textit{Equation \ref{eq:ActiveLowPass}}. 
-Where $A_{V1} = 1 + \frac{1.5k\Omega}{1k\Omega} = 2.5$.
-$$A_f  = \frac{1 + \frac{1.5k\Omega}{1k\Omega}}{\sqrt{1 + (\frac{f}{99471.8Hz})^2}}$$
-Which is approximately equal to 2.5 with frequencies until 20kHz, as seen in 
-\textit{Figure~\ref{fig:AVlowpass}}.
-\\
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.7\textwidth]{graphics/Av_Lowpass.png}
-    \caption{The gain of the operational amplifier with the active low pass filter.}
-    \label{fig:AVlowpass}
-\end{figure}
-
-\textit{Figure~\ref{fig:Opamp3}} shows the scaling summing operational amplifier which is used to shift the input signal by 1.65Vdc. 
-
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.70\textwidth]{graphics/OPamp3.png}
-    \caption{The scaling summing operational amplifier, where the signal is shifted by 1.65Vdc}
-    \label{fig:Opamp3}
-\end{figure}
-
-
-Which is important since the analog pins of the Teensy 3.5 have a voltage range of 0-3.3V.
-There for the signal needs to be shifted by 3.3V/2 = 1.65Vdc.
-%To estimate the voltage output of the op amplifier, \textit{Equation \ref{eq:invertDCGain}} and \textit{Equation \ref{eq:ScalingGain}} was used.
-%For an input signal of 10mV amplitude, of the scaling summing op amp would be \textbf{KANSKI EKKI HAFA ?!?!?!} 
-%$$V_{out} = -180\Omega(\frac{1.65V}{180\Omega} + \frac{\pm 10mV}{90\Omega}) = \pm $$
-A voltage divider was needed to determine the resistor values for the 1.65Vdc which would ultimately put some design restraints on R16 and R13 seen in \textit{Figure~\ref{fig:Opamp3}}.
-Firstly it was decided to have $R10 = 100\Omega$  and $R11 = 225\Omega$ to start off the calculations.
-From that R14 could be calculated as $180\Omega$.
-$$3.3V = \frac{\frac{1}{\frac{1}{180\Omega}+\frac{1}{225\Omega}}}{100\Omega+\frac{1}{\frac{1}{180\Omega}+\frac{1}{225\Omega}}} = 1.65V$$
-Which was changed to $160\Omega$ because of the addition of R16 and using Multisim it was determined that $160\Omega$ would yield the closest results to the 1.65Vdc.
-The gain for the input signal from the low pass filter is found by using \textit{Equation \ref{eq:invertDCGain}}
-$$A_{V3} = -\frac{180\Omega}{90\Omega} = -2$$
-The operational amplifier is in an inverting configuration which turns positive voltage signals to negative.
-This needs to be rectified, since the Teensy 3.5 analog pins do not have a negative voltage range.
-Which is done by another inverting operational amplifier, seen in \textit{Figure~\ref{fig:Opamp4}}.
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.70\textwidth]{graphics/OPamp4.png}
-    \caption{The final operational amplifier, which is in an inverting configuration.}
-    \label{fig:Opamp4}
-\end{figure}
-
-\fxfatal{Bæta við 330ohm viðnámi í Teensyinn}
-
-The gain of inverting amplifier is found using \textit{Equation \ref{eq:invertDCGain}}.
-$$ A_{V4} = -\frac{1k \Omega}{1k \Omega} = -1$$
-The total circuit therefore consists of four operational amplifiers, high pass and low pass filter.
-\textbf{MÖGULEGA BÆTA JÖFNU 'I KAFLA 2}
-The total gain of the circuit for the input signal is found by.
-
-$$A_{tot} = A_1A_1A_2A_3A_4 = 20*2.5*-2*-1 = 100$$
-
-Finding the total dB gain of the circuit can be found by \textit{Equation \ref{eq:DBGAIN}}, which is confirmed using Multisim as seen in \textit{Figure~\ref{fig:bode}}.
-
-$$dB = 20log(100) = 40dB$$
-
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=1.0\textwidth]{graphics/bodeNew.png}
-    \caption{The bode plot of the circuit.}
-    \label{fig:bode}
-\end{figure}
-
-
-
-Several simulations of the circuit were performed in Multisim.
-Which yielded the results seen in \textit{Figure~\ref{fig:InpVsOut10} -~\ref{fig:bode}}.
-Using the setup of the circuit seen in \textit{Figures~\ref{fig:Opamp1}~\ref{fig:Opamp2}~\ref{fig:Opamp3}~\ref{fig:Opamp4}}. 
-\textbf{LAGA MYNDIR EFTIR testinu}
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=1.0\textwidth]{graphics/InpVsOut10hz.png}
-    \caption{With an input signal of 10mV RMS, at 10HZ.}
-    \label{fig:InpVsOut10}
-\end{figure}
-
-The simulation was run using an AC voltage generator which was set to output 10mV RMS and 10Hz.
-Which yielded the results seen in \textit{Figure~\ref{fig:InpVsOut10}}.
-\textbf{TALA UM MEIRA}
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=1.0\textwidth]{graphics/InpVsOut100khz.png}
-    \caption{With an input signal of 10mV RMS, at 100kHZ.}
-    \label{fig:InpVsOut100k}
-\end{figure}
-
-\textbf{Bæta VIÐ 50khz multisim testi}
-
-The simulation was run using an AC voltage generator which was set to output 10mV RMS and 100kHz.
-Which yielded the results seen in \textit{Figure~\ref{fig:InpVsOut100k}}.
-\textbf{TALA UM MEIRA}
-
-
-
-
-The bode plot of the circuit can be seen in \textit{Figure~\ref{fig:bode}}.
-It shows  circuit has a dB gain of $\approx$ 40, for the entire bandwidth of 10 - 100kHz.
-
-
-
-\clearpage
-\subsection{Code}
-
-
-\textbf{BREYTA NÖFNUM}
+\section{Code}
 
 
 All codes were developed in Arduino IDE using a teensyduino extension.
@@ -252,10 +13,10 @@ Which should be sufficient since the data is 2 bytes per sample which means in t
 
 
 
-\textbf{SKOÐAFYRIR UTERIKNGA Á CONVERSION T'IMA!!!!!!!!!!!!!!!!}
+%\textbf{SKOÐAFYRIR UTERIKNGA Á CONVERSION T'IMA!!!!!!!!!!!!!!!!}
 % https://www.pjrc.com/teensy/K64P144M120SF5RM.pdf bls 859
 
-\subsubsection{ContinousAnalogRead}
+\subsection{ContinousAnalogRead}
 
 The basic function of the code is simple, it should read a 64KB buffer of  analog values from the circuit as well as save the microseconds of each read in a different buffer.
 Once the buffers are full, the program begins to write all the buffer to the SD card.
@@ -287,7 +48,7 @@ The analog read and writes to SD card can be seen in \textit{Figure~\ref{fig:Con
 
 
 The data recorded by the device with the ContinuousAnalogRead.ino as the code. 
-With an input signal of 10mVpp and 50kHz frequency. 
+With an input signal of 10$mV_{pp}$ and 50kHz frequency. 
 It appears to run too fast for the ADC, seeing as it has several conversions made at each voltage level as seen in \textit{Figure~\ref{fig:ContAnalREsults}}, every three data point a new conversion occurs.
 Even though it should wait until the ADC is ready for a new conversion it does not appear to do so.
 
@@ -308,6 +69,7 @@ Just before the test a single reading of the output signal was taken with an osc
     \label{fig:ContAnalOscillascope}
 \end{figure}
 
+\vspace{4cm}
 %\begin{figure}[h]
 %    \subfloat[\textbf{Sub figure caption}]{\includegraphics[width=0.50\textwidth,height=0.40\textwidth]{graphics/COntANalogResults.png}}
 %    \label{fig:ContAnalSpeedREsults}
@@ -318,11 +80,9 @@ Just before the test a single reading of the output signal was taken with an osc
 %%\end{figure}
 
 
-\subsubsection{PDBContinuousAnalogRead.ino}
+\subsection{PDBContinuousAnalogRead.ino}
 
-\textbf{Bæta við meiri lýsingu á mannamáli og kanski pseudo kóða}
-
-PDBContinuousAnalogRead.ino utilizes three specific builtin peripherals on the Teensy3.5 in order to read analog signals, which are an ADC, a programmable delay block (PDB) and a DMA channel.
+PDBContinuousAnalogRead.ino utilizes three specific builtin peripherals on the Teensy 3.5 in order to read analog signals, which are the ADC, a programmable delay block (PDB) and a DMA channel.
 The PDB is an accurate timer that is used to trigger the ADC to do a analog to digital conversion.
 Once each ADC conversion is complete DMA receives a trigger, the ADC value is then transferred using DMA to memory.
 When initializing the DMA it needs to know a few things about the buffer to which the ADC value is being transferred to such as the size of the buffer and its address. 
@@ -333,6 +93,7 @@ While that transfer is happening the destination address for the buffer was chan
 This is crucial in order to get a non blocking code and not loose any data.
 Therefor the speed of the program is dependent on how fast the Teensy can move data from the DMA buffer to the storage buffer.
 The main program is then continually writing from the storage buffer to the SD card in 512 byte chunks.
+A more detailed explanation of setting registers can be seen in \textit{Appendix~\ref{sec:codeExplain}}.
 
 \begin{figure}[h]
     \centering
@@ -342,6 +103,7 @@ The main program is then continually writing from the storage buffer to the SD c
 \end{figure}
 
 
+\clearpage
 
 \subsection{Testing}
 
@@ -384,18 +146,18 @@ Multiple tests were performed on the device, all equipment used for the tests ca
 
 Several tests were made in order to find the maximum frequency at which parts of the device could remain relatively stable.
 These tests would use an ISR, triggered by either the PDB or the ADC.
-The ISR would either turn on the buildin LED on the Teensy or turn it off, depending on the whether the LED was on or off.
-Which for every other trigger would make the LED blink.
-Three test cases were examined, first using just the PDB which would trigger the ISR. 
-Secondly the PDB and ADC together and finally for when the entire system was operational, for both cases the ISR would be triggered by the end of a ADC conversion.
-The setup of the test can be seen in \textit{Figure~\ref{fig:SetupCircSpeed}}, the oscilloscope was connected to the builtin LED and the Teensy3.5 was powered via USB and the op amps were powered by the DC power supply.
-The scope was set to take measurements of the time and frequency between the rising edge of rectangular signal that formed from blinking the LED. 
-The oscilloscope shows the mean, maximum and minimum values for both, which are actually halved since the scope counts the rising edge of the pulses.
+The ISR would either turn on the built in LED on the Teensy or turn it off, depending on the whether the LED was on or off.
+Which for every other ISR trigger would make the LED blink.
+Three test cases were examined, first using just the PDB timer which would trigger the ISR. 
+Secondly using the PDB and ADC together,finally for when the entire system was operational, for both cases the ISR would be triggered by the completion of an ADC conversion.
+The setup of the test can be seen in \textit{Figure~\ref{fig:SetupCircSpeed}}, the oscilloscope was connected to the builtin LED, the Teensy3.5 was powered via USB and the op amps were powered by the DC power supply.
+The scope was set to take measurements of the time and frequency, which would be triggered by the rising edge of rectangular signal that formed from blinking the LED. 
+The oscilloscope shows the mean, maximum and minimum values for both frequency and time of each period.
+The frequency measurements shown by the oscilloscope are actually halved since the scope counts the rising edge of the pulses and the time period measurement are doubled that of the actual trigger time.
 As well as the cursor was set over a single pulse to show the actual frequency of the ISR trigger speed.
-The device was stopped when the oscilloscope had made roughly 10k wave count.
+The measurements were stopped when the oscilloscope had made roughly 10k wave count.
 The setup was the same for all three test cases.
 
-\fxfatal{Taka betri mynd}
 
 \begin{figure}[h]
     \centering
@@ -411,6 +173,8 @@ The maximum frequency at which the PDB could run at was when the set frequency w
 As explained before the actual frequency values from the oscilloscope are halved from the real values, so all measured frequency statistics are doubled, while the time of the period is halved.
 The mean frequency was 1.17MHz, were the maximum was 1.27MHz and minimum of 767.7kHz with a standard deviation of 27.1kHz. 
 The mean time for a period was 852ns with a standard deviation of 27ns as seen in \textit{Figure~\ref{fig:PDBSp1200}}.
+
+\clearpage
 
 \begin{figure}[h]
     \centering
@@ -430,9 +194,12 @@ The mean time for a period was 1.68$\mu$s with a standard deviation of 29ns as s
     \label{fig:PDBSp600}
 \end{figure}
 
+\clearpage
+
 For the third test, the set frequency was 300kHz.
 The mean frequency was 298.4kHz, were the maximum was 320.7kHz and minimum of 122.4kHz with a standard deviation of 1.63kHz. 
 The mean time for a period was 3.35$\mu$s with a standard deviation of 21ns as seen in \textit{Figure~\ref{fig:PDBsp300}}.
+
 
 \begin{figure}[h]
     \centering
@@ -441,11 +208,14 @@ The mean time for a period was 3.35$\mu$s with a standard deviation of 21ns as s
     \label{fig:PDBsp300}
 \end{figure}
 
-The next test was for the ADC, but now by initializing both the ADC and the PDB.
+
+The next test was for the ADC, which used both the ADC and the PDB.
 The ISR would also be set to trigger when completing an ADC conversion.
 The set frequency was 280kHz, because at 300kHz the program would stop running after roughly 2 seconds.
 The mean frequency was 279.1kHz, were the maximum was 208.3kHz and  minimum of 225.5kHz with a standard deviation of 1.1kHz. 
 The mean time for a period was 3.58$\mu$s with a standard deviation of 14ns as seen in \textit{Figure~\ref{fig:PDBADCDMAsp280}}.
+
+\clearpage
 
 \begin{figure}[h]
     \centering
@@ -454,7 +224,7 @@ The mean time for a period was 3.58$\mu$s with a standard deviation of 14ns as s
     \label{fig:PDBADCDMAsp280}
 \end{figure}
 
-The next test was for the whole system was initialized.
+The next test was for the whole system was initialized, using the ADC, PDB and DMA.
 The ISR is still set to trigger when completing an ADC conversion.
 The mean frequency was 298.3kHz, were the maximum was 532.4kHz and minimum of 208.5kHz with a standard deviation of 5.4kHz. 
 The mean time for a period was 3.39$\mu$s with a standard deviation of 69.6ns as seen in \textit{Figure~\ref{fig:PDBADCDMAsp280}}.
@@ -467,8 +237,6 @@ The mean time for a period was 3.39$\mu$s with a standard deviation of 69.6ns as
 \end{figure}
 
 
-\clearpage
-
 
 
 
@@ -480,13 +248,12 @@ Several tests were made in order to estimate the noise of the device.
 Fast Fourier transform (FFT) function of the RTB2004 oscilloscope was used for the measurements and the DC power supply was used to power the op amps.
 The oscilloscope was set to AC coupled for the best broadband range measurement%https://training.ti.com/ti-precision-labs-op-amps-noise-measuring-system-noise 
 , attenuator set to 1:1 ratio %https://www.testandmeasurementtips.com/reduce-oscilloscope-noise-measurements/
-for accurate noise measurements and the Hannig window was used for 
-Two test cases where examined, first when a sine wave was the input of the circuit and secondly when the input was connected to ground.
-For both cases the probe was connected to the output of the op amps.
+for accurate noise measurements and the Hannig FFT window was used.
+Two test cases where examined, first when a sine wave was the input of the circuit and secondly when the input was connected to ground and the probe connected to the output of the op amps.
 The setup for the tests can be seen in \textit{Figure~\ref{fig:SetupFFT}}.
 
-\textbf{%https://web.sonoma.edu/esee/courses/ee442/archives/sp2019/supp/defining_dBu.pdf
-- skoða} 
+%\textbf{%https://web.sonoma.edu/esee/courses/ee442/archives/sp2019/supp/defining_dBu.pdf
+%- skoða} 
 %https://www.youtube.com/watch?v=oLBGNC9FGwo&ab_channel=TexasInstruments minuta 3:47
 
 \begin{figure}[h]
@@ -495,11 +262,6 @@ The setup for the tests can be seen in \textit{Figure~\ref{fig:SetupFFT}}.
     \caption{Configuration of the noise tests where the circuit is tested, where the probe is connected to the output of the op amps and the input signal is either a sine wave or its connected to ground.}
     \label{fig:SetupFFT}
 \end{figure}
-
-
-
-
-
 
 
 The bandwidth of the FFT was set at 100kHz with an input signal being a sine wave with 10$mV_{pp}$ and 20kHz frequency being sent to the input of the op amps.
@@ -589,7 +351,7 @@ The op amps where powered by the as before by a DC power supply and the input si
 The setup of the device with everything connected can be seen in \textit{Figure~\ref{fig:testCircSetup}}.
 The Teensy would recorded the record the signal to the SD card, where the values were in hexadecimal.
 The output signal of the op amps was then recorded by the RTB2004 oscilloscope.
-Ones it had stopped recording the data was transformed from hexadecimal to decimal using the python script seen in \textit{Listing~\ref{src:converHex}} and then plotted using Matlab. script seen in \fxfatal{Bæta Matlab kóða Kanski ekki ???}.
+Ones it had stopped recording the data was transformed from hexadecimal to decimal using the python script seen in \textit{Listing~\ref{src:converHex}} and then plotted using Matlab.
 
 
 \begin{figure}[h]
@@ -600,7 +362,7 @@ Ones it had stopped recording the data was transformed from hexadecimal to decim
 \end{figure}
 
 In this test it is simulating a 170dB as a source level.
-Using the Aquarian H1a as the hydrophone the voltage output would equate to 10mV $V = 10^{170dB-190dB/10} = 10mV$, which was used for all the following tests.
+Using the Aquarian H1a as the hydrophone the voltage output would equate to  $V = 10^{170dB-190dB/10} = 10mV$, which was used for all the following tests.
 The difference between the three tests was the input signals frequency and the sample frequency of the Teensy.
 The first test had the Teensys sample frequency set at 100kHz and a input signal of 10kHz was used.
 The data recorded by the Teensy can be seen in \textit{Figure~\ref{fig:Teensy10k100k}}.
@@ -621,7 +383,6 @@ While \textit{Figure~\ref{fig:Oscillo10k100k}} shows respective results from the
 \end{figure}
 
 \clearpage
-
 
 
 Next the sample frequency was increased to 200kHz and the input signal was 20kHz.
@@ -663,11 +424,13 @@ In \textit{Figure~\ref{fig:Teensy30k300k}} the data that the Teensy recorded at 
     \label{fig:Oscillo30k300k}
 \end{figure}
 
+\fxfatal{Mögulega bæta við hraðamyndum með MB/s á öll test}
+
+
 \clearpage
 
 
-
-Two more tests were performed to better estimate the Teensys accuracy, since at 10mV the signal generator was quite inconsistent and created some variance in its output. \fxfatal{ert með mynd af mælingunni kanski að bæta??}
+Two more tests were performed to better estimate the Teensys accuracy, since at 10mV the signal generator was quite inconsistent and created some variance in its output. 
 The test setup can be seen in \textit{Figure~\ref{fig:Last2TestsSetup}}, where the input signal bypasses the op amp circuit and goes straight to the Teensy and Oscilloscope.
 
 \begin{figure}[h]
@@ -679,12 +442,13 @@ The test setup can be seen in \textit{Figure~\ref{fig:Last2TestsSetup}}, where t
 
 
 
-\vspace{4cm}
-
-
 The first signal was a sine wave with 1$V_{pp}$ and VDC offset of 1.65V and 50kHz frequency.
 The data plotted from the Teensy can be seen in \textit{Figure~\ref{fig:OscilloCompTeensyAC}}.
 Where the average from the Teensy data has an average voltage of 1.6462V, while the oscilloscope shows 1.6504V.
+
+
+\clearpage
+
 
 \begin{figure}[h]
     \centering
