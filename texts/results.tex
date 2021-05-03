@@ -24,7 +24,8 @@ To configure the ADC, the ADC library by pedvide was used \cite{villanueva_pedvi
 The library handles the configuration of the built-in ADC and should make that process easier, however it makes it a little harder to see what exactly configures the ADC to be.
 To use the library, the code must first create an ADC object via 
 $ADC *ADC = new ADC();$
-which is then used to define the attributes of the ADC, which can be seen in lines 69 - 83 in~ \textit{Listing~\ref{src:ContAnalogRead}}. 
+which is then used to define the attributes of the ADC, which can be seen in %lines 69 - 83 in~
+\textit{Listing~\ref{src:ContAnalogRead}}. 
 The reference voltage is set as 3.3V, to have a voltage range of 0 - 3.3V.
 The ADC averaging is set to 0, which after testing was the fastest configuration.
 The conversion speed of the ADC was set to the fastest setting for 16bits conversion or HIGH\_SPEED\_16BITS, which sets the ADC clock to $<= 12 MHz$.
