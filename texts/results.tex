@@ -5,7 +5,7 @@
 
 \textbf{Tala um raunverulega ásæðu af hverju ég vel þessa íhluti!!!!!!}
 
-\section{Hydrophone}
+\section{Hydrophone}\label{sec:AquarionHydro}
 
 \textbf{TALA UM AÐRA TÝPU SEM HEFÐI GETAÐ KOMIÐ TIL GREINA
 https://www.nauta-rcs.it/English/Instruments/Hydrophones/CetaceanResearchTech/C55/C55.html}
@@ -45,10 +45,12 @@ Which is just \textit{Equation~\ref{eq:FC}} where the capacitance of the hydroph
 The Teensy3.5 was ultimately chosen for the microcontroller of the system.fa
 This decision was made for several reasons.
 The Teensy3.5 has two built-in ADC, which means the system might be able to add another hydrophone to it for recording.
-Both ADCs have a maximum resolution of 16bits with a voltage range of 0 - 3.3V, or $\frac{3.3}{2^16} \approx 0.00005V \approx 50\mu V$ step size.
+Both ADCs have a maximum resolution of 16bits with a voltage range of 0 - 3.3V, or $\frac{3.3}{2^{16}} \approx 0.00005V \approx 50\mu V$ step size.
 The Teensy also consumes little power, when running with no peripherals active the processor is powered roughly by 0.5mA or 0.165W.
 Which is under the requirements set in the beginning of the project.
 As well as it was readily available at the Reykjavik University lab.
+
+
 
 \subsubsection{Operational amplifier}
 \textbf{Mögulega tala um í kafla 2 hvað mikilvægustu þáttir opampa fyrir þetta verkefni var}
@@ -56,34 +58,34 @@ As well as it was readily available at the Reykjavik University lab.
 The operational amplifier that was chosen for this project was the OPA1644 from Texas Instruments.
 It was chosen its advertised superior sound quality.
 Where the noise is $\frac{5.1nV}{\sqrt{Hz}}$ at 1kHz.
-Which means 
+%\begin{figure}[h]
+%    \centering
+%    \includegraphics[width=0.7\textwidth]{graphics/noiseDensvsFreq.png}
+%    \caption{\textbf{BÆTA}}
+%    \label{fig:noiseDensvsFreq}
+%\end{figure}
+%Which means 
 %https://www.designnews.com/what-nvvhz-noise
-\textbf{KYNNA Sér SNR}
-$$\sqrt{100*10^3Hz - 10Hz} = 3\sqrt{11110}Hz$$
-$$3\sqrt{11110}Hz*5.1*10^{-9}V = 1.6*10^{-6}V$$
-$$ 1.6*10^{-6}V * 100 = 1.6*10^{-4}$$
-Using a 1V output (0dBV) from the op amp the signal to noise ratio is:
-$$SNR = 20log_{10}(\frac{1V}{1.6*10^{-4}V}) \approx 76dB$$
-
+%\textbf{KYNNA Sér SNR}
+%$$\sqrt{100*10^3Hz - 10Hz} = 3\sqrt{11110}Hz$$
+%$$3\sqrt{11110}Hz*5.1*10^{-9}V = 1.6*10^{-6}V$$
+%$$ 1.6*10^{-6}V * 100 = 1.6*10^{-4}$$
+%Using a 1V output (0dBV) from the op amp the signal to noise ratio is:
+%$$SNR = 20log_{10}(\frac{1V}{1.6*10^{-4}V}) \approx 76dB$$
 Low distortion of 0.00005\% at 1 kHz and a high slew rate of $\frac{20V}{\mu s}$.
-As well as having a supply range that fits within the voltage range of the Teensy analog pins.
-\cite{noauthor_opa164x_nodate}
+As well as having a supply range that fits within the voltage range ($\pm2.25~-~\pm18$) of the Teensy analog pins of 3.3V\cite{noauthor_opa164x_nodate}.
+It also has up to 40dB gain at 100kHz as seen in \textit{Figure~\ref{fig:dbvsFreq}}.
 
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.7\textwidth]{graphics/dbVsfreq.png}
-    \caption{\textbf{BÆTA}}
+    \caption{Gain and phase shift vs frequency\cite{noauthor_opa164x_nodate}}
     \label{fig:dbvsFreq}
 \end{figure}
 
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.7\textwidth]{graphics/noiseDensvsFreq.png}
-    \caption{\textbf{BÆTA}}
-    \label{fig:noiseDensvsFreq}
-\end{figure}
 
-\section{Circuit}
+
+\section{Circuit}\label{sec:CircResult}
 
 From the project goals the circuit needs to be able to gather data from signals with frequencies between 10 - 100kHz. 
 The Aquarian H1a hydrophone data sheet also specifies that for cetacean vocalization recording the gain of the preamplifier needs to be between 40 - 50 dB.
@@ -316,11 +318,11 @@ Just before the test a single reading of the output signal was taken with an osc
 %%\end{figure}
 
 
-\subsubsection{PDBtestest}
+\subsubsection{PDBContinuousAnalogRead.ino}
 
 \textbf{Bæta við meiri lýsingu á mannamáli og kanski pseudo kóða}
 
-\textbf{PDBtestest} utilizes three specific builtin peripherals on the Teensy3.5 in order to read analog signals, which are an ADC, a programmable delay block (PDB) and a DMA channel.
+PDBContinuousAnalogRead.ino utilizes three specific builtin peripherals on the Teensy3.5 in order to read analog signals, which are an ADC, a programmable delay block (PDB) and a DMA channel.
 The PDB is an accurate timer that is used to trigger the ADC to do a analog to digital conversion.
 Once each ADC conversion is complete DMA receives a trigger, the ADC value is then transferred using DMA to memory.
 When initializing the DMA it needs to know a few things about the buffer to which the ADC value is being transferred to such as the size of the buffer and its address. 
@@ -330,7 +332,7 @@ The ISR is set to trigger when each of the buffer is full, meaning when the firs
 While that transfer is happening the destination address for the buffer was changed to the second buffer and the data transfer is continually happening while the first buffer is still transferring its contents to the storage buffer.
 This is crucial in order to get a non blocking code and not loose any data.
 Therefor the speed of the program is dependent on how fast the Teensy can move data from the DMA buffer to the storage buffer.
-The main program is then continually writing from the storage buffer to the SD card is 512 byte chunks.
+The main program is then continually writing from the storage buffer to the SD card in 512 byte chunks.
 
 \begin{figure}[h]
     \centering
@@ -345,19 +347,19 @@ The main program is then continually writing from the storage buffer to the SD c
 
 
 
-Skoða aftur á scopei færa langt frá trigger punknt ~50 sveiflur og skoða breytileika þar.
-skða líka með FFT
-Skoða með mismunandi söfnunartíðnum og bera saman og skoða powerið
+%Skoða aftur á scopei færa langt frá trigger punknt ~50 sveiflur og skoða breytileika þar.
+%skða líka með FFT
+%Skoða með mismunandi söfnunartíðnum og bera saman og skoða powerið
 
-skoða innmerki  10k með 100k söfnunartíðni
-                20k með 200k söfnunartíðni
-                30k með 300k söfnunartíðni
+%skoða innmerki  10k með 100k söfnunartíðni
+%                20k með 200k söfnunartíðni
+%                30k með 300k söfnunartíðni
 
-Hvað ég safna rétt í tíma
-hve mikið hljóð
-setja inn merki, mæla útmerkið með FFT á scopei.
-skoða hljóð frá generatornum og svo frá merkinu með fft
-sjá mynd, ef það koma eh suð toppar á fft frá bara generator, sjá hvort þeir detta niður með RC filter ef ekki þá er suðið að koma frá kerfinu.
+%Hvað ég safna rétt í tíma
+%hve mikið hljóð
+%setja inn merki, mæla útmerkið með FFT á scopei.
+%skoða hljóð frá generatornum og svo frá merkinu með fft
+%sjá mynd, ef það koma eh suð toppar á fft frá bara generator, sjá hvort þeir detta niður með RC filter ef ekki þá er suðið að koma %frá kerfinu.
 
 
 
@@ -369,8 +371,7 @@ sjá mynd, ef það koma eh suð toppar á fft frá bara generator, sjá hvort �
 %Changing the resolution had minimal gains.
 %It seemed to be able to be triggered a little bit faster however those were not stable for the teensy and the program would crash.}
 
-
-Equipment used for tests can be seen in the list below.
+Multiple tests were performed on the device, all equipment used for the tests can be seen in the list below.
 \begin{itemize}
     \item \textit{Rhode \& Schwarz RTB20004} digital oscilloscope with a 2.5 Gsps sampling rate for wave form confirmation.
     \item \textit{Rigol DG1022} wave form generator capable of generating signals upto 25MHz sine wave and a resolution of 1$\mu Hz$ and down to 2mVpp.
@@ -531,7 +532,7 @@ Which yields a SNR of 80dB.
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.7\textwidth]{graphics/NoiseGenerator20kInp100kBand.PNG}
-    \caption{FFT on the RTB2004 oscilloscope. 
+    \caption{FFT on the RTB2004 oscilloscope connected directly to the signal generator. 
     An input sine wave signal of 10$mV_{pp}$ and a frequency of 20kHz seen at the top of the figure and the respective FFT below it with a 100kHz bandwidth.}
     \label{fig:NoiseGenerator20kInp100kBand}
 \end{figure}
@@ -677,9 +678,13 @@ The test setup can be seen in \textit{Figure~\ref{fig:Last2TestsSetup}}, where t
 \end{figure}
 
 
+
+\vspace{4cm}
+
+
 The first signal was a sine wave with 1$V_{pp}$ and VDC offset of 1.65V and 50kHz frequency.
 The data plotted from the Teensy can be seen in \textit{Figure~\ref{fig:OscilloCompTeensyAC}}.
-
+Where the average from the Teensy data has an average voltage of 1.6462V, while the oscilloscope shows 1.6504V.
 
 \begin{figure}[h]
     \centering
@@ -690,6 +695,7 @@ The data plotted from the Teensy can be seen in \textit{Figure~\ref{fig:OscilloC
 
 The second input signal was DC 1.65V.
 The data plotted from the Teensy can be seen in \textit{Figure~\ref{fig:OscilloCompTeensyDC}}.
+Where the average from the Teensy data has an average voltage of 1.6727V, while the oscilloscope shows 1.6695V.
 
 
 \begin{figure}[h]

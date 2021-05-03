@@ -158,7 +158,7 @@
 %% Title first in English then Icelandic
 %% You need to put both a normal case and ALL CAPS version into the macros.
 %%
-\newML{Title}{Gathering sound data from cetacean creatures using a self-sufficient buoy}{Hljóðsöfnun á hvölum með notkun sjálfbærri bauju sem framleiðir sitt eigið rafmagn}
+\newML{Title}{Gathering cetacean vocalization using a self-sufficient buoy}{Hljóðsöfnun á hvölum með notkun sjálfbærri bauju sem framleiðir sitt eigið rafmagn}
 \newML{TITLE}{REYKAJVÍK UNIVERSITY PROJECT REPORT, THESIS, AND DISSERTATION TEMPLATE}{TITLL VERKEFNIS med ÞÖÆÉÍÓ}
 %%
 \setTitle{\MLTitle}{\MLTITLE}
@@ -245,7 +245,7 @@
 %% Bachelors: primary advisor (Umsjónarkennari), ONLY ONE!
 %% All others: As many as you want
 \supervisors{
-  \personinfo{Superior A. Teacher}{\MLSupervisor}{\MLProfessor}{\MLReykjavikUniversity}{\MLIceland}
+  \personinfo{Baldur Þorgilsson}{\MLSupervisor}{\MLProfessor}{\MLReykjavikUniversity}{\MLIceland}
 %  \personinfo{Helpful A. Teacher}{Co-advisor}{\MLAssistantProfessor}{\MLUniversityIceland}{\MLIceland}
 %  \personinfo{Ian M. Great}{Co-advisor}{\MLProfessor}{Hochschule Düsseldorf}{Germany}
 }
@@ -253,7 +253,7 @@
 %% Bachelors: secondary advisor (Leiðbeinandi), ONLY ONE
 %% All others: As many as you want
 \examiners{
-  \personinfo{Tough E. Questions}{\MLExaminer}{Associate Professor}{Massachusetts Institute of Technology}{USA}
+  \personinfo{\fxfatal{Bæta við prófdómara}}{Associate Professor}{Massachusetts Institute of Technology}{USA}
 
 }
 
@@ -263,9 +263,34 @@
 %% Note: Icelandic quotation marks cannot be typeset using "` and "'.  You should use \enquote{}
 %% this is probably due to interactions with the MultiLingual macros.
 %% TODO: turn this into more sensible macros to avoid confusion --foley
-\newML{AbstractText}{\lipsum[1]}  
+\newML{AbstractText}{
+
+With ever increasing pressure on wildlife caused by humans, it becomes ever so more important to monitor the changes that might occur in the behaviour and habitats of effected animals.
+As well as identifying the factors causes disturbances to the animal, in order to minimize or eliminate them.
+Therefor creating new or improving old methods for researching and monitoring the impacts on the animals, which is crucial for the preservation of wildlife.
+This thesis is a part of a larger project that proposes the design of a self powering buoy with vocalization recording capabilities and can transfer that data onshore to researchers and will focus specifically focus on the vocalization recording aspect.
+The proposed recording device consists of the Teensy 3.5, Aquarian H1a hydrophone which is able to record vocalization signals up to 100kHz.
+The device has a low power consumption of 0.33W and a low cost of 190\$.
+The device uses a programmable delay block in order to trigger the built in analog to digital converter to take measurements and direct memory access is used to transfer the converted digital value to a buffer which later writes the data onto a SD card.
+Currently the device can sample signals at 16 bits resolution is able to record up to 300ksps which should allow it to record signals up to 150kHz.
+This thesis will show that the proposed device is capable of aiding cetacean researchers and could potentially aid with conservation efforts.
+
+}  
 % ipsum generaes text text
-{\lipsum[1]} % Icelandic abstract goes here
+{
+
+Með auknum áhrifum mannfólks á vilt dýr, þá verður eykst mikilvægi þess að fylgjast breytingum í hegðun og búsvæðum dýrana.
+Einnig þarf þá að reyna að finna þá áhrifavalda sem trufla dýrin, til að annaðhvort minnka áhrifa þessa eða eyða þeim algjörglega.
+Þess vegna er mikilvægt að búa til eða bæta gamlar aðferðir til að fylgjast með og rannsaka þau áhrif sem mannfólk hefur á dýrin, í þágu varðveislu dýra.
+Þessi ritgerð fjallar um mismunandi möguleika á óvirku hljóðvistareftirliti fyrir rannsóknir á hvölum.
+Þessi ritgerð er hluti af stærra verkefni þar sem tillagan er að nota sjóbauja sem getur framleitt rafmagn fyrir orkulítlum raftækjum sérhannaðar í hvalahljóðs upptöku og getur síðan send þau gögn á land, en ritgerðin mun fjalla sérstaklega um hljóðupptöku þátt sjóbaujunar.
+Tillagan af því tæki er að nota Teensy 3.5, og Aquarian H1a vatns hljóðnema sem getur tekið upp hljóðmerki upp að 100kHz.
+Tækið notar lítið rafmagn eða um 0.33W og kostar lítið eða 190\$.
+Tækið notar forritanlega bið blokk til þessa að kveikja á hljóðrænum-stafrænum umbreyti til að taka mæligildi og notar síðan beinan minnisaðgang til þess að geyma þau gildi í biðminni sem seinna skrifar gögnin á SD kort.
+Eins og er getur tækið tekið upp merki með 16bita upplausn á 300ksps, sem gerir því fræðilega kleyft að taka upp merki allt að 150kHz.
+Þessi ritgerð mun sýna fram á að tækið sem lagt er til er hægt að nota í að hjálpa hvala rannsökurum við rannsóknir og getur hjálpað í þágu náttúrverndar.
+
+} % Icelandic abstract goes here
 \setAbstract{\MLAbstractText}
 
 
@@ -322,42 +347,42 @@
 %% Dedication is optional, comment out if it is absent
 %% RUM: Not mentioned
 \begin{dedications}
-  I dedicate this to my spouse/child/pet/power animal.
+  I dedicate this to my family and friends who have helped me on my journey.
 \end{dedications}
 
 \enableindents{}% turn on/off paragraph indents
 % RUM: "Acknowledgements (optional)"
-\coverchapter{Acknowledgements} 
-\begin{quotation}
-So long, and thanks for all the fish.
-\end{quotation}\sourceatright{Douglas Adams\cite{adams84fish}}
-\vspace{\baselineskip}
+%\coverchapter{Acknowledgements} 
+%\begin{quotation}
+%So long, and thanks for all the fish.
+%\end{quotation}\sourceatright{Douglas Adams\cite{adams84fish}}
+%\vspace{\baselineskip}
 
-\draftnote{Acknowledgements are optional; comment this chapter out if they are absent
-  Note that it is important to acknowledge any funding that helped in the work}
+%\draftnote{Acknowledgements are optional; comment this chapter out if they are absent
+%  Note that it is important to acknowledge any funding that helped in the work}
 
-This work was funded by \the\year~RANNIS grant ``Survey of man-eating Minke whales'' 1415550.
-Additional equipment was generously donated by the Icelandic Tourism Board.
+%This work was funded by \the\year~RANNIS grant ``Survey of man-eating Minke whales'' 1415550.
+%Additional equipment was generously donated by the Icelandic Tourism Board.
 
-\coverchapter{Preface}
+%\coverchapter{Preface}
 % RUM: "Preface (optional)"
-This dissertation is original work by the author, Firstname~Lastname.
-Portions of the introductory text are used with permission from
-Student et al.\cite{student2015awesome} of which I am an author.
+%This dissertation is original work by the author, Firstname~Lastname.
+%Portions of the introductory text are used with permission from
+%Student et al.\cite{student2015awesome} of which I am an author.
 
   
-\draftnote{The preface is an optional element
-  explaining a little who performed what work.  See
-  \url{https://www.grad.ubc.ca/sites/default/files/materials/thesis_sample_prefaces.pdf}
-  for suggestions.
+%\draftnote{The preface is an optional element
+%  explaining a little who performed what work.  See
+%  \url{https://www.grad.ubc.ca/sites/default/files/materials/thesis_sample_prefaces.pdf}
+%  for suggestions.
   
-  List of publications as part of the preface is
-  optional unless elements of the work have already been published.
-  It should be a comprehensive list of all publications in which
-  material in the thesis has appeared, preferably with references to
-  sections as appropriate.  This is also a good place to state
-  contribution of student and contribution of others to the work
-  represented in the thesis.}
+%  List of publications as part of the preface is
+%  optional unless elements of the work have already been published.
+%  It should be a comprehensive list of all publications in which
+%  material in the thesis has appeared, preferably with references to
+%  sections as appropriate.  This is also a good place to state
+%  contribution of student and contribution of others to the work
+%  represented in the thesis.}
 
 %\coverchapter{Publications}
 %% RUM: Not mentioned, this was found in the CS thesis template.  
