@@ -94,7 +94,7 @@ While that transfer is happening the destination address for the buffer was chan
 This is crucial in order to get a non-blocking code and not lose any data.
 Therefore the speed of the program is dependent on how fast the Teensy can move data from the DMA buffer to the storage buffer.
 The main program is then continually writing from the storage buffer to the SD card in 512-byte chunks.
-A more detailed explanation of setting registers can be seen in \textit{Appendix~\ref{sec:codeExplain}}.
+A flowchart of the design and operation of the program can be seen in \textit{Figure~\ref{fig:CodeFlow}}.
 
 \begin{figure}[h]
     \centering
@@ -103,6 +103,8 @@ A more detailed explanation of setting registers can be seen in \textit{Appendix
     \label{fig:CodeFlow}
 \end{figure}
 
+
+A more detailed explanation of setting registers can be seen in \textit{Appendix~\ref{sec:codeExplain}}.
 
 \clearpage
 
@@ -274,7 +276,7 @@ Which yields a SNR, which is the difference between the two amplitudes as 75dB.
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.7\textwidth]{graphics/Noise20k10mVpp100kband.PNG}
-    \caption{FFT on the RTB2004 oscilloscope. An input sine wave signal of 10$mV_{pp}$ and a frequency of 20kHz seen at the top of the figure and the respective FFT below it with a 100kHz bandwidth.}
+    \caption{FFT on the RTB2004 oscilloscope. An input sine wave signal of 10$mV_{pp}$ and a frequency of 20kHz.Top of the figure shows the output of the op amps and the respective FFT below it with a 100kHz bandwidth.}
     \label{fig:Noise20k10mVpp100kband}
 \end{figure}
 
