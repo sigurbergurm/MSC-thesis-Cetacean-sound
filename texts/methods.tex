@@ -36,9 +36,8 @@ The Frequency response of the Aquarian H1a hydrophone can be calculated using \t
 Which is just \textit{Equation~\ref{eq:FC}} where the capacitance of the hydrophone has been multiplied with $2\pi$.
 
 
-\subsection{Microcontroller og ADC}
 
-\subsubsection{Microcontroller}
+\section{Microcontroller}
 The Teensy3.5 was ultimately chosen for the microcontroller of the system.
 This decision was made for several reasons.
 The Teensy3.5 has two built-in ADC, which means the system might be able to add another hydrophone to it for recording.
@@ -47,7 +46,7 @@ The Teensy also consumes little power, when running with no peripherals active t
 Which is under the requirements set at the beginning of the project.
 As well as it was readily available at the Reykjavik University lab.
 
-\subsubsection{Operational amplifier}
+\section{Operational amplifier}
 %\textbf{Mögulega tala um í kafla 2 hvað mikilvægustu þáttir opampa fyrir þetta verkefni var}
 
 The operational amplifier that was chosen for this project was the OPA1644 from Texas Instruments.
@@ -80,6 +79,40 @@ It also has up to 40dB gain at 100kHz as seen in \textit{Figure~\ref{fig:dbvsFre
 
 \vspace{4cm}
 
+\section{Analog to digital converter}
+
+The built-in ADC on the Teensy3.5 was used in the device.
+It needs a precise clock or trigger to tell it to take a sample of the signal.
+For this a programmable delay block (PDB) was used, which is a feature on the Teensy. 
+It is a precise timer that can be set to trigger at a given interval.
+The way an analog to digital conversion occurs is that the PDB first triggers the ADC.
+The ADC converts the analog signal to a digital format.
+Once a conversion occurs the value is transferred to memory using Direct memory access (DMA).
+
+
+\section{Direct memory access}
+
+When transferring data between main memories and I/O devices, DMA can be utilized.
+The benefit of using DMA for the data transfer is that it minimizes or eliminates the processor's involvement with the data transfer.
+The processor only initializes the DMA controller by configuring the read and write memory, size of data for each transfer and I/O address.
+In \textit{Figure~\ref{fig:DMAcontroller}} the process of the data transfer is better explained.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.70\textwidth]{graphics/DMA.png}
+    \caption{Data transfer for a DMA controller. Where the data transfers from the I/O device directly to memory. \cite{ahmed_design_2019}}
+    \label{fig:DMAcontroller}
+\end{figure}
+
+A bus request (BR) signal is sent to the processor during the data transfer operation.
+The processor then finishes its current job and replies with a bus grant (BG) signal.
+The DMA controller receives the signal and can then initiate the data transfer.
+There are two modes in which the DMA can perform data transfers.
+The first is called flow-through, where the data flows through the DMA controller between the I/O device to memory.
+The second is called fly by, where the data is transferred directly between the I/O device and memory \cite{ahmed_design_2019}.
+
+
+\fxfatal{Tala um counter}
 
 \section{Circuit}\label{sec:CircResult}
 
@@ -99,7 +132,6 @@ The output of the hydrophone is first connected to a high pass filter, where the
     \label{fig:Opamp1}
 \end{figure}
 
-\vspace{4cm}
 
 The desired value for the high pass filter was 10Hz and using \textit{Equation~\ref{eq:fchydro}} provided in the datasheet, the resistor value was estimated.   
 $$F_c = \frac{1}{2\pi * 25nF * 636k\Omega} = 10Hz$$
@@ -107,11 +139,11 @@ Using standard resistor values, the closest resistor value is 620k which yields 
 The gain over the active high pass filter can be represented using \textit{Equation \ref{eq:DCGain}} and \textit{Equation \ref{eq:ActiveHighPass}}. 
 Where $A_{V1} = 1 + \frac{19k\Omega}{1k\Omega} = 20$.
 $$A_f = \frac{(1+\frac{19k}{1k})(\frac{f}{10.26Hz})}{\sqrt{1 + (\frac{f}{10.26Hz})^2}} \approx 20$$
-Which is approximately equal to 20, as seen in \textit{Figure~\ref{fig:AVhighpass}} over the entire bandwidth.
+Which is approximately equal to 20 over the bandwidth, as seen in \textit{Figure~\ref{fig:AVhighpass}}.
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.5\textwidth]{graphics/Av_Highpass.png}
+    \includegraphics[width=0.7\textwidth]{graphics/Av_Highpass.png}
     \caption{The gain of the operational amplifier with the active high pass filter.}
     \label{fig:AVhighpass}
 \end{figure}
@@ -138,7 +170,7 @@ Which is approximately equal to 2.5 over the entire bandwidth.
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.6\textwidth]{graphics/Av_Lowpass.png}
+    \includegraphics[width=0.7\textwidth]{graphics/Av_Lowpass.png}
     \caption{The gain of the operational amplifier with the active low pass filter.}
     \label{fig:AVlowpass}
 \end{figure}
@@ -185,10 +217,11 @@ The total gain of the circuit for the input signal is found by.
 
 $$A_{tot} = A_1A_1A_2A_3A_4 = 20*2.5*-2*-1 = 100$$
 
-Finding the total dB gain of the circuit can be found by \textit{Equation \ref{eq:DBGAIN}}, which is confirmed using Multisim as seen in \textit{Figure~\ref{fig:bode}}.
+Finding the total dB gain for the entire circuit can be found by \textit{Equation \ref{eq:DBGAIN}}. 
+Which is confirmed using Multisim as seen in \textit{Figure~\ref{fig:bode}},
+shows the circuit has a dB gain of $\approx$ 40, for the entire bandwidth of 10 - 100kHz.
 
-$$dB = 20log(100) = 40dB$$
-
+$$dB = 20log_{10}(100) = 40dB$$
 
 \begin{figure}[h]
     \centering
@@ -196,11 +229,7 @@ $$dB = 20log(100) = 40dB$$
     \caption{The bode plot of the circuit.}
     \label{fig:bode}
 \end{figure}
-
-The bode plot of the circuit can be seen in \textit{Figure~\ref{fig:bode}}.
-It shows the circuit has a dB gain of $\approx$ 40, for the entire bandwidth of 10 - 100kHz.
-
-
+\fxfatal{LAGA PLOTT TÍÐNI Í LOG}
 
 %Several simulations of the circuit were performed in Multisim.
 %Which yielded the results seen in \textit{Figure~\ref{fig:InpVsOut10} -~\ref{fig:bode}}.
@@ -233,26 +262,6 @@ It shows the circuit has a dB gain of $\approx$ 40, for the entire bandwidth of 
 
 \clearpage
 
-\subsection{Direct memory access}
-
-When transferring data between main memories and I/O devices, direct memory access (DMA) can be utilized.
-The benefit of using DMA for the data transfer is that it minimizes or eliminates the processor's involvement with the data transfer.
-The processor only initializes the DMA controller by configuring the read and write memory, size of data for each transfer and I/O address.
-In \textit{Figure~\ref{fig:DMAcontroller}} the process of the data transfer is better explained.
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.70\textwidth]{graphics/DMA.png}
-    \caption{Data transfer for a DMA controller. Where the data transfers from the I/O device directly to memory. \cite{ahmed_design_2019}}
-    \label{fig:DMAcontroller}
-\end{figure}
-
-A bus request (BR) signal is sent to the processor during the data transfer operation.
-The processor then finishes its current job and replies with a bus grant (BG) signal.
-The DMA controller receives the signal and can then initiate the data transfer.
-There are two modes in which the DMA can perform data transfers.
-The first is called flow-through, where the data flows through the DMA controller between the I/O device to memory.
-The second is called fly by, where the data is transferred directly between the I/O device and memory \cite{ahmed_design_2019}.
 
 
 %%% Local Variables: 

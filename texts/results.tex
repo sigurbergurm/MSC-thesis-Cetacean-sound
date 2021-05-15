@@ -83,7 +83,7 @@ Just before the test, a single reading of the output signal was taken with an os
 
 \subsection{PDBContinuousAnalogRead.ino}
 
-PDBContinuousAnalogRead.ino utilizes three specific built-in peripherals on the Teensy 3.5 in order to read analog signals, which are the ADC, a programmable delay block (PDB) and a DMA channel.
+PDBContinuousAnalogRead.ino utilizes three specific built-in peripherals on the Teensy 3.5 in order to read analog signals, which are the ADC, PDB and a DMA channel.
 The PDB is an accurate timer that is used to trigger the ADC to do an analog to digital conversion.
 Once each ADC conversion is complete DMA receives a trigger, the ADC value is then transferred using DMA to memory.
 When initializing the DMA it needs to know a few things about the buffer to which the ADC value is being transferred to such as the size of the buffer and its address. 
