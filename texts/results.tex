@@ -5,22 +5,20 @@
 
 \section{Code}
 
-
 All codes were developed in Arduino IDE using a teensyduino extension.
 Since this project is about the data acquisition of cetacean vocalization, all codes were developed to read analog signals and write the value to a file on a SD card.
 The SD card used was a Samsung EVO Plus microSDHC 32 GB, capable of 95MB/s read speed and 20MB/s write speed.
 This should be sufficient since the data is 2 bytes per sample which means in theory the card should be able to handle a peak of 10Msps.
-
-
+Two programs were developed and tested, ContinousAnalogRead.ino and PDBContinuousAnalogRead.ino.
 
 %\textbf{SKOÐAFYRIR UTERIKNGA Á CONVERSION T'IMA!!!!!!!!!!!!!!!!}
 % https://www.pjrc.com/teensy/K64P144M120SF5RM.pdf bls 859
 
-\subsection{ContinousAnalogRead}
+\subsection{ContinousAnalogRead.ino}
 
 The basic function of the code is simple, it should read a 64KB buffer of analog values from the circuit as well as save the microseconds of each read in a different buffer.
 Once the buffers are full, the program begins to write all the buffers to the SD card.
-To configure the ADC, the ADC library by pedvide was used \cite{villanueva_pedvideadc_2021}.
+To configure the ADC a pre made library for the Teensy was used \cite{villanueva_pedvideadc_2021}.
 The library handles the configuration of the built-in ADC and should make that process easier, however it makes it a little harder to see what exactly configures the ADC to be.
 To use the library, the code must first create an ADC object via 
 $ADC *ADC = new ADC();$
@@ -38,7 +36,7 @@ Once the ADC is configured, the device can start reading analog values.
 It collects the analog readings to a buffer as well as the timestamp of each reading.
 Once the buffers are full, the program writes to a SD card.
 It writes both values as decimal values to a text file on the card.
-The analog read and writes to SD card can be seen in \textit{Figure~\ref{fig:ContAnalSpeed}}
+A measurement of the read speed of the ADC and the write speed to the SD card was taken, results of which can be seen in \textit{Figure~\ref{fig:ContAnalSpeed}}.
 
 \begin{figure}[h]
     \centering
@@ -61,6 +59,8 @@ Even though it should wait until the ADC is ready for a new conversion it does n
     \label{fig:ContAnalREsults}
 \end{figure}
 
+\vspace{4cm}
+
 Just before the test, a single reading of the output signal was taken with an oscilloscope which can be seen in \textit{Figure~\ref{fig:ContAnalOscillascope}}.
 
 \begin{figure}[h]
@@ -70,7 +70,6 @@ Just before the test, a single reading of the output signal was taken with an os
     \label{fig:ContAnalOscillascope}
 \end{figure}
 
-\vspace{4cm}
 %\begin{figure}[h]
 %    \subfloat[\textbf{Sub figure caption}]{\includegraphics[width=0.50\textwidth,height=0.40\textwidth]{graphics/COntANalogResults.png}}
 %    \label{fig:ContAnalSpeedREsults}
@@ -83,6 +82,7 @@ Just before the test, a single reading of the output signal was taken with an os
 
 \subsection{PDBContinuousAnalogRead.ino}
 
+
 PDBContinuousAnalogRead.ino utilizes three specific built-in peripherals on the Teensy 3.5 in order to read analog signals, which are the ADC, PDB and a DMA channel.
 The PDB is an accurate timer that is used to trigger the ADC to do an analog to digital conversion.
 Once each ADC conversion is complete DMA receives a trigger, the ADC value is then transferred using DMA to memory.
@@ -94,19 +94,16 @@ While that transfer is happening the destination address for the buffer was chan
 This is crucial in order to get a non-blocking code and not lose any data.
 Therefore the speed of the program is dependent on how fast the Teensy can move data from the DMA buffer to the storage buffer.
 The main program is then continually writing from the storage buffer to the SD card in 512-byte chunks.
-A flowchart of the design and operation of the program can be seen in \textit{Figure~\ref{fig:CodeFlow}}.
+A flowchart of the design and operation of the program can be seen in \textit{Figure~\ref{fig:CodeFlow}} and a more detailed explanation of setting registers can be seen in \textit{Appendix~\ref{sec:codeExplain}}.
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.70\textwidth]{graphics/flowChart.png}
+    \includegraphics[width=0.60\textwidth]{graphics/flowChart.png}
     \caption{A flow chart giving a visual representation of the function of the program}
     \label{fig:CodeFlow}
 \end{figure}
 
-
-A more detailed explanation of setting registers can be seen in \textit{Appendix~\ref{sec:codeExplain}}.
-
-\clearpage
+\vspace{6cm}
 
 \subsection{Testing}
 
@@ -142,7 +139,7 @@ Multiple tests were performed on the device, all equipment used for the tests ca
     \item \textit{Rigol DG1022} waveform generator capable of generating signals up to 25MHz sine wave and a resolution of 1$\mu Hz$ and down to 2mVpp.
     \item \textit{Rigol DP831} programmable DC power supply.
 \end{itemize}
-
+All further testing will be using PDBContinuousAnalogRead.ino as the code.
 
 
 \subsubsection{Frequency of PDB, ADC and the DMA}
@@ -153,7 +150,7 @@ The ISR would either turn on the built-in LED on the Teensy or turn it off, depe
 Which for every other ISR trigger would make the LED blink.
 Three test cases were examined, first using just the PDB timer which would trigger the ISR. 
 Secondly using the PDB and ADC together and finally for when the entire system was operational, for both cases the ISR would be triggered by the completion of an ADC conversion.
-The setup of the test can be seen in \textit{Figure~\ref{fig:SetupCircSpeed}}, the oscilloscope was connected to the built-in LED, the Teensy3.5 was powered via USB and the op-amps were powered by the DC power supply.
+The setup of the test can be seen in \textit{Figure~\ref{fig:SetupCircSpeed}}, the oscilloscope was connected to the built-in LED and the Teensy3.5 was powered via USB. %and the op-amps were powered by the DC power supply.
 The scope was set to take measurements of the time and frequency, which would be triggered by the rising edge of the rectangular signal that formed from blinking the LED. 
 The oscilloscope shows the mean, maximum and minimum values for both frequency and time of each period.
 The frequency measurements shown by the oscilloscope are actually halved since the scope counts the rising edge of the pulses and the time period measurement is double that of the actual trigger time.
@@ -173,6 +170,7 @@ In the first test, just the PDB timer was initialized and the ISR would trigger 
 Three set frequencies were tested, 1.2MHz, 600kHz and 300kHz.
 The results of the tests can be seen in \textit{Figures~\ref{fig:PDBSp1200} - \ref{fig:PDBsp300}}.
 The maximum frequency at which the PDB could run, was when the set frequency was set as 1.2MHz.
+When it was set higher the program would stop running after a couple of seconds.
 As explained before the actual frequency values from the oscilloscope are halved from the real values, so all measured frequency statistics are doubled, while the time of the period is halved.
 The mean frequency was 1.17MHz, where the maximum was 1.27MHz and a minimum of 767.7kHz with a standard deviation of 27.1kHz. 
 The mean time for a period was 852ns with a standard deviation of 27ns as seen in \textit{Figure~\ref{fig:PDBSp1200}}.
@@ -228,7 +226,7 @@ The mean time for a period was 3.58$\mu$s with a standard deviation of 14ns as s
 \end{figure}
 
 The next test was for the whole system was initialized, using the ADC, PDB and DMA.
-The ISR is still set to trigger when completing an ADC conversion.
+The ISR is still set to trigger when completing an ADC conversion and the set frequency was 300kHz.
 The mean frequency was 298.3kHz, where the maximum was 532.4kHz and a minimum of 208.5kHz with a standard deviation of 5.4kHz. 
 The mean time for a period was 3.39$\mu$s with a standard deviation of 69.6ns as seen in \textit{Figure~\ref{fig:PDBADCDMAsp280}}.
 
@@ -267,7 +265,9 @@ The setup for the tests can be seen in \textit{Figure~\ref{fig:SetupFFT}}.
 \end{figure}
 
 
-The bandwidth of the FFT was set at 100kHz with an input signal being a sine wave with 10$mV_{pp}$ and 20kHz frequency being sent to the input of the op-amps.
+The bandwidth of the FFT was set at 100kHz.
+The input signal to the op-amps was a sine wave with 10$mV_{pp}$ and 20kHz frequency.
+The output of the op-amps was what the oscilloscope was measuring.
 The results can be seen in \textit{Figure~\ref{fig:Noise20k10mVpp100kband}}, at 20kHz the input signal is apparent with a peak of 3dBm while the noise floor is around -72dBm.
 Which yields a SNR, which is the difference between the two amplitudes as 75dB.
 
@@ -337,15 +337,6 @@ This measurement yields a noise floor around of 87.1dBm.
 %    \label{fig:noisefloor300k}
 %\end{figure}
 
-
-
-
-\clearpage
-
-
-
-
-
 \subsubsection{Recording signals from a generator}
 
 All tests had the same setup of the device.
@@ -364,8 +355,10 @@ Once it had stopped recording the data was transformed from hexadecimal to a dec
     \label{fig:testCircSetup}
 \end{figure}
 
+\vspace{4cm}
+
 The following three tests are simulating a 170dB as a source level.
-Using the Aquarian H1a as the hydrophone the voltage output would equate to  $V = 10^{170dB-190dB/10} = 10mV$, which was used for all the following tests.
+Using the Aquarian H1a as the hydrophone the voltage output would equate to  $V = 10^{(170dB-190dB)/10} = 10mV$, which was used for all the following tests.
 The difference between the three tests was the input signals frequency and the sampling frequency of the Teensy.
 The first test had the sampling frequency set at 100kHz and an input signal of 10kHz was used.
 The data recorded by the Teensy can be seen in \textit{Figure~\ref{fig:Teensy10k100k}}.
@@ -373,7 +366,7 @@ While \textit{Figure~\ref{fig:Oscillo10k100k}} shows respective results from the
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=1.0\textwidth]{graphics/10kin_100ksampl.png}
+    \includegraphics[width=0.9\textwidth]{graphics/10kin_100ksampl.png}
     \caption{Test of the circuit where the input signal was a sinusoidal wave with a frequency of 10kHz and an amplitude of $10mV_{pp}$ and the sample frequency was set as 100kHz}
     \label{fig:Teensy10k100k}
 \end{figure}
@@ -385,11 +378,8 @@ While \textit{Figure~\ref{fig:Oscillo10k100k}} shows respective results from the
     \label{fig:Oscillo10k100k}
 \end{figure}
 
-\clearpage
-
-
 Next the sampling frequency was increased to 200kHz and the input signal was 20kHz.
-The results of the data recorded by the Teensy can be seen in\textit{Figure~\ref{fig:Teensy20k200k}}.
+The results of the data recorded by the Teensy can be seen in \textit{Figure~\ref{fig:Teensy20k200k}}.
 \textit{Figure~\ref{fig:Oscillo20k200k}} shows respective results from using the oscilloscope for the same input signal as before.
 
 \begin{figure}[h]
@@ -427,11 +417,19 @@ In \textit{Figure~\ref{fig:Teensy30k300k}} the data that the Teensy recorded at 
     \label{fig:Oscillo30k300k}
 \end{figure}
 
-\fxfatal{Mögulega bæta við hraðamyndum með MB/s á öll test}
+\vspace{4cm}
+
+After the tests the total speed of the device was outputted by the Teensy.
+Which is the total speed at which the device is collecting and saving the data gathered.
+With the sample frequency set at 300kHz, the results can be see in \textit{Figure~\ref{fig:SpeedPDBCont}}.
 
 
-\clearpage
-
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.4\textwidth]{graphics/Speed300khzFortest16bit20to100khz.png}
+    \caption{The read and write speeds of the device when the sample frequency is set at 300kHz.}
+    \label{fig:SpeedPDBCont}
+\end{figure}
 
 Two more tests were performed to better estimate the Teensys accuracy since at 10mV the signal generator was quite inconsistent and created some variance in its output. 
 The test setup can be seen in \textit{Figure~\ref{fig:Last2TestsSetup}}, where the input signal bypasses the op-amp circuit and goes straight to the Teensy and Oscilloscope.
@@ -443,15 +441,12 @@ The test setup can be seen in \textit{Figure~\ref{fig:Last2TestsSetup}}, where t
     \label{fig:Last2TestsSetup}
 \end{figure}
 
+\vspace{4cm}
 
 
 The first signal was a sine wave with 1$V_{pp}$ and VDC offset of 1.65V and 50kHz frequency.
 The data plotted from the Teensy can be seen in \textit{Figure~\ref{fig:OscilloCompTeensyAC}}.
 Where the average from the Teensy data has an average voltage of 1.6462V, while the oscilloscope shows 1.6504V.
-
-
-\clearpage
-
 
 \begin{figure}[h]
     \centering

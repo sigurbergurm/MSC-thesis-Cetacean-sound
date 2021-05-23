@@ -41,10 +41,48 @@ Which is just \textit{Equation~\ref{eq:FC}} where the capacitance of the hydroph
 The Teensy3.5 was ultimately chosen for the microcontroller of the system.
 This decision was made for several reasons.
 The Teensy3.5 has two built-in ADC, which means the system might be able to add another hydrophone to it for recording.
-Both ADCs have a maximum resolution of 16bits with a voltage range of 0 - 3.3V, or $\frac{3.3}{2^{16}} \approx 0.00005V \approx 50\mu V$ step size.
+Both ADCs have a maximum resolution of 16bits with a voltage range of 0 - 3.3V, or $\frac{3.3}{2^{16}} \approx 0.00005V \approx 50\mu V$ step size and up to 818ksps.
 The Teensy also consumes little power, when running with no peripherals active the processor is powered roughly by 50mA at 5V or 0.25W.
 Which is under the requirements set at the beginning of the project.
 As well as it was readily available at the Reykjavik University lab.
+
+
+\section{Analog to digital converter}
+
+The built-in ADC on the Teensy3.5 was used in the device.
+It needs a precise clock or trigger to tell it to take a sample of the signal.
+For this a programmable delay block (PDB) was used, which is a feature on the Teensy. 
+It is a precise timer that can be set to trigger at a given interval.
+The way an analog to digital conversion occurs is that the PDB first triggers the ADC.
+The ADC converts the analog signal to a digital format.
+Once a conversion occurs the value is transferred to memory using Direct memory access (DMA).
+
+\clearpage
+
+\section{Direct memory access}
+
+When transferring data between main memories and I/O devices, DMA can be utilized.
+The benefit of using DMA for the data transfer is that it minimizes or eliminates the processor's involvement with the data transfer.
+The processor only initializes the DMA controller by configuring the read and write memory, size of data for each transfer and I/O address.
+In \textit{Figure~\ref{fig:DMAcontroller}} the process of the data transfer is better explained.
+
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.70\textwidth]{graphics/DMA.png}
+    \caption{Data transfer for a DMA controller. Where the data transfers from the I/O device directly to memory. \cite{ahmed_design_2019}}
+    \label{fig:DMAcontroller}
+\end{figure}
+
+A bus request (BR) signal is sent to the processor during the data transfer operation.
+The processor then finishes its current job and replies with a bus grant (BG) signal.
+The DMA controller receives the signal and can then initiate the data transfer.
+There are two modes in which the DMA can perform data transfers.
+The first is called flow-through, where the data flows through the DMA controller between the I/O device to memory.
+The second is called fly by, where the data is transferred directly between the I/O device and memory \cite{ahmed_design_2019}.
+
+
+\fxfatal{Tala um counter}
 
 \section{Operational amplifier}
 %\textbf{Mögulega tala um í kafla 2 hvað mikilvægustu þáttir opampa fyrir þetta verkefni var}
@@ -77,42 +115,7 @@ It also has up to 40dB gain at 100kHz as seen in \textit{Figure~\ref{fig:dbvsFre
 \end{figure}
 
 
-\vspace{4cm}
 
-\section{Analog to digital converter}
-
-The built-in ADC on the Teensy3.5 was used in the device.
-It needs a precise clock or trigger to tell it to take a sample of the signal.
-For this a programmable delay block (PDB) was used, which is a feature on the Teensy. 
-It is a precise timer that can be set to trigger at a given interval.
-The way an analog to digital conversion occurs is that the PDB first triggers the ADC.
-The ADC converts the analog signal to a digital format.
-Once a conversion occurs the value is transferred to memory using Direct memory access (DMA).
-
-
-\section{Direct memory access}
-
-When transferring data between main memories and I/O devices, DMA can be utilized.
-The benefit of using DMA for the data transfer is that it minimizes or eliminates the processor's involvement with the data transfer.
-The processor only initializes the DMA controller by configuring the read and write memory, size of data for each transfer and I/O address.
-In \textit{Figure~\ref{fig:DMAcontroller}} the process of the data transfer is better explained.
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.70\textwidth]{graphics/DMA.png}
-    \caption{Data transfer for a DMA controller. Where the data transfers from the I/O device directly to memory. \cite{ahmed_design_2019}}
-    \label{fig:DMAcontroller}
-\end{figure}
-
-A bus request (BR) signal is sent to the processor during the data transfer operation.
-The processor then finishes its current job and replies with a bus grant (BG) signal.
-The DMA controller receives the signal and can then initiate the data transfer.
-There are two modes in which the DMA can perform data transfers.
-The first is called flow-through, where the data flows through the DMA controller between the I/O device to memory.
-The second is called fly by, where the data is transferred directly between the I/O device and memory \cite{ahmed_design_2019}.
-
-
-\fxfatal{Tala um counter}
 
 \section{Circuit}\label{sec:CircResult}
 
@@ -121,8 +124,9 @@ It was decided to collect signals ranging from 10 - 100kHz, the lower limit whic
 This could be significantly reduced since most dominant frequencies are lower than 30kHz however, there are vocalization that goes up to and over 100kHz so it is interesting to see if the Teensy was capable of recording these high-frequency signals.
 The Aquarian H1a hydrophone datasheet specifies that for cetacean vocalization recording the gain of the preamplifier needs to be between 40 - 50 dB\cite{noauthor_aquarian_nodate}.
 The circuit will there for consist of an active low pass filter and high pass filter, a scaling summing amplifier and an inverting op-amp.
-It will then connect to the Teensy 3.5 built-in ADC.\\
-\indent \textit{Figure \ref{fig:Opamp1}} shows the first part of the circuit.
+It will then connect to the Teensy 3.5 built-in ADC.
+
+\textit{Figure \ref{fig:Opamp1}} shows the first part of the circuit.
 The output of the hydrophone is first connected to a high pass filter, where the capacitance, 25nF of the hydrophone is used as the capacitor in the high pass filter.
 
 \begin{figure}[h]
@@ -134,12 +138,15 @@ The output of the hydrophone is first connected to a high pass filter, where the
 
 
 The desired value for the high pass filter was 10Hz and using \textit{Equation~\ref{eq:fchydro}} provided in the datasheet, the resistor value was estimated.   
-$$F_c = \frac{1}{2\pi * 25nF * 636k\Omega} = 10Hz$$
+
+$$F_c = \frac{1}{(2\pi)( 25nF )( 636k\Omega)} = 10Hz$$
 Using standard resistor values, the closest resistor value is 620k which yields a cut off frequency of 10.26Hz.
 The gain over the active high pass filter can be represented using \textit{Equation \ref{eq:DCGain}} and \textit{Equation \ref{eq:ActiveHighPass}}. 
 Where $A_{V1} = 1 + \frac{19k\Omega}{1k\Omega} = 20$.
 $$A_f = \frac{(1+\frac{19k}{1k})(\frac{f}{10.26Hz})}{\sqrt{1 + (\frac{f}{10.26Hz})^2}} \approx 20$$
 Which is approximately equal to 20 over the bandwidth, as seen in \textit{Figure~\ref{fig:AVhighpass}}.
+
+\clearpage
 
 \begin{figure}[h]
     \centering
@@ -148,7 +155,7 @@ Which is approximately equal to 20 over the bandwidth, as seen in \textit{Figure
     \label{fig:AVhighpass}
 \end{figure}
 
-\vspace{4cm}
+
 
 \textit{Figure \ref{fig:Opamp2}} shows the active low pass filter configuration which has a cut-off frequency of $\approx$ 100kHz and a gain of 2.5.
 
@@ -160,11 +167,12 @@ Which is approximately equal to 20 over the bandwidth, as seen in \textit{Figure
 \end{figure}
 
 The desired value for the high pass filter was 100kHz and using \textit{Equation~\ref{eq:FC}} and choosing a resistor value of 160$\Omega$, the capacitor value was estimated.   
-$$F_c = \frac{1}{2\pi 9.9nF 160\Omega} = 100kHz$$
-Using standard capacitor values, the closest capacitor value is 10nF which yields a cut off frequency of 99472Hz.
+
+$$F_c = \frac{1}{(2\pi)( 9.9nF )( 160\Omega)} = 100kHz$$
+Using standard capacitor values, the closest capacitor value is 10nF which yields a cut off frequency of 99,472Hz.
 The gain over the active low pass filter can be represented using \textit{Equation \ref{eq:DCGain}} and \textit{Equation \ref{eq:ActiveLowPass}}. 
 Where $A_{V1} = 1 + \frac{1.5k\Omega}{1k\Omega} = 2.5$.
-$$A_f  = \frac{1 + \frac{1.5k\Omega}{1k\Omega}}{\sqrt{1 + (\frac{f}{99471.8Hz})^2}}$$
+$$A_f  = \frac{1 + \frac{1.5k\Omega}{1k\Omega}}{\sqrt{1 + (\frac{f}{99,471.8Hz})^2}}$$
 Which is approximately equal to 2.5 over the entire bandwidth. 
 \textit{Figure~\ref{fig:AVlowpass}}.
 
@@ -174,6 +182,8 @@ Which is approximately equal to 2.5 over the entire bandwidth.
     \caption{The gain of the operational amplifier with the active low pass filter.}
     \label{fig:AVlowpass}
 \end{figure}
+
+\vspace{4cm}
 
 \textit{Figure~\ref{fig:Opamp3}} shows the scaling summing operational amplifier which is used to shift the input signal by 1.65Vdc. 
 
@@ -209,7 +219,7 @@ Which is done by another inverting operational amplifier the output of which con
     \label{fig:Opamp4}
 \end{figure}
 
-The gain of inverting amplifier is found using \textit{Equation \ref{eq:invertDCGain}}.
+\noindent The gain of inverting amplifier is found using \textit{Equation \ref{eq:invertDCGain}}.
 $$ A_{V4} = -\frac{1k \Omega}{1k \Omega} = -1$$
 %The total circuit therefore consists of four operational amplifiers, high pass and low pass filter.
 %\textbf{MÖGULEGA BÆTA JÖFNU 'I KAFLA 2}
@@ -229,7 +239,7 @@ $$dB = 20log_{10}(100) = 40dB$$
     \caption{The bode plot of the circuit.}
     \label{fig:bode}
 \end{figure}
-\fxfatal{LAGA PLOTT TÍÐNI Í LOG}
+%\fxfatal{LAGA PLOTT TÍÐNI Í LOG}
 
 %Several simulations of the circuit were performed in Multisim.
 %Which yielded the results seen in \textit{Figure~\ref{fig:InpVsOut10} -~\ref{fig:bode}}.
