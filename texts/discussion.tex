@@ -19,7 +19,9 @@ The first tests were regarding the capabilities of the PDB timer and its capabil
 It is able to be triggered as fast as 1.2MHz.
 However that is out of the ADC specs.
 The system is able to run at 300kHz sampling frequency, with a sampling jitter of 69.6ns.
-Which is insufficient for 16bits \fxfatal{SPurja baldur} %in order to maintain a 0.5LSB standard deviation.
+Which can result in a voltage standard deviation of 11.484mV.
+
+%in order to maintain a 0.5LSB standard deviation.
 %http://www.audiophilleo.com/zh_hk/docs/Dunn-AP-tn23.pdf - sampling jitter
 
 Several noise tests were performed on both the entire device as well as the signal generator.
@@ -57,17 +59,25 @@ The current configuration of the project costs around 190\$ with the hydrophone,
 It is hard to find a price for a complete system capable of recording cetacean vocalization but considering that devices such as the RUDAR uses the CRT C57 hydrophone which costs around 1290€.
 It is safe to say the total cost of the recording device is low cost relative to other products commercially available.
 
-The device is currently capable of recording continuously at 300ksps for 16bit resolution, which in theory should be more than sufficient to record signals up to 150kHz according to the Nyquist-Shannon theorem.
+The device is currently capable of recording continuously at 300ksps for up to 16bit resolution, which in theory should be more than sufficient to record signals up to 150kHz according to the Nyquist-Shannon theorem.
 
 It was however decided early on to see the maximum potential of the Teensy platform audio recording and see its capabilities, which can then beneficial to the researchers.
-Because some research suggested vocalization occurring at higher frequencies as well as the echolocation noise can go well above 100kHz so the device could record at least some parts of those.
+Because some research suggested vocalization occurring at higher frequencies as well as the echolocation noise can go well above 100kHz so the device could record at least some parts of those even though majority of the vocalization occurs at less than 30kHz.
 
-\fxfatal{Tala við Baldur um sampling jitter, breyta ef þarf og tengja project goals aðeins meira eins og þyngd og lengd tímans sem það getur verið út á hafi og bæta við hve lengi þetta getur dugað}
-\fxfatal{TALA UM FUTURE WORK}
-In the end, the thesis shows that the Teensy platform is more than capable for the task of recording cetacean vocalizations.
+The main concern is the sampling standard deviation of 69.6ns.
+This is insufficient for 16bits resolution in the worst-case scenario,
+where the input signal is 100kHz and has a $V_{pp}$ of 3.3V and when the ADC is taking a measurement marked by the black asterisk seen in \textit{Figure~\ref{fig:sine100k}} which has the greatest slope in the signal.
+For less than1 LSB error the error needs to be less than the step size, which when $V_{pp}$ is 3.3V is 50$\mu$V.
+However in the worst-case scenario when the input signal has a $V_{pp}$ of 3.3V and 100kHz the device can have a variation of 11.484mV which is far greater than the step size of 16bits.
+In this case, the device can provide 8bit resolution since the equivalent step size for 8bit resolution would be 12.89mV and the error that could occur is smaller than that.
+
+In the end, the thesis shows that the Teensy platform is capable for the task of recording cetacean vocalizations with more research into lowering the standard deviation for the sampling.
 As human civilization grows and expands it impacts animal wildlife more and more, whether that be land- or water creatures.
 Creating different ways as well as improving current methods to monitor those effects on the animals.
 Becomes ever so more crucial, in an effort of ensuring the survival of some species and will contribute to a future where human impact on both the earth and wildlife is hopefully decreased to a point that is sustainable.
+
+
+T
 
 %%% Local Variables: 
 %%% mode: latex

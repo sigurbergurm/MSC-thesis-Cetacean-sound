@@ -1,22 +1,20 @@
 //------------------------------------DMA ISR------------------------------------
 static void dma_isr() {
     
-    //Goes in here roughly samleFreq / 2000
+    //Goes in here roughly samleFreq / 2000 or each time buffer is full
     
-    //Láta pinna vera high
+    //Blink led for testing
     //digitalWriteFast(LED_BUILTIN, (ledOn = !ledOn));
     
     //Serial.println(fifoCount);
     if (fifoCount < FIFO_DIM) { 
-        //size_t citer = dma.TCD->CITER_ELINKNO;
-        // Takes about 3 microseconds on teensy 3.6.
-        
+              
         //Copies the values of num bytes from the location pointed to by source directly to the memory block pointed to by destination.
         //https://stackoverflow.com/questions/38922606/what-is-x-1-and-x-1
-        
         memcpy(fifoBuf[fifoHead], dmaBuf[dmaCount & 1], 512);
         
         dmaCount++;
+        //Checking sizing so not to go out of bounds
         fifoHead = fifoHead < (FIFO_DIM - 1) ? fifoHead + 1 : 0;
         fifoCount++;
         
@@ -30,8 +28,6 @@ static void dma_isr() {
     }
     //interrupts();
     dma.clearInterrupt();
-
-    //Setja pinna low og skoða á scopei hvort tíminn séi stöðugur á milli púlsa
 }
 
 
@@ -40,7 +36,7 @@ static void dma_isr() {
 void DmaInit() {
     //-----------------------------------DMA-----------------------------------
     //https://www.pjrc.com/teensy/K64P144M120SF5RM.pdf - datasheet for chip - from P509 -
-    //Skoða P536
+    //P536
     //Set up a DMA channel to store the ADC data
     
     //Attach void isr as the intterrupt
@@ -108,16 +104,18 @@ void DmaInit() {
     /*
         INTHALF = Enable an interrupt when major counter is half complete.
         If this flag is set, the channel generates an interrupt request by setting the appropriate bit in the INT
-        register when the current major iteration count reaches the halfway point. Specifically, the comparison
+        register when the current major iteration count reaches the halfway point. 
+        Specifically, the comparison
         performed by the eDMA engine is (CITER == (BITER >> 1)). This halfway point interrupt request is
-        provided to support double-buffered (aka ping-pong) schemes or other types of data movement where the
-        processor needs an early indication of the transfer’s progress. If BITER is set, do not use INTHALF. Use
-        INTMAJOR instead.
-
+        provided to support double buffered (aka ping-pong) schemes or other types of data movement where the
+        processor needs an early indication of the transfers progress. 
+    */
+    /*
         INTMAJOR = Enable an interrupt when major iteration count completes
         If this flag is set, the channel generates an interrupt request by setting the appropriate bit in the INT when
         the current major iteration count reaches zero.
     */
+
     //Once dmaBuf is full, dma_isr is triggered
     dma.TCD->CSR =    DMA_TCD_CSR_INTHALF | DMA_TCD_CSR_INTMAJOR;//
 

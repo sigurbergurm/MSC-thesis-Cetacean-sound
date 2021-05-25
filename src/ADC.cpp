@@ -23,7 +23,7 @@ void AdcInit() {
         ADC_CFG1_ADICLK = Input clock, 0=bus, 1=bus/2, 2=OSCERCLK, 3=async
     */
    
-    ADC0_CFG1 = ADC_CFG1_MODE(3) | ADC_CFG1_ADLSMP;//          //Prófaði að keyra án og með ADC_CFG1_ADLSMP, viriðst ekki eins ónákvæmt með þvi (keyra test á stillanlegu viðnámi og taka staðalfrávik)
+    ADC0_CFG1 = ADC_CFG1_MODE(3) | ADC_CFG1_ADLSMP;//         
     /*  ADC_CFG2_MUXSEL = 0 = ADxxa channels selected, 1 = ADxxb channels selected.
         ADC_CFG2_ADLSTS = 00 Default longest sample time; 20 extra ADCK cycles; 24 ADCK cycles total.
                      01 12 extra ADCK cycles; 16 ADCK cycles total sample time.
@@ -63,9 +63,9 @@ void AdcInit() {
 
 }
 
-//------------------------------------Calibrating ADC------------------------------------
-void adcCalibrate() {
-//SKOÐA P845, 863
+//------------------------------------Calibrating ADC Not used slows down sampling------------------------------------
+/*void adcCalibrate() {
+//P845, 863
     
     //https://courses.cs.washington.edu/courses/cse474/18wi/labs/l5/ADCpdbDMA.ino
     uint16_t sum;
@@ -84,4 +84,4 @@ void adcCalibrate() {
     sum = ADC0_CLMS + ADC0_CLM4 + ADC0_CLM3 + ADC0_CLM2 + ADC0_CLM1 + ADC0_CLM0;
     sum = (sum / 2) | 0x8000;
     ADC0_MG = sum;
-}
+}*/

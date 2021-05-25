@@ -94,7 +94,7 @@ While that transfer is happening the destination address for the buffer was chan
 This is crucial in order to get a non-blocking code and not lose any data.
 Therefore the speed of the program is dependent on how fast the Teensy can move data from the DMA buffer to the storage buffer.
 The main program is then continually writing from the storage buffer to the SD card in 512-byte chunks.
-A flowchart of the design and operation of the program can be seen in \textit{Figure~\ref{fig:CodeFlow}} and a more detailed explanation of setting registers can be seen in \textit{Appendix~\ref{sec:codeExplain}}.
+A flowchart of the design and operation of the program can be seen in \textit{Figure~\ref{fig:CodeFlow}} and a more detailed explanation of setting registers can be seen in \textit{Appendix~\ref{sec:codeExplain}} and the entire code can be seen in \textit{Appendix~\ref{src:PDBContinuousAnalogRead} -~\ref{src:ADC}} .
 
 \begin{figure}[h]
     \centering
@@ -237,8 +237,21 @@ The mean time for a period was 3.39$\mu$s with a standard deviation of 69.6ns as
     \label{fig:PDBADCDMAsp300}
 \end{figure}
 
+The largest voltage standard deviation from a ADC reading can be estimated.
+The slope for a sine wave with a given amplitude and frequency is $\frac{\delta V}{\delta t} = \pm A\omega cos(\omega t)$.
+The maximum slope occurs when $cos(\omega t)$ = 1, which is can be seen in \textit{Figure~\ref{fig:sine100k}} marked by the black asterisks.
 
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=1.0\textwidth]{graphics/sine100k.png}
+    \caption{Sine wave with 100kHz, 3.3$V_{pp}$ and 1.65V DC offset.}
+    \label{fig:sine100k}
+\end{figure}
 
+In those points the slope is equal to $A \omega$.
+In the worst case scenario the input signal has an amplitude of 1.65V and a frequency of 100kHz.
+There the slope is equal to $\frac{\delta V}{\delta t} = 165000 \frac{V}{t}$.
+There for if an ADC reading occurs at that point and the device has a standard deviation of 69.6ns the standard deviation can be 11.484mV.
 
 
 \subsubsection{Noise testing}
@@ -264,14 +277,12 @@ The setup for the tests can be seen in \textit{Figure~\ref{fig:SetupFFT}}.
     \label{fig:SetupFFT}
 \end{figure}
 
-
 The bandwidth of the FFT was set at 100kHz.
 The input signal to the op-amps was a sine wave with 10$mV_{pp}$ and 20kHz frequency.
 The output of the op-amps was what the oscilloscope was measuring.
 The results can be seen in \textit{Figure~\ref{fig:Noise20k10mVpp100kband}}, at 20kHz the input signal is apparent with a peak of 3dBm while the noise floor is around -72dBm.
 Which yields a SNR, which is the difference between the two amplitudes as 75dB.
 
-\clearpage
 
 \begin{figure}[h]
     \centering
@@ -302,7 +313,6 @@ Which yields a SNR of 80dB.
     \label{fig:NoiseGenerator20kInp100kBand}
 \end{figure}
 
-\clearpage
 
 %\begin{figure}[h]
 %    \centering
@@ -318,13 +328,13 @@ The op-amps are still getting power from the DC power supply and the probe is co
 The results can be seen in \textit{Figure~\ref{fig:noisefloor100k}}.
 This measurement yields a noise floor around of 87.1dBm.
 
-
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.7\textwidth]{graphics/NoiseFloor100k.PNG}
+    \includegraphics[width=0.6\textwidth]{graphics/NoiseFloor100k.PNG}
     \caption{General noise created by the circuit when op amps are powered and the input is grounded over a frequency band of 100kHz}
     \label{fig:noisefloor100k}
 \end{figure}
+
 
 %Now for when the bandwidth is set to 300kHz.
 %Which can be seen in \textit{Figure~\ref{fig:noisefloor100k}}.
@@ -355,7 +365,6 @@ Once it had stopped recording the data was transformed from hexadecimal to a dec
     \label{fig:testCircSetup}
 \end{figure}
 
-\vspace{4cm}
 
 The following three tests are simulating a 170dB as a source level.
 Using the Aquarian H1a as the hydrophone the voltage output would equate to  $V = 10^{(170dB-190dB)/10} = 10mV$, which was used for all the following tests.
@@ -398,8 +407,6 @@ The results of the data recorded by the Teensy can be seen in \textit{Figure~\re
 
 \vspace{4cm}
 
-
-
 In \textit{Figure~\ref{fig:Teensy30k300k}} the data that the Teensy recorded at 300kHz sample frequency, where the input signal was 30kHz.
 \textit{Figure~\ref{fig:Oscillo30k300k}} shows respective results from using the oscilloscope for the same input signal as before.
 
@@ -436,23 +443,9 @@ The test setup can be seen in \textit{Figure~\ref{fig:Last2TestsSetup}}, where t
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.7\textwidth]{graphics/Last2Tests.jpg}
+    \includegraphics[width=0.6\textwidth]{graphics/Last2Tests.jpg}
     \caption{The input signal connected to the 330$\Omega$ resistor straight to the Teensy.}
     \label{fig:Last2TestsSetup}
-\end{figure}
-
-\vspace{4cm}
-
-
-The first signal was a sine wave with 1$V_{pp}$ and VDC offset of 1.65V and 50kHz frequency.
-The data plotted from the Teensy can be seen in \textit{Figure~\ref{fig:OscilloCompTeensyAC}}.
-Where the average from the Teensy data has an average voltage of 1.6462V, while the oscilloscope shows 1.6504V.
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=1.0\textwidth]{graphics/OscilloTeensyAC50k1vpp165voffpng.png}
-    \caption{With a AC signal of 1$V_{pp}$ and 1.65V DC offset, Teensys readings at 300ksps compared to the RTB2004 oscilloscope at 2.5Gsps}
-    \label{fig:OscilloCompTeensyAC}
 \end{figure}
 
 The second input signal was DC 1.65V.
@@ -463,8 +456,58 @@ Where the average from the Teensy data has an average voltage of 1.6727V, while 
 \begin{figure}[h]
     \centering
     \includegraphics[width=1.0\textwidth]{graphics/OscilloTeensyDC165Read.png}
-    \caption{With a DC signal of 1.65V, Teensys readings at 300ksps compared to the RTB2004 oscilloscope at 2.5Gsps}
+    \caption{With a DC signal of 1.65V, Teensys readings set at 300ksps compared to the RTB2004 oscilloscope at 2.5Gsps}
     \label{fig:OscilloCompTeensyDC}
+\end{figure}
+
+\clearpage
+
+The first signal was a sine wave with 1$V_{pp}$ and $V_{DC}$ offset of 1.65V and 50kHz frequency.
+The data plotted from the Teensy can be seen in \textit{Figure~\ref{fig:OscilloCompTeensyAC}}.
+Where the average from the Teensy data has an average voltage of 1.6462V, while the oscilloscope shows 1.6504V.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=1.0\textwidth]{graphics/OscilloTeensyAC50k1vpp165voffpng.png}
+    \caption{Signal read was an AC signal of 1$V_{pp}$ and 1.65V DC offset, Teensys readings set at 300ksps compared to the RTB2004 oscilloscope at 2.5Gsps}
+    \label{fig:OscilloCompTeensyAC}
+\end{figure}
+
+Two final tests were performed testing the full range of the op amp, measuring a signal from 0 - 3.3V.
+This was done for two cases, first the input signal was a sine wave of close to 0 - 3.3V and 50kHz and it was sampled directly by Teensy with the same setup as in \textit{Figure~\ref{fig:Last2TestsSetup}}.
+The results can be seen in \textit{Figures~\ref{fig:MeasurWRes}  -~\ref{fig:FFTWRes}}.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=1.0\textwidth]{graphics/MeasurWRes.png}
+    \caption{Signal read was an AC signal of 3.3$V_{pp}$ and 1.65V DC offset, Teensys readings set at 300ksps compared to the RTB2004 oscilloscope at 2.5Gsps}
+    \label{fig:MeasurWRes}
+\end{figure}
+
+\vspace{8cm}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=1.0\textwidth]{graphics/FFTWRes.png}
+    \caption{FFT plotted by Matlab of the signal seen in \textit{Figure~\ref{fig:MeasurWRes} }.}
+    \label{fig:FFTWRes}
+\end{figure}
+
+The second test had the same setup as seen in \textit{Figure~\ref{fig:testCircSetup}} where the signal sampled was the output of the op-amps.
+Where the input signal being sent to the input of the op amps was adjusted so that the output had roughly the voltage range of 0 - 3.3V at 50kHz.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=1.0\textwidth]{graphics/FFTWResOpamp.png}
+    \caption{Signal read was an AC signal of 3.3$V_{pp}$ and 1.65V DC offset, Teensys readings set at 300ksps compared to the RTB2004 oscilloscope at 2.5Gsps}
+    \label{fig:FFTWResOpamp}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=1.0\textwidth]{graphics/MeasurWResOpAmp.png}
+    \caption{FFT plotted by Matlab of the signal seen in \textit{Figure~\ref{fig:FFTWResOpamp} }.}
+    \label{fig:MeasurWResOpAmp}
 \end{figure}
 
 %https://www.eevblog.com/forum/beginners/help-with-rapid-adc-data-aquizition/25/

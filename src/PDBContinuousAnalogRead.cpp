@@ -86,8 +86,6 @@ void setup() {
     Serial.println(reqFreqInt);
     */
     
-
-    
     delay(1000);
     serialWait("Type any character to begin");
 
@@ -135,6 +133,7 @@ void InitSD(){
     if (!sd.begin(SdioConfig(FIFO_SDIO))) {
         sd.initErrorHalt(&Serial);
     }
+    //Need to remove old file before starting again
     if (sd.exists("DATALOG.txt")) {
         sd.remove("DATALOG.txt");
     }
@@ -145,6 +144,7 @@ void InitSD(){
         sd.errorHalt("file.preAllocate failed");
     }
 }
+
 void PrintRates(uint32_t startTime, uint32_t stopTime){
     uint32_t samplingTime = (stopTime - startTime);
     //Serial.println((float)samplingTime / samples);
@@ -182,9 +182,10 @@ void ContinuousAnalogRead() {
     PdbInit();
     AdcInit();
     DmaInit();
-    
+
+    //For testing run for a given time
     uint32_t startTime = micros();
-    while (!overrun && !Serial.available() && micros() - startTime < 10e6) {
+    while (!overrun && !Serial.available() && micros() - startTime < 5e6) {
         if (fifoCount) {
             //digitalWriteFast(LED_BUILTIN, (ledOn = !ledOn));
             if (file.write(fifoBuf[fifoTail], 512) != 512) {

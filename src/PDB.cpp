@@ -1,9 +1,27 @@
+//------------------------------------PDB_ISR------------------------------------
+
+void pdb_isr() {
+    //For testing
+    //Serial.print("pdb isr: ");
+    //Serial.println(micros());
+    //digitalWrite(LED_BUILTIN, (ledOn = !ledOn));
+    //Serial.println(ADC0_RA);
+    // Clear interrupt flag
+    
+    PDB0_SC &= ~PDB_SC_PDBIF;
+}
+
 //------------------------------------Programmable block delay------------------------------------
 
-//https://notebook.community/wheeler-microfluidics/teensy-minimal-rpc/teensy_minimal_rpc/notebooks/dma-examples/Programmable%20Delay%20Block%20(PDB)%20notes
-
-//      PDB_CONFIG (PDB_SC_TRGSEL(15) | PDB_SC_PDBEN | PDB_SC_CONT | PDB_SC_PDBIE | PDB_SC_DMAEN)
-#define PDB_CONFIG (PDB_SC_TRGSEL(15) | PDB_SC_PDBEN | PDB_SC_CONT)// |PDB_SC_PDBIE)// |PDB_SC_PDBIE )// PDB_SC_PDBIE - enables interrupt, PDB_SC_DMAEN - enables PDB triggering DMA)
+//      PDB_CONFIG (PDB_SC_TRGSEL(15) | PDB_SC_PDBEN | PDB_SC_CONT | PDB_SC_PDBIE | PDB_SC_DMAEN) - most useful things
+/*
+ * PDB_SC_TRGSEL(15) - software trigger 
+ * PDB_SC_PDBEN      - PDB enabled
+ * PDB_SC_CONT       - continous mode
+ * PDB_SC_PDBIE      - enables interrupt
+ * PDB_SC_DMAEN      - enables PDB triggering DMA
+ */
+#define PDB_CONFIG (PDB_SC_TRGSEL(15) | PDB_SC_PDBEN | PDB_SC_CONT)
 
 
 
@@ -28,9 +46,6 @@ void PdbInit() {
         https://www.pjrc.com/teensy/K64P144M120SF5RM.pdf
         From Page 933 is the control registers mapping
     */
-    
-    //samleFreq = reqFreqInt* 1000 * 2;
-    
     Serial.println(F_BUS);
     Serial.println(PDB_PERIOD);
     //https://notebook.community/wheeler-microfluidics/teensy-minimal-rpc/teensy_minimal_rpc/notebooks/dma-examples/Programmable%20Delay%20Block%20(PDB)%20notes
@@ -53,7 +68,7 @@ void PdbInit() {
     // Software trigger (reset and restart counter)
     PDB0_SC = PDB_CONFIG | PDB_SC_SWTRIG;
     //Current count of PDB  resetting it
-    //PDB0_CNT      = 0;                  //Prufa AN!!!!!!!!!!!----------------------------------------------------
+    //PDB0_CNT      = 0;                 
     // Enable pre-trigger
     PDB0_CH0C1 = 0x101;
     
@@ -61,15 +76,4 @@ void PdbInit() {
     // Enable interrupt request
     //NVIC_ENABLE_IRQ(IRQ_PDB);
     Serial.println("PDB initialized");
-}
-
-//------------------------------------PDB_ISR------------------------------------
-
-void pdb_isr() {
-    //Serial.print("pdb isr: ");
-    //Serial.println(micros());
-    //digitalWrite(LED_BUILTIN, (ledOn = !ledOn));
-    //Serial.println(ADC0_RA);
-    // Clear interrupt flag
-    PDB0_SC &= ~PDB_SC_PDBIF;
 }
